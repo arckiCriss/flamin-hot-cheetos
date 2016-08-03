@@ -1,5 +1,8 @@
 #include "Aimbot.h"
 
+// idk
+#define WINDOWS_SENSITIVITY 0.22f
+
 Aimbot aimbot;
 
 Aimbot::Aimbot()
@@ -54,18 +57,13 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!sensitivity)
 		return;
 
-	float pixels = sensitivity * 0.22f;
+	float pixels = sensitivity * WINDOWS_SENSITIVITY;
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
-	if (finalAngles.x > smoothRate)
-		finalAngles.x = smoothRate;
-	else if (finalAngles.x < -smoothRate)
-		finalAngles.x = -smoothRate;
-
-	if (finalAngles.y > smoothRate)
-		finalAngles.y = smoothRate;
-	else if (finalAngles.y < -smoothRate)
-		finalAngles.y = -smoothRate;
+	if (finalAngles > smoothRate)
+		finalAngles = smoothRate;
+	else if (finalAngles < -smoothRate)
+		finalAngles = -smoothRate;
 
 	finalAngles += getRandomizedAngles(local);
 
@@ -88,12 +86,12 @@ void Aimbot::moveMouse(float x, float y)
 Vector Aimbot::getRandomizedRecoil(CBaseEntity* local)
 {
 	QAngle punchAngles = local->GetPunchAngles() * tools.random(cvar::aimbot_rcs_min, cvar::aimbot_rcs_max);
-	return (local->GetShotsFired() > 1 ? punchAngles : Vector(0, 0, 0));
+	return (local->GetShotsFired() > 1 ? punchAngles : Vector(0.f, 0.f, 0.f));
 }
 
 float Aimbot::getRandomizedAngles(CBaseEntity* local)
 {
-	float randomizedValue;
+	float randomizedValue = 0.f;
 
 	float randomRate = tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
 	float randomDeviation = tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
