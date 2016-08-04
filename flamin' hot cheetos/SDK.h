@@ -559,7 +559,7 @@ public:
 	}
 	void ClientCmd_Unrestricted(const char* command)
 	{
-		typedef void(__thiscall* original)(void*, const char *);
+		typedef void(__thiscall* original)(void*, const char *, char);
 		GetVirtualFunction<original>(this, 114)(this, command, 0);
 	}
 };
