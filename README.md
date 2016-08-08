@@ -1,15 +1,16 @@
 # flamin-hot-cheetos
 open-source csgo internal cheat
 
-disclaimer: the information below may be outdated!
+disclaimer: the project can be pretty messy & the information below may be outdated!
 
 overview:
 
-   - this was a little fun project I worked on with others from time to time, too lazy to update it so it's now open-source
+   - this was a little fun project I worked on with others from time to time, too lazy to update it so now I've made it open-source
+   - please credit the project developer(s) if you decide to make your own version of this project
 
 credits:
 
-   - valve, hazed, epik, kidua, peeps from stackoverflow, and others that I may have missed (please let me know)
+   - valve, hazed, epik, kidua, and others that I may have missed (please let me know)
 
 features:
 
