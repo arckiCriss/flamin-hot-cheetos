@@ -1,7 +1,7 @@
 #include "Aimbot.h"
 
-// idk
-#define WINDOWS_SENSITIVITY 0.22f
+#define GAME_SENSITIVITY    1.8f
+#define WINDOWS_SENSITIVITY 1.f
 
 Aimbot aimbot;
 
@@ -57,7 +57,6 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!sensitivity)
 		return;
 
-	float pixels = sensitivity * WINDOWS_SENSITIVITY;
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
 	if (finalAngles > smoothRate)
@@ -66,6 +65,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 		finalAngles = -smoothRate;
 
 	finalAngles += getRandomizedAngles(local);
+	
+	float pixels = 0.022f * GAME_SENSITIVITY * WINDOWS_SENSITIVITY;
 
 	finalAngles.x /= pixels * -1.f;
 	finalAngles.y /= pixels;
