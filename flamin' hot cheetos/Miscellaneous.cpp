@@ -1,5 +1,7 @@
 #include "Miscellaneous.h"
 
+// should probably convert the standalone recoil control to use mouse simulation...
+
 Misc miscellaneous;
 
 void Misc::doBunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd)
@@ -46,8 +48,7 @@ void Misc::doRecoilControl(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput
 		tools.normalizeAngles(deltaAngles);
 		tools.clampAngles(deltaAngles);
 
-		if (oldPunchAngles.Length2D() > 0.f && oldPunchAngles.Length2D() < 6.f)
-			interfaces::engine->SetViewAngles(deltaAngles);
+		interfaces::engine->SetViewAngles(deltaAngles);
 
 		oldShotsFired = shotsFired;
 	}
