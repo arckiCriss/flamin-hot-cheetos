@@ -54,10 +54,15 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
-	if (finalAngles > smoothRate)
-		finalAngles = smoothRate;
-	else if (finalAngles < -smoothRate)
-		finalAngles = -smoothRate;
+	if (finalAngles.x > smoothRate)
+		finalAngles.x = smoothRate;
+	else if (finalAngles.x < -smoothRate)
+		finalAngles.x = -smoothRate;
+		
+	if (finalAngles.y > smoothRate)
+		finalAngles.y = smoothRate;
+	else if (finalAngles.y < -smoothRate)
+		finalAngles.y = -smoothRate;
 
 	finalAngles += getRandomizedAngles(local);
 	
