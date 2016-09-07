@@ -1,7 +1,7 @@
 # flamin-hot-cheetos
-open-source csgo internal cheat
+open-source csgo internal assistance
 
-disclaimer: the project can be pretty messy & the information below may be outdated!
+disclaimer: the information below may be outdated!
 
 overview:
 
@@ -14,7 +14,7 @@ credits:
 
 features:
 
-   - aimbot
+   - aimbot (now broken due to XOR'd convar values)
       - dynamic hitbox selection
       - randomized hitbox position
       - randomized angles
