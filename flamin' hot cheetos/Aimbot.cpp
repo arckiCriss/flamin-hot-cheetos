@@ -1,6 +1,7 @@
 #include "Aimbot.h"
 
-#define WINDOWS_SENSITIVITY 1.f
+#define gameSensitivity   2.0f
+#define systemSensitivity 1.0f
 
 Aimbot aimbot;
 
@@ -51,7 +52,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 
 	finalAngles = viewAngles - finalAngles;
 	tools.normalizeAngles(finalAngles);
-
+        
+        // TO-DO: Implement proper aim smoothing
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
 	if (finalAngles.x > smoothRate)
@@ -66,8 +68,10 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 
 	finalAngles += getRandomizedAngles(local);
 	
-	float sensitivity = *(float*)(interfaces::clientdll + offsets::misc::m_dwSensitivity);
-	float pixels = 0.022f * sensitivity * WINDOWS_SENSITIVITY;
+	// float sensitivity = *(float*)(interfaces::clientdll + offsets::misc::m_dwSensitivity);
+        // broken due to XOR'd value, you may use engine functions from ICVar to receive proper value
+        
+	float pixels = 0.022f * gameSensitivity * systemSensitivity;
 
 	finalAngles.x /= pixels * -1.f;
 	finalAngles.y /= pixels;
