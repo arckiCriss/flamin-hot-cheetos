@@ -6,7 +6,7 @@ disclaimer: the information below may be outdated!
 overview:
 
    - this was a little fun project I worked on with others from time to time, too lazy to update it so now I've made it open-source
-   - please credit the project developer(s) if you decide to make your own version of this project
+   - please credit the project developer(s) if you decide to use our code
 
 credits:
 
@@ -14,11 +14,11 @@ credits:
 
 features:
 
-   - aimbot (now broken due to XOR'd convar values)
+   - aimbot
       - dynamic hitbox selection
       - randomized hitbox position
       - randomized angles
-      - works on FACEIT (should)
+      - works on FACEIT
       - fully mouse based, no forced angle setting
 
    - visuals
@@ -29,6 +29,6 @@ features:
    - miscellaneous
       - configuration system
       - automatic game resolution change detection
-      - basic bunnyhop
+      - basic bunnyhop (does not work on FACEIT)
       - hitbox triggerbot via engine ray tracing
       - skin changer (modify skins via skinconfig.ini)
