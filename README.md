@@ -7,6 +7,7 @@ overview:
 
    - this was a little fun project I worked on with others from time to time, too lazy to update it so now I've made it open-source
    - please credit the project developer(s) if you decide to use our code
+   - please do not use on FACEIT or other leagues, it will not work
 
 credits:
 
@@ -18,7 +19,6 @@ features:
       - dynamic hitbox selection
       - randomized hitbox position
       - randomized angles
-      - works on FACEIT
       - fully mouse based, no forced angle setting
 
    - visuals
@@ -29,6 +29,6 @@ features:
    - miscellaneous
       - configuration system
       - automatic game resolution change detection
-      - basic bunnyhop (does not work on FACEIT)
+      - basic bunnyhop
       - hitbox triggerbot via engine ray tracing
       - skin changer (modify skins via skinconfig.ini)
