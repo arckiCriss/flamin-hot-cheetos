@@ -34,8 +34,9 @@ namespace cvar
 	extern bool misc_knifechanger;
 	extern int misc_knifechanger_model;
 	extern int misc_overridefov;
-	extern bool misc_recoilcontrol;
-	extern float misc_recoilcontrol_scale;
+	extern bool misc_rcs;
+	extern float misc_rcs_min;
+	extern float misc_rcs_max;
 	extern bool misc_scoreboard;
 }
 

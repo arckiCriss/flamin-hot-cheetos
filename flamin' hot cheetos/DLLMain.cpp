@@ -9,17 +9,16 @@
 // to do:
 //  - make this project a little prettier
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html
-//    - I have trouble deciding whether I should make x variable a class member
-//  - use engine button handling to replace getasynckeystate
-//  - clean-up classes such as Vector (credits/thanks to whoever created it though!)
-//  - implement proper aimbot smoothing
+//  - use engine button handling to replace winapi functions
+//  - clean-up classes such as vector (credits/thanks to whoever created it though!)
+//  - implement proper aimbot smoothing (for mouse simulated)
 //  - improve header inclusion
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
 // notes:
 //  - modern c++ functions such as sleep_for and async threading breaks injection
-//    - probably because of the run-time shit it does on process entry
+//    - probably because of the injection method and run-time shit it does on entry
 //  - manual mapping crashes game on team selection
 //    - this is possible that it's just a injector specific bug
 //------------------------------------------------------------------------------------------
@@ -68,7 +67,7 @@ DWORD __stdcall handleCore( void* lpArguments )
 			config.saveSkinConfig( );
 		}
 
-		Sleep( 3000 );
+		Sleep( 1000 );
 	}
 
 	return 1;

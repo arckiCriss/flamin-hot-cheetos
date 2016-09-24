@@ -8,7 +8,7 @@ namespace cvar
 	bool aimbot_enabled = true;
 	float aimbot_fov = 10.0f;
 	float aimbot_smoothing = 25.0f;
-	float aimbot_rcs_min = 2.0f;
+	float aimbot_rcs_min = 1.8f;
 	float aimbot_rcs_max = 2.0f;
 	float aimbot_randomize_hitbox = 0.0f;
 	float aimbot_randomize_angle = 0.0f;
@@ -31,7 +31,8 @@ namespace cvar
 	bool misc_knifechanger = true;
 	int misc_knifechanger_model = 0;
 	int misc_overridefov = 22;
-	bool misc_recoilcontrol = true;
-	float misc_recoilcontrol_scale = 2.0f;
+	bool misc_rcs = false;
+	float misc_rcs_min = 1.8f;
+	float misc_rcs_max = 2.0f;
 	bool misc_scoreboard = true;
 }

@@ -15,15 +15,17 @@ public:
 private:
 	bool   getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest );
 	int    getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest );
-	Vector getRandomizedRecoil( CBaseEntity* local );
-	float  getRandomizedAngles( CBaseEntity* local );
+	QAngle getRandomizedRecoil( CBaseEntity* local );
+	QAngle getRandomizedAngles( CBaseEntity* local );
 
 private:
 	int    bestTarget;
 
 	QAngle viewAngles;
-	Vector hitboxPosition;
+	QAngle aimAngles;
 	QAngle finalAngles;
+
+	Vector hitboxPosition;
 };
 
 extern Aimbot aimbot;

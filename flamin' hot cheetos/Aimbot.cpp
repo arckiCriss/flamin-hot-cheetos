@@ -10,8 +10,10 @@ Aimbot::Aimbot( )
 	bestTarget = -1;
 
 	viewAngles = QAngle( 0.0f, 0.0f, 0.0f );
-	hitboxPosition = Vector( 0.0f, 0.0f, 0.0f );
+	aimAngles = QAngle( 0.0f, 0.0f, 0.0f );
 	finalAngles = QAngle( 0.0f, 0.0f, 0.0f );
+
+	hitboxPosition = Vector( 0.0f, 0.0f, 0.0f );
 }
 
 void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
@@ -28,8 +30,8 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( !( GetAsyncKeyState( cvar::general_key_aimbot ) & 0x8000 ) )
 		return;
 
-	if ( !( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) ) )
-		return;
+	/*if ( !( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) ) )
+		return;*/
 
 	bestTarget = getBestTarget( local, weapon, hitboxPosition );
 	if ( bestTarget == -1 )
@@ -45,27 +47,30 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	hitboxPosition.x += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
 	hitboxPosition.y += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
 
-	tools.computeAngle( local->GetEyePosition( ), hitboxPosition, finalAngles );
+	tools.computeAngle( local->GetEyePosition( ), hitboxPosition, aimAngles );
+	tools.normalizeAngles( aimAngles );
+
+	aimAngles -= getRandomizedRecoil( local );
+	aimAngles += getRandomizedAngles( local );
+
+	finalAngles = viewAngles - aimAngles;
 	tools.normalizeAngles( finalAngles );
 
-	finalAngles -= getRandomizedRecoil( local );
-
-	finalAngles = viewAngles - finalAngles;
+	finalAngles = viewAngles - ( viewAngles - aimAngles ) / cvar::aimbot_smoothing;
 	tools.normalizeAngles( finalAngles );
+	tools.clampAngles( finalAngles );
 
-	float smoothRate = cvar::aimbot_smoothing / 2.0f;
+	interfaces::engine->SetViewAngles( finalAngles );
 
-	if ( finalAngles.x > smoothRate )
-		finalAngles.x = smoothRate;
-	else if ( finalAngles.x < -smoothRate )
-		finalAngles.x = -smoothRate;
+	/*if ( finalAngles.x > cvar::aimbot_smoothing )
+		finalAngles.x = cvar::aimbot_smoothing;
+	else if ( finalAngles.x < -cvar::aimbot_smoothing )
+		finalAngles.x = -cvar::aimbot_smoothing;
 
-	if ( finalAngles.y > smoothRate )
-		finalAngles.y = smoothRate;
-	else if ( finalAngles.y < -smoothRate )
-		finalAngles.y = -smoothRate;
-
-	finalAngles += getRandomizedAngles( local );
+	if ( finalAngles.y > cvar::aimbot_smoothing )
+		finalAngles.y = cvar::aimbot_smoothing;
+	else if ( finalAngles.y < -cvar::aimbot_smoothing )
+		finalAngles.y = -cvar::aimbot_smoothing;
 
 	static float gameSensitivity = interfaces::convar->FindVar( charenc( "sensitivity" ) )->GetFloat( );
 
@@ -74,18 +79,20 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	finalAngles.x /= pixels * -1.0f;
 	finalAngles.y /= pixels;
 
-	tools.moveMouse( finalAngles.y, finalAngles.x );
+	tools.moveMouse( finalAngles.y, finalAngles.x );*/
 }
 
-Vector Aimbot::getRandomizedRecoil( CBaseEntity* local )
+QAngle Aimbot::getRandomizedRecoil( CBaseEntity* local )
 {
 	QAngle punchAngles = local->GetPunchAngles( ) * tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max );
-	return ( local->GetShotsFired( ) > 1 ? punchAngles : Vector( 0.0f, 0.0f, 0.0f ) );
+	tools.normalizeAngles( punchAngles );
+
+	return ( local->GetShotsFired( ) > 1 ? punchAngles : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
-float Aimbot::getRandomizedAngles( CBaseEntity* local )
+QAngle Aimbot::getRandomizedAngles( CBaseEntity* local )
 {
-	float randomizedValue = 0.0f;
+	Vector randomizedValue = Vector( 0.0f, 0.0f, 0.0f );
 
 	float randomRate = tools.random( -cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle );
 	float randomDeviation = tools.random( -cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle );
@@ -93,14 +100,20 @@ float Aimbot::getRandomizedAngles( CBaseEntity* local )
 	switch ( rand( ) % 2 )
 	{
 	case 0:
-		randomizedValue = ( randomRate * cos( randomDeviation ) );
+		randomizedValue.x = ( randomRate * cos( randomDeviation ) );
+		randomizedValue.y = ( randomRate * cos( randomDeviation ) );
+		randomizedValue.z = ( randomRate * cos( randomDeviation ) );
+		tools.normalizeAngles( randomizedValue );
 		break;
 	case 1:
-		randomizedValue = ( randomRate * sin( randomDeviation ) );
+		randomizedValue.x = ( randomRate * sin( randomDeviation ) );
+		randomizedValue.y = ( randomRate * sin( randomDeviation ) );
+		randomizedValue.z = ( randomRate * sin( randomDeviation ) );
+		tools.normalizeAngles( randomizedValue );
 		break;
 	}
 
-	return ( local->GetShotsFired( ) > 1 ? randomizedValue : 0.0f );
+	return ( local->GetShotsFired( ) > 1 ? randomizedValue : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
 bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest )

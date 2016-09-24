@@ -262,11 +262,17 @@ bool Tools::isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
 
 int Tools::random( int min, int max )
 {
+	if ( min == max )
+		return max;
+
 	return min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
 }
 
 float Tools::random( float min, float max )
 {
+	if ( min == max )
+		return max;
+
 	return min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
 }
 
@@ -276,6 +282,6 @@ void Tools::moveMouse( float x, float y )
 	input.type = INPUT_MOUSE;
 	input.mi.dx = ( LONG ) x;
 	input.mi.dy = ( LONG ) y;
-	input.mi.dwFlags = MOUSEEVENTF_MOVE;
+	input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
 	SendInput( 1, &input, sizeof( INPUT ) );
 }

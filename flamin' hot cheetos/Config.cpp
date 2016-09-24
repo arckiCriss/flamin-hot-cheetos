@@ -43,8 +43,9 @@ void Config::loadConfig( )
 		configManager.getBoolean( charenc( "Misc" ), charenc( "Knife Changer" ), cvar::misc_knifechanger );
 		configManager.getInteger( charenc( "Misc" ), charenc( "Knife Model" ), cvar::misc_knifechanger_model );
 		configManager.getInteger( charenc( "Misc" ), charenc( "Viewmodel Field of View" ), cvar::misc_overridefov );
-		configManager.getBoolean( charenc( "Misc" ), charenc( "Standalone Recoil Control" ), cvar::misc_recoilcontrol );
-		configManager.getFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Scale" ), cvar::misc_recoilcontrol_scale );
+		configManager.getBoolean( charenc( "Misc" ), charenc( "Standalone Recoil Control" ), cvar::misc_rcs );
+		configManager.getFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Min" ), cvar::misc_rcs_min );
+		configManager.getFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Max" ), cvar::misc_rcs_max );
 		configManager.getBoolean( charenc( "Misc" ), charenc( "Matchmaking Scoreboard" ), cvar::misc_scoreboard );
 	}
 	else
@@ -85,8 +86,9 @@ void Config::saveConfig( )
 	configManager.setBoolean( charenc( "Misc" ), charenc( "Knife Changer" ), cvar::misc_knifechanger );
 	configManager.setInteger( charenc( "Misc" ), charenc( "Knife Model" ), cvar::misc_knifechanger_model );
 	configManager.setInteger( charenc( "Misc" ), charenc( "Viewmodel Field of View" ), cvar::misc_overridefov );
-	configManager.setBoolean( charenc( "Misc" ), charenc( "Standalone Recoil Control" ), cvar::misc_recoilcontrol );
-	configManager.setFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Scale" ), cvar::misc_recoilcontrol_scale );
+	configManager.setBoolean( charenc( "Misc" ), charenc( "Standalone Recoil Control" ), cvar::misc_rcs );
+	configManager.setFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Min" ), cvar::misc_rcs_min );
+	configManager.setFloat( charenc( "Misc" ), charenc( "Standalone Recoil Control Max" ), cvar::misc_rcs_max );
 	configManager.setBoolean( charenc( "Misc" ), charenc( "Matchmaking Scoreboard" ), cvar::misc_scoreboard );
 }
 
