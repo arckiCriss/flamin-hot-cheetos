@@ -1,6 +1,6 @@
 #include "Aimbot.h"
 
-#define gameSensitivity   2.0f
+// windows mouse sensitivity (usually 1 is default)
 #define systemSensitivity 1.0f
 
 Aimbot aimbot;
@@ -9,9 +9,9 @@ Aimbot::Aimbot( )
 {
 	bestTarget = -1;
 
-	viewAngles = QAngle( 0.f, 0.f, 0.f );
-	hitboxPosition = Vector( 0.f, 0.f, 0.f );
-	finalAngles = QAngle( 0.f, 0.f, 0.f );
+	viewAngles = QAngle( 0.0f, 0.0f, 0.0f );
+	hitboxPosition = Vector( 0.0f, 0.0f, 0.0f );
+	finalAngles = QAngle( 0.0f, 0.0f, 0.0f );
 }
 
 void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
@@ -39,7 +39,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( !entity )
 		return;
 
-	if ( tools.getDistance( local->GetEyePosition( ), hitboxPosition ) > 8192.f )
+	if ( tools.getDistance( local->GetEyePosition( ), hitboxPosition ) > 8192.0f )
 		return;
 
 	hitboxPosition.x += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
@@ -53,8 +53,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	finalAngles = viewAngles - finalAngles;
 	tools.normalizeAngles( finalAngles );
 
-	// TO-DO: Implement proper aim smoothing
-	float smoothRate = cvar::aimbot_smoothing / 2.f;
+	float smoothRate = cvar::aimbot_smoothing / 2.0f;
 
 	if ( finalAngles.x > smoothRate )
 		finalAngles.x = smoothRate;
@@ -68,8 +67,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 
 	finalAngles += getRandomizedAngles( local );
 
-	// float sensitivity = *(float*)(interfaces::clientdll + offsets::misc::m_dwSensitivity);
-		// broken due to XOR'd value, you may use engine functions from ICVar to receive proper value
+	static float gameSensitivity = interfaces::convar->FindVar( charenc( "sensitivity" ) )->GetFloat( );
 
 	float pixels = 0.022f * gameSensitivity * systemSensitivity;
 
@@ -92,7 +90,7 @@ void Aimbot::moveMouse( float x, float y )
 Vector Aimbot::getRandomizedRecoil( CBaseEntity* local )
 {
 	QAngle punchAngles = local->GetPunchAngles( ) * tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max );
-	return ( local->GetShotsFired( ) > 1 ? punchAngles : Vector( 0.f, 0.f, 0.f ) );
+	return ( local->GetShotsFired( ) > 1 ? punchAngles : Vector( 0.0f, 0.0f, 0.0f ) );
 }
 
 float Aimbot::getRandomizedAngles( CBaseEntity* local )
@@ -112,7 +110,7 @@ float Aimbot::getRandomizedAngles( CBaseEntity* local )
 		break;
 	}
 
-	return ( local->GetShotsFired( ) > 1 ? randomizedValue : 0.f );
+	return ( local->GetShotsFired( ) > 1 ? randomizedValue : 0.0f );
 }
 
 bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest )
@@ -180,7 +178,7 @@ int Aimbot::getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector
 
 		hitbox = tools.getPredictedPosition( hitbox, entity->GetVelocity( ) );
 
-		float fov = tools.getFov( viewAngles + local->GetPunchAngles( ) * 2.f, tools.computeAngle( local->GetEyePosition( ), hitbox ) );
+		float fov = tools.getFov( viewAngles + local->GetPunchAngles( ) * 2.0f, tools.computeAngle( local->GetEyePosition( ), hitbox ) );
 		if ( fov < bestFov && fov < cvar::aimbot_fov )
 		{
 			if ( tools.isVisible( local->GetEyePosition( ), hitbox, entity ) )

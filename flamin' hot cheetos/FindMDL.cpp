@@ -2,7 +2,7 @@
 
 FindMDL_t originalFindMDL;
 
-MDLHandle_t __stdcall FindMDL( const char* mdlrelativepath )
+unsigned short __stdcall FindMDL( const char* mdlrelativepath )
 {
 	if ( cvar::misc_knifechanger )
 	{

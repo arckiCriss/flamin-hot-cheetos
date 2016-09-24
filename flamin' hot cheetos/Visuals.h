@@ -42,8 +42,8 @@ private:
 	player_info_t info;
 };
 
-typedef CGlowObjectManager*( __thiscall* GlowObjectPointer_t )( );
-
 extern Visuals visuals;
+
+typedef CGlowObjectManager*( __thiscall* GlowObjectPointer_t )( );
 
 #endif

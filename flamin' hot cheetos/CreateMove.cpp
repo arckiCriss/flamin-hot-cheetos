@@ -6,7 +6,7 @@ void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bo
 {
 	originalCreateMove( interfaces::client, sequence_number, input_sample_frametime, active );
 
-	CInput::CUserCmd* cmd = interfaces::input->GetUserCmd( 0, sequence_number );
+	CUserCmd* cmd = interfaces::input->GetUserCmd( 0, sequence_number );
 	if ( !cmd )
 		return;
 

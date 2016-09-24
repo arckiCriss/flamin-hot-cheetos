@@ -5,20 +5,9 @@
 #undef CreateFont
 #endif
 
-#pragma once
-#pragma warning(disable: 4307)
-#pragma warning(disable: 4172)
-#pragma warning(disable: 4996)
+#include "stdafx.h"
 
-#define WIN32_LEAN_AND_MEAN
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <windows.h>
-
-#include "Interfaces.h"
-#include "Color.h"
 #include "Offsets.h"
-#include "Vector.h"
 
 #include "SDKDefinitions.h"
 
@@ -26,21 +15,7 @@
 #include "checksum_crc.h"
 
 //----------------------------------------
-// TYPEDEFS
-//----------------------------------------
-
-typedef float matrix3x4 [ 3 ] [ 4 ];
-typedef float matrix4x4 [ 4 ] [ 4 ];
-
-//----------------------------------------
-// FORWARD DECLARATIONS
-//----------------------------------------
-
-class model_t;
-class IVClientClass;
-
-//----------------------------------------
-// GET VIRTUAL FUNCTIONS
+// GET ENGINE FUNCTIONS
 //----------------------------------------
 
 inline void**& GetVirtualTable( void* inst, size_t offset = 0 )
@@ -568,54 +543,54 @@ public:
 // INPUT INTERFACE
 //----------------------------------------
 
+class CUserCmd
+{
+public:
+	CRC32_t GetChecksum( ) const
+	{
+		CRC32_t crc;
+		CRC32_Init( &crc );
+		CRC32_ProcessBuffer( &crc, &command_number, sizeof( command_number ) );
+		CRC32_ProcessBuffer( &crc, &tick_count, sizeof( tick_count ) );
+		CRC32_ProcessBuffer( &crc, &viewangles, sizeof( viewangles ) );
+		CRC32_ProcessBuffer( &crc, &aimdirection, sizeof( aimdirection ) );
+		CRC32_ProcessBuffer( &crc, &forwardmove, sizeof( forwardmove ) );
+		CRC32_ProcessBuffer( &crc, &sidemove, sizeof( sidemove ) );
+		CRC32_ProcessBuffer( &crc, &upmove, sizeof( upmove ) );
+		CRC32_ProcessBuffer( &crc, &buttons, sizeof( buttons ) );
+		CRC32_ProcessBuffer( &crc, &impulse, sizeof( impulse ) );
+		CRC32_ProcessBuffer( &crc, &weaponselect, sizeof( weaponselect ) );
+		CRC32_ProcessBuffer( &crc, &weaponsubtype, sizeof( weaponsubtype ) );
+		CRC32_ProcessBuffer( &crc, &random_seed, sizeof( random_seed ) );
+		CRC32_ProcessBuffer( &crc, &mousedx, sizeof( mousedx ) );
+		CRC32_ProcessBuffer( &crc, &mousedy, sizeof( mousedy ) );
+		CRC32_Final( &crc );
+		return crc;
+	}
+
+	BYTE		u1 [ 4 ];
+	int			command_number;
+	int			tick_count;
+	QAngle		viewangles;
+	Vector		aimdirection;
+	float		forwardmove;
+	float		sidemove;
+	float		upmove;
+	int			buttons;
+	BYTE		impulse;
+	int			weaponselect;
+	int			weaponsubtype;
+	int			random_seed;
+	short		mousedx;
+	short		mousedy;
+	bool		hasbeenpredicted;
+	Vector		headangles;
+	Vector		headoffset;
+};
+
 class CInput
 {
 public:
-	class CUserCmd
-	{
-	public:
-		CRC32_t GetChecksum( ) const
-		{
-			CRC32_t crc;
-			CRC32_Init( &crc );
-			CRC32_ProcessBuffer( &crc, &command_number, sizeof( command_number ) );
-			CRC32_ProcessBuffer( &crc, &tick_count, sizeof( tick_count ) );
-			CRC32_ProcessBuffer( &crc, &viewangles, sizeof( viewangles ) );
-			CRC32_ProcessBuffer( &crc, &aimdirection, sizeof( aimdirection ) );
-			CRC32_ProcessBuffer( &crc, &forwardmove, sizeof( forwardmove ) );
-			CRC32_ProcessBuffer( &crc, &sidemove, sizeof( sidemove ) );
-			CRC32_ProcessBuffer( &crc, &upmove, sizeof( upmove ) );
-			CRC32_ProcessBuffer( &crc, &buttons, sizeof( buttons ) );
-			CRC32_ProcessBuffer( &crc, &impulse, sizeof( impulse ) );
-			CRC32_ProcessBuffer( &crc, &weaponselect, sizeof( weaponselect ) );
-			CRC32_ProcessBuffer( &crc, &weaponsubtype, sizeof( weaponsubtype ) );
-			CRC32_ProcessBuffer( &crc, &random_seed, sizeof( random_seed ) );
-			CRC32_ProcessBuffer( &crc, &mousedx, sizeof( mousedx ) );
-			CRC32_ProcessBuffer( &crc, &mousedy, sizeof( mousedy ) );
-			CRC32_Final( &crc );
-			return crc;
-		}
-
-		BYTE		u1 [ 4 ];
-		int			command_number;
-		int			tick_count;
-		QAngle		viewangles;
-		Vector		aimdirection;
-		float		forwardmove;
-		float		sidemove;
-		float		upmove;
-		int			buttons;
-		BYTE		impulse;
-		int			weaponselect;
-		int			weaponsubtype;
-		int			random_seed;
-		short		mousedx;
-		short		mousedy;
-		bool		hasbeenpredicted;
-		Vector		headangles;
-		Vector		headoffset;
-	};
-
 	class CVerifiedUserCmd
 	{
 	public:
@@ -881,6 +856,35 @@ public:
 	{
 		typedef studiohdr_t* ( __thiscall* original )( void*, const model_t* );
 		return GetVirtualFunction<original>( this, 30 )( this, model );
+	}
+};
+
+//----------------------------------------
+// CVAR INTERFACE
+//----------------------------------------
+
+class ConVar
+{
+public:
+	float GetFloat( )
+	{
+		typedef float( __thiscall* original )( void* );
+		return GetVirtualFunction<original>( this, 12 )( this );
+	}
+	int GetInt( )
+	{
+		typedef int( __thiscall* original )( void* );
+		return GetVirtualFunction<original>( this, 13 )( this );
+	}
+};
+
+class ICVar
+{
+public:
+	ConVar* FindVar( const char *var )
+	{
+		typedef ConVar*( __thiscall* original )( void*, const char * );
+		return GetVirtualFunction<original>( this, 15 )( this, var );
 	}
 };
 

@@ -31,9 +31,6 @@
     <Filter Include="Project Files\Core\Main">
       <UniqueIdentifier>{5d93cc6a-f502-4467-8805-20996667849d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Core\Interfaces">
-      <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Core\Hooks">
       <UniqueIdentifier>{55e019a4-1e76-452f-8616-b54862f5733c}</UniqueIdentifier>
     </Filter>
@@ -88,13 +85,16 @@
     <Filter Include="Project Files\Core\Offsets">
       <UniqueIdentifier>{67264555-849c-47c2-8550-57f676b0cd55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\SDK\Interfaces">
+      <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLMain.cpp">
       <Filter>Project Files\Core\Main</Filter>
     </ClCompile>
     <ClCompile Include="Interfaces.cpp">
-      <Filter>Project Files\Core\Interfaces</Filter>
+      <Filter>Project Files\SDK\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="PaintTraverse.cpp">
       <Filter>Project Files\Core\Hooks\PaintTraverse</Filter>
@@ -165,7 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interfaces.h">
-      <Filter>Project Files\Core\Interfaces</Filter>
+      <Filter>Project Files\SDK\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="PaintTraverse.h">
       <Filter>Project Files\Core\Hooks\PaintTraverse</Filter>

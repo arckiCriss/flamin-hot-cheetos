@@ -15,14 +15,18 @@
 typedef float matrix3x4 [ 3 ] [ 4 ];
 typedef float matrix4x4 [ 4 ] [ 4 ];
 
-typedef unsigned short MDLHandle_t;
-
 //----------------------------------------
 // FORWARD DECLARATIONS
 //----------------------------------------
 
-class model_t;
 class CBaseEntity;
+class CBaseCombatWeapon;
+class IVClientClass;
+class model_t;
+
+//----------------------------------------
+// SDK STRUCTURES / CLASSES (MESSY ATM)
+//----------------------------------------
 
 typedef struct player_info_s
 {

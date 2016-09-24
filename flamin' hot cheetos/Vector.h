@@ -4,6 +4,7 @@
 #pragma once
 
 #include <math.h>
+
 #define FastSqrt(x)	(*sqrtf)(x)
 
 #ifndef M_PI

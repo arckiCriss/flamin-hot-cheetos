@@ -4,7 +4,7 @@
 
 Misc miscellaneous;
 
-void Misc::doBunnyhop( CBaseEntity* local, CInput::CUserCmd* cmd )
+void Misc::doBunnyhop( CBaseEntity* local, CUserCmd* cmd )
 {
 	if ( !cvar::misc_bunnyhop )
 		return;
@@ -13,7 +13,7 @@ void Misc::doBunnyhop( CBaseEntity* local, CInput::CUserCmd* cmd )
 		cmd->buttons &= ~IN_JUMP;
 }
 
-void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd )
+void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd )
 {
 	if ( !cvar::misc_recoilcontrol || cvar::misc_recoilcontrol_scale <= 0.f )
 		return;

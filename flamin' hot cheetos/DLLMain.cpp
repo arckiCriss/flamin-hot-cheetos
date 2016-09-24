@@ -11,6 +11,9 @@
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html
 //    - I have trouble deciding whether I should make x variable a class member
 //  - use engine button handling to replace getasynckeystate
+//  - clean-up classes such as Vector (credits/thanks to whoever created it though!)
+//  - implement proper aimbot smoothing
+//  - improve header inclusion
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------

@@ -2,8 +2,9 @@
 #define STDAFX_H
 
 #pragma once
-#pragma warning(disable: 4244)
 #pragma warning(disable: 4307)
+#pragma warning(disable: 4172)
+#pragma warning(disable: 4996)
 
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_WARNINGS
@@ -16,12 +17,13 @@
 
 #include "cx_strenc.h"
 
+#include "SDK.h"
+#include "Interfaces.h"
 #include "Tools.h"
 
 #include "Color.h"
 #include "Drawing.h"
 
-#include "Interfaces.h"
 #include "Hooks.h"
 #include "Config.h"
 #include "Control Variables.h"

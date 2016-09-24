@@ -2,11 +2,9 @@
 #define TOOLS_H
 
 #pragma once
-#include "stdafx.h"
 
-//----------------------------------------
-// TOOLS CLASS
-//----------------------------------------
+#include "stdafx.h"
+#include "SDKDefinitions.h"
 
 class Tools
 {
@@ -38,6 +36,8 @@ public:
 
 	int                random( int min, int max );
 	float              random( float min, float max );
-}; extern Tools tools;
+};
+
+extern Tools tools;
 
 #endif

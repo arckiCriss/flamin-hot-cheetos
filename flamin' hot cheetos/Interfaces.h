@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "SDK.h"
+#include "stdafx.h"
 
 class CHLClient;
 class IEngineClient;
@@ -12,10 +12,12 @@ class ISurface;
 class IPanel;
 class IVDebugOverlay;
 class IEngineTrace;
+class CUserCmd;
 class CInput;
 class IVModelInfo;
 class CGlobalVars;
 class IMDLCache;
+class ICVar;
 
 namespace interfaces
 {
@@ -33,6 +35,7 @@ namespace interfaces
 	extern IVModelInfo*       modelinfo;
 	extern CGlobalVars*       globalvars;
 	extern IMDLCache*         modelcache;
+	extern ICVar*             convar;
 	extern void*              viewRender;
 
 	void  initialize( );
