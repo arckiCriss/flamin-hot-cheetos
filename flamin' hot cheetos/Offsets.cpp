@@ -14,11 +14,11 @@ namespace offsets
 		player::m_bGunGameImmunity = 0x38A0;
 		player::m_vecOrigin = 0x134;
 		player::m_vecViewOffset = 0x104;
-		player::m_nTickBase = 0x3414;
+		player::m_nTickBase = 0x341C;
 		player::m_hActiveWeapon = 0x2EE8;
 		player::m_szLastPlaceName = 0x3598;
 		player::m_hOwner = 0x31C0;
-		player::m_vecPunchAngle = 0x3018;
+		player::m_vecPunchAngle = 0x3020;
 		player::m_bIsScoped = 0x388C;
 		player::m_vecVelocity = 0x110;
 		player::m_iAccount = 0xA9DC;
@@ -44,8 +44,6 @@ namespace offsets
 
 		entity::m_CollisionGroup = 0x470;
 		entity::m_rgflCoordinateFrame = entity::m_CollisionGroup - 0x30;
-
-		misc::m_dwSensitivity = 0xA38C44;
 	}
 
 	namespace player
@@ -93,9 +91,5 @@ namespace offsets
 	{
 		DWORD m_CollisionGroup = 0;
 		DWORD m_rgflCoordinateFrame = 0;
-	}
-	namespace misc
-	{
-		DWORD m_dwSensitivity = 0;
 	}
 }

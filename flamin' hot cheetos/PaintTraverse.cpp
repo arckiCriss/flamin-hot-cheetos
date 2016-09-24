@@ -6,23 +6,6 @@ void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool al
 {
 	originalPaintTraverse( interfaces::panel, vguipanel, forcerepaint, allowforce );
 
-	if ( GetAsyncKeyState( VK_DELETE ) & 1 )
-	{
-		if ( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) )
-			shouldUnload = true;
-	}
-
-	if ( GetAsyncKeyState( VK_HOME ) & 1 )
-	{
-		config.loadConfig( );
-		config.loadSkinConfig( );
-	}
-	else if ( GetAsyncKeyState( VK_END ) & 1 )
-	{
-		config.saveConfig( );
-		config.saveSkinConfig( );
-	}
-
 	static bool doOnce = false;
 	if ( !doOnce )
 	{

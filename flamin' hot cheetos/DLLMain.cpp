@@ -26,7 +26,7 @@
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine( void* hInstance )
+DWORD __stdcall initializeRoutine( void* lpArguments )
 {
 	while ( !GetModuleHandleA( charenc( "client.dll" ) )
 		|| !GetModuleHandleA( charenc( "engine.dll" ) ) )
@@ -42,7 +42,36 @@ DWORD __stdcall initializeRoutine( void* hInstance )
 	while ( !shouldUnload )
 		Sleep( 1000 );
 
-	FreeLibraryAndExitThread( ( HMODULE ) hInstance, 0 );
+	FreeLibraryAndExitThread( ( HMODULE ) lpArguments, 0 );
+
+	return 1;
+}
+
+DWORD __stdcall handleCore( void* lpArguments )
+{
+	while ( !shouldUnload )
+	{
+		if ( GetAsyncKeyState( VK_DELETE ) & 1 )
+		{
+			if ( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) )
+				shouldUnload = true;
+		}
+
+		if ( GetAsyncKeyState( VK_HOME ) & 1 )
+		{
+			config.loadConfig( );
+			config.loadSkinConfig( );
+		}
+		else if ( GetAsyncKeyState( VK_END ) & 1 )
+		{
+			config.saveConfig( );
+			config.saveSkinConfig( );
+		}
+
+		Sleep( 3000 );
+	}
+
+	return 1;
 }
 
 BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
@@ -52,6 +81,7 @@ BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	case DLL_PROCESS_ATTACH:
 		// DisableThreadLibraryCalls(hInstance);
 		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
+		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
 		break;
 	case DLL_PROCESS_DETACH:
 		hooks::restore( );

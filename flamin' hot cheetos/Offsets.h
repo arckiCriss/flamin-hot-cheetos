@@ -56,10 +56,6 @@ namespace offsets
 		extern DWORD m_CollisionGroup;
 		extern DWORD m_rgflCoordinateFrame;
 	}
-	namespace misc
-	{
-		extern DWORD m_dwSensitivity;
-	}
 }
 
 #endif
