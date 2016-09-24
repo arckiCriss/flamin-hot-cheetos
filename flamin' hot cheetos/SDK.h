@@ -677,7 +677,7 @@ public:
 			VectorAdd( mins, maxs, m_startOffset );
 			m_startOffset *= 0.5f;
 			VectorAdd( start, m_startOffset, m_start );
-			m_startOffset *= -1.f;
+			m_startOffset *= -1.0f;
 		}
 		Vector InvDelta( ) const
 		{
@@ -685,8 +685,8 @@ public:
 
 			for ( int i = 0; i < 3; ++i )
 			{
-				if ( m_delta [ i ] != 0.f )
-					invDelta [ i ] = 1.f / m_delta [ i ];
+				if ( m_delta [ i ] != 0.0f )
+					invDelta [ i ] = 1.0f / m_delta [ i ];
 				else
 					invDelta [ i ] = FLT_MAX;
 			}
@@ -723,7 +723,7 @@ public:
 		}
 		bool DidHit( ) const
 		{
-			return fraction < 1.f || allSolid || startSolid;
+			return fraction < 1.0f || allSolid || startSolid;
 		}
 	};
 

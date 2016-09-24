@@ -71,20 +71,10 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 
 	float pixels = 0.022f * gameSensitivity * systemSensitivity;
 
-	finalAngles.x /= pixels * -1.f;
+	finalAngles.x /= pixels * -1.0f;
 	finalAngles.y /= pixels;
 
-	moveMouse( finalAngles.y, finalAngles.x );
-}
-
-void Aimbot::moveMouse( float x, float y )
-{
-	INPUT input = { 0 };
-	input.type = INPUT_MOUSE;
-	input.mi.dx = ( LONG ) x;
-	input.mi.dy = ( LONG ) y;
-	input.mi.dwFlags = MOUSEEVENTF_MOVE;
-	SendInput( 1, &input, sizeof( INPUT ) );
+	tools.moveMouse( finalAngles.y, finalAngles.x );
 }
 
 Vector Aimbot::getRandomizedRecoil( CBaseEntity* local )
@@ -95,7 +85,7 @@ Vector Aimbot::getRandomizedRecoil( CBaseEntity* local )
 
 float Aimbot::getRandomizedAngles( CBaseEntity* local )
 {
-	float randomizedValue = 0.f;
+	float randomizedValue = 0.0f;
 
 	float randomRate = tools.random( -cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle );
 	float randomDeviation = tools.random( -cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle );

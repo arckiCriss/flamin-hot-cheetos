@@ -269,3 +269,13 @@ float Tools::random( float min, float max )
 {
 	return min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
 }
+
+void Tools::moveMouse( float x, float y )
+{
+	INPUT input = { 0 };
+	input.type = INPUT_MOUSE;
+	input.mi.dx = ( LONG ) x;
+	input.mi.dy = ( LONG ) y;
+	input.mi.dwFlags = MOUSEEVENTF_MOVE;
+	SendInput( 1, &input, sizeof( INPUT ) );
+}

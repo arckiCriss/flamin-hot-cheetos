@@ -126,10 +126,10 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 		drawing.drawOutlinedBox( x, y, w, h, espColor, Color( 0, 0, 0 ) );
 
 	if ( cvar::esp_draw_health )
-		drawing.drawBar( x - 4, y + h / 2 - 1, 4, h + 1, Color( 255.f - entity->GetHealth( ) * 2.55f, entity->GetHealth( ) * 2.55f, 0 ), entity->GetHealth( ) );
+		drawing.drawBar( x - 4, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->GetHealth( ) * 2.55f, entity->GetHealth( ) * 2.55f, 0 ), entity->GetHealth( ) );
 
 	if ( cvar::esp_draw_armor )
-		drawing.drawBar( x - 9, y + h / 2 - 1, 4, h + 1, Color( 255.f - entity->GetArmor( ) * 2.55f, entity->GetArmor( ) * 2.55f, 0 ), entity->GetArmor( ) );
+		drawing.drawBar( x - 9, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->GetArmor( ) * 2.55f, entity->GetArmor( ) * 2.55f, 0 ), entity->GetArmor( ) );
 
 	if ( cvar::esp_draw_name )
 		drawing.drawString( drawing.espFont, true, x + w / 2, y - 16, Color( 255, 255, 255 ), info.m_szPlayerName );
@@ -222,7 +222,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 
 void Visuals::drawWorld( CBaseEntity* entity )
 {
-	if ( entity->GetAbsAngles( ).x == 0.f && entity->GetAbsAngles( ).z == 0.f )
+	if ( entity->GetAbsAngles( ).x == 0.0f && entity->GetAbsAngles( ).z == 0.0f )
 		return;
 
 	std::string modelName = interfaces::modelinfo->GetModelName( entity->GetModel( ) );
@@ -345,8 +345,8 @@ void Visuals::drawGlow( CBaseEntity* entity )
 	else if ( entity->GetTeamNum( ) == 3 )
 		glowColor = Color( 113, 154, 220, 153 );
 
-	glowObject->glowColor = Vector( ( 1.f / 255.f ) * glowColor.r( ), ( 1.f / 255.f ) * glowColor.g( ), ( 1.f / 255.f ) * glowColor.b( ) );
-	glowObject->glowAlpha = ( 1.f / 255.f ) * glowColor.a( );
+	glowObject->glowColor = Vector( ( 1.0f / 255.0f ) * glowColor.r( ), ( 1.0f / 255.0f ) * glowColor.g( ), ( 1.0f / 255.0f ) * glowColor.b( ) );
+	glowObject->glowAlpha = ( 1.0f / 255.0f ) * glowColor.a( );
 	glowObject->shouldGlow = true;
 	glowObject->isUnknown = false;
 }

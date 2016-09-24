@@ -36,6 +36,8 @@ public:
 
 	int                random( int min, int max );
 	float              random( float min, float max );
+
+	void               moveMouse( float x, float y );
 };
 
 extern Tools tools;

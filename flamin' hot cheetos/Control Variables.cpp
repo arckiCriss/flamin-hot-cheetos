@@ -6,12 +6,12 @@ namespace cvar
 	int general_key_triggerbot = 18;
 
 	bool aimbot_enabled = true;
-	float aimbot_fov = 10.f;
-	float aimbot_smoothing = 25.f;
-	float aimbot_rcs_min = 2.f;
-	float aimbot_rcs_max = 2.f;
-	float aimbot_randomize_hitbox = 0.f;
-	float aimbot_randomize_angle = 0.f;
+	float aimbot_fov = 10.0f;
+	float aimbot_smoothing = 25.0f;
+	float aimbot_rcs_min = 2.0f;
+	float aimbot_rcs_max = 2.0f;
+	float aimbot_randomize_hitbox = 0.0f;
+	float aimbot_randomize_angle = 0.0f;
 
 	bool esp_enabled = true;
 	bool esp_draw_box = true;
@@ -32,6 +32,6 @@ namespace cvar
 	int misc_knifechanger_model = 0;
 	int misc_overridefov = 22;
 	bool misc_recoilcontrol = true;
-	float misc_recoilcontrol_scale = 2.f;
+	float misc_recoilcontrol_scale = 2.0f;
 	bool misc_scoreboard = true;
 }

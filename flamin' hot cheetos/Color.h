@@ -82,7 +82,7 @@ public:
 	}
 	float* ToFloatPtr( ) const
 	{
-		static float pflColor [ 4 ] = { 0.f };
+		static float pflColor [ 4 ] = { 0.0f };
 
 		pflColor [ 0 ] = float( r( ) );
 		pflColor [ 1 ] = float( g( ) );

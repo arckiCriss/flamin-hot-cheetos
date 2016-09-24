@@ -17,12 +17,12 @@
 
 inline float RAD2DEG( float x )
 {
-	return x * 180.f / M_PI;
+	return x * 180.0f / M_PI;
 }
 
 inline float DEG2RAD( float x )
 {
-	return x * M_PI / 180.f;
+	return x * M_PI / 180.0f;
 }
 
 class Vector
@@ -252,7 +252,7 @@ inline float Vector::NormalizeInPlace( )
 {
 	Vector& v = *this;
 
-	float iradius = 1.f / ( this->Length( ) + FLT_EPSILON );
+	float iradius = 1.0f / ( this->Length( ) + FLT_EPSILON );
 
 	v.x *= iradius;
 	v.y *= iradius;

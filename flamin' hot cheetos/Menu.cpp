@@ -150,12 +150,12 @@ void Menu::drawMenu( )
 
 		drawCheckbox( x + 30, y + 55, 450, cvar::aimbot_enabled, charenc( "Enable" ) );
 		getKeyPressed( x + 30, y + 80, 50, 15, 430, cvar::general_key_aimbot, charenc( "Aimbot Key" ) );
-		drawSlider( x + 30, y + 105, 200, 6, 237, 0.f, 180.f, cvar::aimbot_fov, charenc( "Field of View" ) );
-		drawSlider( x + 30, y + 130, 200, 6, 237, 1.f, 100.f, cvar::aimbot_smoothing, charenc( "Smoothing" ) );
-		drawSlider( x + 30, y + 155, 200, 6, 237, 0.f, 2.f, cvar::aimbot_rcs_min, charenc( "Randomize Recoil Control Min" ) );
-		drawSlider( x + 30, y + 180, 200, 6, 237, cvar::aimbot_rcs_min, 2.f, cvar::aimbot_rcs_max, charenc( "Randomize Recoil Control Max" ) );
-		drawSlider( x + 30, y + 205, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc( "Randomize Hitbox" ) );
-		drawSlider( x + 30, y + 230, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_angle, charenc( "Randomize Angle" ) );
+		drawSlider( x + 30, y + 105, 200, 6, 237, 0.0f, 180.0f, cvar::aimbot_fov, charenc( "Field of View" ) );
+		drawSlider( x + 30, y + 130, 200, 6, 237, 1.0f, 100.0f, cvar::aimbot_smoothing, charenc( "Smoothing" ) );
+		drawSlider( x + 30, y + 155, 200, 6, 237, 0.0f, 2.0f, cvar::aimbot_rcs_min, charenc( "Randomize Recoil Control Min" ) );
+		drawSlider( x + 30, y + 180, 200, 6, 237, cvar::aimbot_rcs_min, 2.0f, cvar::aimbot_rcs_max, charenc( "Randomize Recoil Control Max" ) );
+		drawSlider( x + 30, y + 205, 200, 6, 237, 0.0f, 20.0f, cvar::aimbot_randomize_hitbox, charenc( "Randomize Hitbox" ) );
+		drawSlider( x + 30, y + 230, 200, 6, 237, 0.0f, 20.0f, cvar::aimbot_randomize_angle, charenc( "Randomize Angle" ) );
 	}
 	else if ( activeTab == 2 )
 	{
@@ -187,7 +187,7 @@ void Menu::drawMenu( )
 		drawSlider( x + 30, y + 180, 200, 6, 237, 0, 9, cvar::misc_knifechanger_model, charenc( "Knife Model" ) );
 		drawSlider( x + 30, y + 205, 200, 6, 237, 0, 60, cvar::misc_overridefov, charenc( "Viewmodel Field of View" ) );
 		drawCheckbox( x + 30, y + 230, 450, cvar::misc_recoilcontrol, charenc( "Standalone Recoil Control" ) );
-		drawSlider( x + 30, y + 255, 200, 6, 237, 0.f, 2.f, cvar::misc_recoilcontrol_scale, charenc( "Standalone Recoil Control Scale" ) );
+		drawSlider( x + 30, y + 255, 200, 6, 237, 0.0f, 2.0f, cvar::misc_recoilcontrol_scale, charenc( "Standalone Recoil Control Scale" ) );
 		drawCheckbox( x + 30, y + 280, 450, cvar::misc_scoreboard, charenc( "Matchmaking Scoreboard" ) );
 	}
 
@@ -264,7 +264,7 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, float min, floa
 {
 	drawing.drawString( drawing.menuFont, false, x, y + 1.5f, Color( 150, 150, 150 ), text );
 
-	float sliderPosition = 0.f, barPosition = 0.f;
+	float sliderPosition = 0.0f, barPosition = 0.0f;
 
 	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) && isLeftClick )
 	{
@@ -291,11 +291,11 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, float min, floa
 	drawing.drawFilledRect( x + barPosition + distance, y + 2.8f, 2, 10, Color( 255, 165, 0 ) );
 	drawing.drawOutlinedRect( x + barPosition + distance, y + 2.8f, 3, 11, Color( 0, 0, 0 ) );
 
-	if ( value >= 0.f && value < 10.f )
+	if ( value >= 0.0f && value < 10.0f )
 		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
-	else if ( value > 9.f && value < 100.f )
+	else if ( value > 9.0f && value < 100.0f )
 		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
-	else if ( value > 99.f && value < 1000.f )
+	else if ( value > 99.0f && value < 1000.0f )
 		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
 }
 
@@ -303,7 +303,7 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int ma
 {
 	drawing.drawString( drawing.menuFont, false, x, y + 1.5f, Color( 150, 150, 150 ), text );
 
-	float sliderPosition = 0.f, barPosition = 0.f;
+	float sliderPosition = 0.0f, barPosition = 0.0f;
 
 	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) && isLeftClick )
 	{

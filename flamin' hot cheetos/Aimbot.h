@@ -18,8 +18,6 @@ private:
 	Vector getRandomizedRecoil( CBaseEntity* local );
 	float  getRandomizedAngles( CBaseEntity* local );
 
-	void   moveMouse( float x, float y );
-
 private:
 	int    bestTarget;
 
