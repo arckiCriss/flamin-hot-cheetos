@@ -5,9 +5,9 @@
 
 #include "stdafx.h"
 
-MDLHandle_t __stdcall FindMDL(const char* pMDLRelativePath);
+MDLHandle_t __stdcall FindMDL( const char* mdlrelativepath );
 
-typedef MDLHandle_t(__thiscall* FindMDL_t)(IMDLCache*, const char*);
+typedef MDLHandle_t( __thiscall* FindMDL_t )( IMDLCache*, const char* );
 extern FindMDL_t originalFindMDL;
 
 #endif

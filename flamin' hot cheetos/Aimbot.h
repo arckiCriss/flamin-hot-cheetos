@@ -8,17 +8,17 @@
 class Aimbot
 {
 public:
-	Aimbot();
+	Aimbot( );
 
-	void   think(CBaseEntity* local, CBaseCombatWeapon* weapon);
+	void   think( CBaseEntity* local, CBaseCombatWeapon* weapon );
 
 private:
-	bool   getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& dest);
-	int    getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest);
-	Vector getRandomizedRecoil(CBaseEntity* local);
-	float  getRandomizedAngles(CBaseEntity* local);
+	bool   getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest );
+	int    getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest );
+	Vector getRandomizedRecoil( CBaseEntity* local );
+	float  getRandomizedAngles( CBaseEntity* local );
 
-	void   moveMouse(float x, float y);
+	void   moveMouse( float x, float y );
 
 private:
 	int    bestTarget;

@@ -9,9 +9,9 @@
 
 namespace WeaponConfig
 {
-	bool isPistol(int index);
-	bool isShotgun(int index);
-	bool isAutomatic(int index);
-	bool isSniper(int index);
-	bool isKnife(int index);
+	bool isPistol( int index );
+	bool isShotgun( int index );
+	bool isAutomatic( int index );
+	bool isSniper( int index );
+	bool isKnife( int index );
 }

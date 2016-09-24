@@ -7,38 +7,8 @@
     <Filter Include="Project Files\SDK">
       <UniqueIdentifier>{fbc9551c-96a0-43a0-8da5-9c49aee21810}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Main">
-      <UniqueIdentifier>{5d93cc6a-f502-4467-8805-20996667849d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Hooks">
-      <UniqueIdentifier>{55e019a4-1e76-452f-8616-b54862f5733c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Hooks\PaintTraverse">
-      <UniqueIdentifier>{b929bea5-7a7b-4857-a0b3-7d4161b2382d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Interfaces">
-      <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\VFT">
-      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Drawing">
-      <UniqueIdentifier>{355458a4-b029-403a-8083-01acfc696e7f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Features">
       <UniqueIdentifier>{9d8aedab-52c9-41a6-bcd4-76a4da536c5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Vector">
-      <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Control Variables">
-      <UniqueIdentifier>{b5ddd6d5-e796-49b0-a79f-d847b5f83a3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Encryption">
-      <UniqueIdentifier>{a964d8d7-a2b7-4210-bd31-0bd5700284b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Hooks\CreateMove">
-      <UniqueIdentifier>{f688a0f0-516d-4396-82c4-618261ed854d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Project Files\Features\Miscellaneous">
       <UniqueIdentifier>{2082e8fd-7f59-4e92-9e86-5f890719f8e3}</UniqueIdentifier>
@@ -52,67 +22,97 @@
     <Filter Include="Project Files\Features\Triggerbot">
       <UniqueIdentifier>{ef7ec9b1-af7f-40eb-ac77-04c99595ae2b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Hooks\OnScreenSizeChanged">
-      <UniqueIdentifier>{3eda171d-fa42-45d7-9669-89f1bdd5c53b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Hooks\FrameStageNotify">
-      <UniqueIdentifier>{52e288fd-8fa8-42b5-9d78-d214b0c10c09}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Offsets">
-      <UniqueIdentifier>{67264555-849c-47c2-8550-57f676b0cd55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Config">
-      <UniqueIdentifier>{bd637624-e873-44c3-a905-95d578e87b62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Config\Config Manager">
-      <UniqueIdentifier>{fed25574-d26c-44b9-b174-d8f2955f86c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Project Files\Hooks\OverrideView">
-      <UniqueIdentifier>{fc013634-1cd8-45e9-882a-7e71311e1892}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Features\Menu">
       <UniqueIdentifier>{43ef8e04-252f-4ac3-a361-125d487c98a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Hooks\IN_KeyEvent">
+    <Filter Include="Project Files\Core">
+      <UniqueIdentifier>{5b4c7373-c5ea-4f29-8e31-da9a957992c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Main">
+      <UniqueIdentifier>{5d93cc6a-f502-4467-8805-20996667849d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Interfaces">
+      <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks">
+      <UniqueIdentifier>{55e019a4-1e76-452f-8616-b54862f5733c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\PaintTraverse">
+      <UniqueIdentifier>{b929bea5-7a7b-4857-a0b3-7d4161b2382d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\CreateMove">
+      <UniqueIdentifier>{f688a0f0-516d-4396-82c4-618261ed854d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\OnScreenSizeChanged">
+      <UniqueIdentifier>{3eda171d-fa42-45d7-9669-89f1bdd5c53b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\FrameStageNotify">
+      <UniqueIdentifier>{52e288fd-8fa8-42b5-9d78-d214b0c10c09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\OverrideView">
+      <UniqueIdentifier>{fc013634-1cd8-45e9-882a-7e71311e1892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Hooks\IN_KeyEvent">
       <UniqueIdentifier>{7c71e6d8-da86-40b6-ad91-c1008feb7a0b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Hooks\RenderView">
+    <Filter Include="Project Files\Core\Hooks\RenderView">
       <UniqueIdentifier>{597ef671-e2f2-4ce1-bac3-f7f854e90934}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Hooks\FindMDL">
+    <Filter Include="Project Files\Core\Hooks\FindMDL">
       <UniqueIdentifier>{8c773b51-e2e5-4b90-b667-d7a9c2e9d6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Encryption">
+      <UniqueIdentifier>{a964d8d7-a2b7-4210-bd31-0bd5700284b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Features\Drawing">
+      <UniqueIdentifier>{355458a4-b029-403a-8083-01acfc696e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Control Variables">
+      <UniqueIdentifier>{b5ddd6d5-e796-49b0-a79f-d847b5f83a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Config">
+      <UniqueIdentifier>{bd637624-e873-44c3-a905-95d578e87b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Config\Config Manager">
+      <UniqueIdentifier>{fed25574-d26c-44b9-b174-d8f2955f86c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\SDK\Vector">
+      <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\SDK\Checksum / DT">
+      <UniqueIdentifier>{01cf709a-33f7-4c8a-b728-812669b6ca14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\VFT">
+      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\Offsets">
+      <UniqueIdentifier>{67264555-849c-47c2-8550-57f676b0cd55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SDK.cpp">
-      <Filter>Project Files\SDK</Filter>
-    </ClCompile>
     <ClCompile Include="DLLMain.cpp">
-      <Filter>Project Files\Main</Filter>
+      <Filter>Project Files\Core\Main</Filter>
     </ClCompile>
     <ClCompile Include="Interfaces.cpp">
-      <Filter>Project Files\Interfaces</Filter>
+      <Filter>Project Files\Core\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="PaintTraverse.cpp">
-      <Filter>Project Files\Hooks\PaintTraverse</Filter>
+      <Filter>Project Files\Core\Hooks\PaintTraverse</Filter>
     </ClCompile>
     <ClCompile Include="Hooks.cpp">
-      <Filter>Project Files\Hooks</Filter>
+      <Filter>Project Files\Core\Hooks</Filter>
     </ClCompile>
     <ClCompile Include="Drawing.cpp">
-      <Filter>Project Files\Drawing</Filter>
+      <Filter>Project Files\Features\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="Control Variables.cpp">
-      <Filter>Project Files\Control Variables</Filter>
+      <Filter>Project Files\Core\Control Variables</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Project Files\Features\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="checksum_crc.cpp">
-      <Filter>Project Files\SDK</Filter>
-    </ClCompile>
     <ClCompile Include="CreateMove.cpp">
-      <Filter>Project Files\Hooks\CreateMove</Filter>
+      <Filter>Project Files\Core\Hooks\CreateMove</Filter>
     </ClCompile>
     <ClCompile Include="Visuals.cpp">
       <Filter>Project Files\Features\Visuals</Filter>
@@ -127,96 +127,87 @@
       <Filter>Project Files\Features\Triggerbot</Filter>
     </ClCompile>
     <ClCompile Include="OnScreenSizeChanged.cpp">
-      <Filter>Project Files\Hooks\OnScreenSizeChanged</Filter>
+      <Filter>Project Files\Core\Hooks\OnScreenSizeChanged</Filter>
     </ClCompile>
     <ClCompile Include="FrameStageNotify.cpp">
-      <Filter>Project Files\Hooks\FrameStageNotify</Filter>
+      <Filter>Project Files\Core\Hooks\FrameStageNotify</Filter>
     </ClCompile>
     <ClCompile Include="Offsets.cpp">
-      <Filter>Project Files\Offsets</Filter>
+      <Filter>Project Files\Core\Offsets</Filter>
     </ClCompile>
     <ClCompile Include="Config.cpp">
-      <Filter>Project Files\Config</Filter>
+      <Filter>Project Files\Core\Config</Filter>
     </ClCompile>
     <ClCompile Include="Config Manager.cpp">
-      <Filter>Project Files\Config\Config Manager</Filter>
+      <Filter>Project Files\Core\Config\Config Manager</Filter>
     </ClCompile>
     <ClCompile Include="Weapons.cpp">
-      <Filter>Project Files\Config</Filter>
+      <Filter>Project Files\Core\Config</Filter>
     </ClCompile>
     <ClCompile Include="OverrideView.cpp">
-      <Filter>Project Files\Hooks\OverrideView</Filter>
+      <Filter>Project Files\Core\Hooks\OverrideView</Filter>
     </ClCompile>
     <ClCompile Include="IN_KeyEvent.cpp">
-      <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
+      <Filter>Project Files\Core\Hooks\IN_KeyEvent</Filter>
     </ClCompile>
     <ClCompile Include="RenderView.cpp">
-      <Filter>Project Files\Hooks\RenderView</Filter>
+      <Filter>Project Files\Core\Hooks\RenderView</Filter>
     </ClCompile>
     <ClCompile Include="FindMDL.cpp">
-      <Filter>Project Files\Hooks\FindMDL</Filter>
+      <Filter>Project Files\Core\Hooks\FindMDL</Filter>
+    </ClCompile>
+    <ClCompile Include="checksum_crc.cpp">
+      <Filter>Project Files\SDK\Checksum / DT</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>Project Files\SDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SDK.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
     <ClInclude Include="Interfaces.h">
-      <Filter>Project Files\Interfaces</Filter>
+      <Filter>Project Files\Core\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="PaintTraverse.h">
-      <Filter>Project Files\Hooks\PaintTraverse</Filter>
+      <Filter>Project Files\Core\Hooks\PaintTraverse</Filter>
     </ClInclude>
     <ClInclude Include="Hooks.h">
-      <Filter>Project Files\Hooks</Filter>
+      <Filter>Project Files\Core\Hooks</Filter>
     </ClInclude>
     <ClInclude Include="VFTManager.h">
-      <Filter>Project Files\VFT</Filter>
+      <Filter>Project Files\Core\VFT</Filter>
     </ClInclude>
     <ClInclude Include="cx_strenc.h">
-      <Filter>Project Files\Encryption</Filter>
+      <Filter>Project Files\Core\Encryption</Filter>
     </ClInclude>
     <ClInclude Include="cx_fnv1.h">
-      <Filter>Project Files\Encryption</Filter>
+      <Filter>Project Files\Core\Encryption</Filter>
     </ClInclude>
     <ClInclude Include="cx_pcg32.h">
-      <Filter>Project Files\Encryption</Filter>
+      <Filter>Project Files\Core\Encryption</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
-      <Filter>Project Files\Drawing</Filter>
+      <Filter>Project Files\Features\Drawing</Filter>
     </ClInclude>
     <ClInclude Include="Drawing.h">
-      <Filter>Project Files\Drawing</Filter>
+      <Filter>Project Files\Features\Drawing</Filter>
     </ClInclude>
     <ClInclude Include="Control Variables.h">
-      <Filter>Project Files\Control Variables</Filter>
+      <Filter>Project Files\Core\Control Variables</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Project Files\Features\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="SDKDefinitions.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="dt_common.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="dt_recv.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>Project Files\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="checksum_crc.h">
-      <Filter>Project Files\SDK</Filter>
+      <Filter>Project Files\SDK\Vector</Filter>
     </ClInclude>
     <ClInclude Include="CreateMove.h">
-      <Filter>Project Files\Hooks\CreateMove</Filter>
+      <Filter>Project Files\Core\Hooks\CreateMove</Filter>
     </ClInclude>
     <ClInclude Include="Miscellaneous.h">
       <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Project Files\Main</Filter>
+      <Filter>Project Files\Core\Main</Filter>
     </ClInclude>
     <ClInclude Include="Visuals.h">
       <Filter>Project Files\Features\Visuals</Filter>
@@ -228,34 +219,52 @@
       <Filter>Project Files\Features\Triggerbot</Filter>
     </ClInclude>
     <ClInclude Include="OnScreenSizeChanged.h">
-      <Filter>Project Files\Hooks\OnScreenSizeChanged</Filter>
+      <Filter>Project Files\Core\Hooks\OnScreenSizeChanged</Filter>
     </ClInclude>
     <ClInclude Include="FrameStageNotify.h">
-      <Filter>Project Files\Hooks\FrameStageNotify</Filter>
+      <Filter>Project Files\Core\Hooks\FrameStageNotify</Filter>
     </ClInclude>
     <ClInclude Include="Offsets.h">
-      <Filter>Project Files\Offsets</Filter>
+      <Filter>Project Files\Core\Offsets</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
-      <Filter>Project Files\Config</Filter>
+      <Filter>Project Files\Core\Config</Filter>
     </ClInclude>
     <ClInclude Include="Config Manager.h">
-      <Filter>Project Files\Config\Config Manager</Filter>
+      <Filter>Project Files\Core\Config\Config Manager</Filter>
     </ClInclude>
     <ClInclude Include="Weapons.h">
-      <Filter>Project Files\Config</Filter>
+      <Filter>Project Files\Core\Config</Filter>
     </ClInclude>
     <ClInclude Include="OverrideView.h">
-      <Filter>Project Files\Hooks\OverrideView</Filter>
+      <Filter>Project Files\Core\Hooks\OverrideView</Filter>
     </ClInclude>
     <ClInclude Include="IN_KeyEvent.h">
-      <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
+      <Filter>Project Files\Core\Hooks\IN_KeyEvent</Filter>
     </ClInclude>
     <ClInclude Include="RenderView.h">
-      <Filter>Project Files\Hooks\RenderView</Filter>
+      <Filter>Project Files\Core\Hooks\RenderView</Filter>
     </ClInclude>
     <ClInclude Include="FindMDL.h">
-      <Filter>Project Files\Hooks\FindMDL</Filter>
+      <Filter>Project Files\Core\Hooks\FindMDL</Filter>
+    </ClInclude>
+    <ClInclude Include="dt_recv.h">
+      <Filter>Project Files\SDK\Checksum / DT</Filter>
+    </ClInclude>
+    <ClInclude Include="checksum_crc.h">
+      <Filter>Project Files\SDK\Checksum / DT</Filter>
+    </ClInclude>
+    <ClInclude Include="dt_common.h">
+      <Filter>Project Files\SDK\Checksum / DT</Filter>
+    </ClInclude>
+    <ClInclude Include="SDKDefinitions.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\Tools.h">
+      <Filter>Project Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

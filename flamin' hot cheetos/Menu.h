@@ -5,18 +5,18 @@
 
 #include "stdafx.h"
 
-__forceinline float clamp(float value, float minValue, float maxValue)
+__forceinline float clamp( float value, float minValue, float maxValue )
 {
 #if defined(__i386__) || defined(_M_IX86)
-	_mm_store_ss(&value,
+	_mm_store_ss( &value,
 		_mm_min_ss(
 			_mm_max_ss(
-				_mm_load_ss(&value),
-				_mm_load_ss(&minValue)),
-			_mm_load_ss(&maxValue)));
+				_mm_load_ss( &value ),
+				_mm_load_ss( &minValue ) ),
+			_mm_load_ss( &maxValue ) ) );
 #else
-	val = fpmax(minValue, value);
-	val = fpmin(maxValue, value);
+	val = fpmax( minValue, value );
+	val = fpmin( maxValue, value );
 #endif
 	return value;
 }
@@ -24,34 +24,34 @@ __forceinline float clamp(float value, float minValue, float maxValue)
 class Menu
 {
 public:
-	Menu();
+	Menu( );
 
-	void think();
+	void think( );
 
-	bool isActive();
+	bool isActive( );
 
 private:
-	void setMouse();
-	void getMouse();
+	void setMouse( );
+	void getMouse( );
 
-	bool isMenuKey(int key);
-	bool isHovered(int x, int y, int w, int h);
-	bool isClicked(int x, int y, int w, int h);
+	bool isMenuKey( int key );
+	bool isHovered( int x, int y, int w, int h );
+	bool isClicked( int x, int y, int w, int h );
 
-	void drawMenu();
-	void drawBorder(int x, int y, int w, int h, const char* text);
-	void drawMouse();
-	void drawCheckbox(int x, int y, int distance, bool& value, const char* text);
-	void drawSlider(int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text);
-	void drawSlider(int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text);
+	void drawMenu( );
+	void drawBorder( int x, int y, int w, int h, const char* text );
+	void drawMouse( );
+	void drawCheckbox( int x, int y, int distance, bool& value, const char* text );
+	void drawSlider( int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text );
+	void drawSlider( int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text );
 
-	void getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text);
+	void getKeyPressed( int x, int y, int w, int h, int distance, int& value, const char* text );
 
-	bool dragMenu(int& x, int& y, int w, int h, int index);
+	bool dragMenu( int& x, int& y, int w, int h, int index );
 
 private:
 	bool isCursorActive;
-	int  cursorPosition[2];
+	int  cursorPosition [ 2 ];
 
 	int  activeTab;
 

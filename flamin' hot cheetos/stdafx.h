@@ -16,6 +16,8 @@
 
 #include "cx_strenc.h"
 
+#include "Tools.h"
+
 #include "Color.h"
 #include "Drawing.h"
 

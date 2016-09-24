@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\flamin%27 hot cheetos\Tools.h" />
     <ClInclude Include="FindMDL.h" />
     <ClInclude Include="RenderView.h" />
     <ClInclude Include="IN_KeyEvent.h" />
@@ -202,7 +203,7 @@
     <ClCompile Include="DLLMain.cpp" />
     <ClCompile Include="Interfaces.cpp" />
     <ClCompile Include="PaintTraverse.cpp" />
-    <ClCompile Include="SDK.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,9 +2,9 @@
 
 namespace WeaponConfig
 {
-	bool isPistol(int index)
+	bool isPistol( int index )
 	{
-		switch (index)
+		switch ( index )
 		{
 		case WEAPON_DEAGLE: return true;
 		case WEAPON_DUALS: return true;
@@ -19,9 +19,9 @@ namespace WeaponConfig
 		default: return false;
 		}
 	}
-	bool isShotgun(int index)
+	bool isShotgun( int index )
 	{
-		switch (index)
+		switch ( index )
 		{
 		case WEAPON_XM1014: return true;
 		case WEAPON_MAG7: return true;
@@ -30,9 +30,9 @@ namespace WeaponConfig
 		default: return false;
 		}
 	}
-	bool isAutomatic(int index)
+	bool isAutomatic( int index )
 	{
-		switch (index)
+		switch ( index )
 		{
 		case WEAPON_AK47: return true;
 		case WEAPON_AUG: return true;
@@ -52,9 +52,9 @@ namespace WeaponConfig
 		default: return false;
 		}
 	}
-	bool isSniper(int index)
+	bool isSniper( int index )
 	{
-		switch (index)
+		switch ( index )
 		{
 		case WEAPON_AWP: return true;
 		case WEAPON_G3SG1: return true;
@@ -63,9 +63,9 @@ namespace WeaponConfig
 		default: return false;
 		}
 	}
-	bool isKnife(int index)
+	bool isKnife( int index )
 	{
-		switch (index)
+		switch ( index )
 		{
 		case WEAPON_KNIFE_CT: return true;
 		case WEAPON_KNIFE_T: return true;

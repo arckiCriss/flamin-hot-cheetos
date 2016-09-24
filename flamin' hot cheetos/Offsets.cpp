@@ -3,7 +3,7 @@
 
 namespace offsets
 {
-	void initialize()
+	void initialize( )
 	{
 		player::m_iHealth = 0xFC;
 		player::m_ArmorValue = 0xA9E8;

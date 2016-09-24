@@ -11,7 +11,6 @@
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html
 //    - I have trouble deciding whether I should make x variable a class member
 //  - use engine button handling to replace getasynckeystate
-//  - figure out this 'undefined class' shit (circular header includes?)
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
@@ -19,39 +18,40 @@
 //  - modern c++ functions such as sleep_for and async threading breaks injection
 //    - probably because of the run-time shit it does on process entry
 //  - manual mapping crashes game on team selection
-//    - this is possible that it's just a extreme injector thing
+//    - this is possible that it's just a injector specific bug
 //------------------------------------------------------------------------------------------
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine(void* hInstance)
+DWORD __stdcall initializeRoutine( void* hInstance )
 {
-	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
-		Sleep(100);
+	while ( !GetModuleHandleA( charenc( "client.dll" ) )
+		|| !GetModuleHandleA( charenc( "engine.dll" ) ) )
+		Sleep( 100 );
 
-	config.loadConfig();
-	config.loadSkinConfig();
+	config.loadConfig( );
+	config.loadSkinConfig( );
 
-	interfaces::initialize();
-	offsets::initialize();
-	hooks::initialize();
+	interfaces::initialize( );
+	offsets::initialize( );
+	hooks::initialize( );
 
-	while (!shouldUnload)
-		Sleep(1000);
+	while ( !shouldUnload )
+		Sleep( 1000 );
 
-	FreeLibraryAndExitThread((HMODULE)hInstance, 0);
+	FreeLibraryAndExitThread( ( HMODULE ) hInstance, 0 );
 }
 
-BOOL APIENTRY DllMain(HMODULE hInstance, DWORD dwReason, LPVOID lpReserved)
+BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 {
-	switch (dwReason)
+	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
 		// DisableThreadLibraryCalls(hInstance);
-		CreateThread(nullptr, 0, initializeRoutine, hInstance, 0, nullptr);
+		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
 		break;
 	case DLL_PROCESS_DETACH:
-		hooks::restore();
+		hooks::restore( );
 		break;
 	}
 

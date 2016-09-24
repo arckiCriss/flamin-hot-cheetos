@@ -8,7 +8,7 @@
 
 namespace offsets
 {
-	void initialize();
+	void initialize( );
 
 	namespace player
 	{

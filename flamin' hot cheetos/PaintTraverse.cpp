@@ -2,52 +2,52 @@
 
 PaintTraverse_t originalPaintTraverse;
 
-void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool allowForce)
+void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool allowforce )
 {
-	originalPaintTraverse(interfaces::panel, vguiPanel, forceRepaint, allowForce);
+	originalPaintTraverse( interfaces::panel, vguipanel, forcerepaint, allowforce );
 
-	if (GetAsyncKeyState(VK_DELETE) & 1)
+	if ( GetAsyncKeyState( VK_DELETE ) & 1 )
 	{
-		if (GetForegroundWindow() == FindWindow(charenc("Valve001"), 0))
+		if ( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) )
 			shouldUnload = true;
 	}
 
-	if (GetAsyncKeyState(VK_HOME) & 1)
+	if ( GetAsyncKeyState( VK_HOME ) & 1 )
 	{
-		config.loadConfig();
-		config.loadSkinConfig();
+		config.loadConfig( );
+		config.loadSkinConfig( );
 	}
-	else if (GetAsyncKeyState(VK_END) & 1)
+	else if ( GetAsyncKeyState( VK_END ) & 1 )
 	{
-		config.saveConfig();
-		config.saveSkinConfig();
+		config.saveConfig( );
+		config.saveSkinConfig( );
 	}
 
 	static bool doOnce = false;
-	if (!doOnce)
+	if ( !doOnce )
 	{
-		drawing.initializeFonts();
+		drawing.initializeFonts( );
 		doOnce = true;
 	}
 
-	const char* panelName = interfaces::panel->GetName(vguiPanel);
-	if (!panelName)
+	const char* panelName = interfaces::panel->GetName( vguipanel );
+	if ( !panelName )
 		return;
 
-	if (panelName[0] == 'M' && panelName[3] == 'S' && panelName[9] == 'T')
+	if ( panelName [ 0 ] == 'M' && panelName [ 3 ] == 'S' && panelName [ 9 ] == 'T' )
 	{
-		if (interfaces::engine->InGame() && interfaces::engine->IsConnected())
+		if ( interfaces::engine->InGame( ) && interfaces::engine->IsConnected( ) )
 		{
-			CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
-			if (!local)
+			CBaseEntity* local = interfaces::entitylist->GetClientEntity( interfaces::engine->GetLocalPlayer( ) );
+			if ( !local )
 				return;
 
-			visuals.getScreenSize();
-			visuals.think(local);
+			visuals.getScreenSize( );
+			visuals.think( local );
 		}
 
-		menu.think();
+		menu.think( );
 
-		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | 06-27-2016"));
+		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 09-24-2016" ) );
 	}
 }

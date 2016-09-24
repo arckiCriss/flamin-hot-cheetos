@@ -4,7 +4,6 @@
 #pragma once
 
 #include "stdafx.h"
-
 #include "VFTManager.h"
 
 #include "PaintTraverse.h"
@@ -18,8 +17,8 @@
 
 namespace hooks
 {
-	void initialize();
-	void restore();
+	void initialize( );
+	void restore( );
 }
 
 #endif

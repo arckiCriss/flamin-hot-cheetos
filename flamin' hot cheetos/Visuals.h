@@ -15,20 +15,20 @@ class Visuals
 		int   health;
 		int   mmwins;
 		char* mmrank;
-	}players[64];
+	}players [ 64 ];
 
 public:
-	Visuals();
+	Visuals( );
 
-	void think(CBaseEntity* local);
-	void getScreenSize();
+	void think( CBaseEntity* local );
+	void getScreenSize( );
 
 private:
-	void drawPlayer(CBaseEntity* local, CBaseEntity* entity);
-	void drawWorld(CBaseEntity* entity);
-	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
-	void drawGlow(CBaseEntity* entity);
-	void drawScoreboard(CBaseEntity* local);
+	void drawPlayer( CBaseEntity* local, CBaseEntity* entity );
+	void drawWorld( CBaseEntity* entity );
+	void drawBoundingBox( CBaseEntity* entity, Color color, const char* text );
+	void drawGlow( CBaseEntity* entity );
+	void drawScoreboard( CBaseEntity* local );
 
 public:
 	int width;
@@ -42,7 +42,7 @@ private:
 	player_info_t info;
 };
 
-typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)();
+typedef CGlowObjectManager*( __thiscall* GlowObjectPointer_t )( );
 
 extern Visuals visuals;
 

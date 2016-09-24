@@ -40,13 +40,13 @@ public:
 //
 // Convert the network-standard-type value in m_Value into your own format in pStruct/pOut.
 //-----------------------------------------------------------------------------
-typedef void(*RecvVarProxyFn)(const CRecvProxyData *pData, void *pStruct, void *pOut);
+typedef void( *RecvVarProxyFn )( const CRecvProxyData *pData, void *pStruct, void *pOut );
 
 // ------------------------------------------------------------------------ //
 // ArrayLengthRecvProxies are optionally used to get the length of the
 // incoming array when it changes.
 // ------------------------------------------------------------------------ //
-typedef void(*ArrayLengthRecvProxyFn)(void *pStruct, int objectID, int currentArrayLength);
+typedef void( *ArrayLengthRecvProxyFn )( void *pStruct, int objectID, int currentArrayLength );
 
 // NOTE: DataTable receive proxies work differently than the other proxies.
 // pData points at the object + the recv table's offset.
@@ -54,14 +54,14 @@ typedef void(*ArrayLengthRecvProxyFn)(void *pStruct, int objectID, int currentAr
 // If the parent object just contains the child object, the default proxy just does *pOut = pData.
 // If the parent object points at the child object, you need to dereference the pointer here.
 // NOTE: don't ever return null from a DataTable receive proxy function. Bad things will happen.
-typedef void(*DataTableRecvVarProxyFn)(const RecvProp *pProp, void **pOut, void *pData, int objectID);
+typedef void( *DataTableRecvVarProxyFn )( const RecvProp *pProp, void **pOut, void *pData, int objectID );
 
 // This is used to fork over the standard proxy functions to the engine so it can
 // make some optimizations.
 class CStandardRecvProxies
 {
 public:
-	CStandardRecvProxies();
+	CStandardRecvProxies( );
 
 	RecvVarProxyFn m_Int32ToInt8;
 	RecvVarProxyFn m_Int32ToInt16;
@@ -77,52 +77,52 @@ class RecvProp
 {
 	// This info comes from the receive data table.
 public:
-	RecvProp();
+	RecvProp( );
 
-	void					InitArray(int nElements, int elementStride);
+	void					InitArray( int nElements, int elementStride );
 
-	int						GetNumElements() const;
-	void					SetNumElements(int nElements);
+	int						GetNumElements( ) const;
+	void					SetNumElements( int nElements );
 
-	int						GetElementStride() const;
-	void					SetElementStride(int stride);
+	int						GetElementStride( ) const;
+	void					SetElementStride( int stride );
 
-	int						GetFlags() const;
+	int						GetFlags( ) const;
 
-	const char*				GetName() const;
-	SendPropType			GetType() const;
+	const char*				GetName( ) const;
+	SendPropType			GetType( ) const;
 
-	RecvTable*				GetDataTable() const;
-	void					SetDataTable(RecvTable *pTable);
+	RecvTable*				GetDataTable( ) const;
+	void					SetDataTable( RecvTable *pTable );
 
-	RecvVarProxyFn			GetProxyFn() const;
-	void					SetProxyFn(RecvVarProxyFn fn);
+	RecvVarProxyFn			GetProxyFn( ) const;
+	void					SetProxyFn( RecvVarProxyFn fn );
 
-	DataTableRecvVarProxyFn	GetDataTableProxyFn() const;
-	void					SetDataTableProxyFn(DataTableRecvVarProxyFn fn);
+	DataTableRecvVarProxyFn	GetDataTableProxyFn( ) const;
+	void					SetDataTableProxyFn( DataTableRecvVarProxyFn fn );
 
-	int						GetOffset() const;
-	void					SetOffset(int o);
-
-	// Arrays only.
-	RecvProp*				GetArrayProp() const;
-	void					SetArrayProp(RecvProp *pProp);
+	int						GetOffset( ) const;
+	void					SetOffset( int o );
 
 	// Arrays only.
-	void					SetArrayLengthProxy(ArrayLengthRecvProxyFn proxy);
-	ArrayLengthRecvProxyFn	GetArrayLengthProxy() const;
+	RecvProp*				GetArrayProp( ) const;
+	void					SetArrayProp( RecvProp *pProp );
 
-	bool					IsInsideArray() const;
-	void					SetInsideArray();
+	// Arrays only.
+	void					SetArrayLengthProxy( ArrayLengthRecvProxyFn proxy );
+	ArrayLengthRecvProxyFn	GetArrayLengthProxy( ) const;
+
+	bool					IsInsideArray( ) const;
+	void					SetInsideArray( );
 
 	// Some property types bind more data to the prop in here.
-	const void*			GetExtraData() const;
-	void				SetExtraData(const void *pData);
+	const void*			GetExtraData( ) const;
+	void				SetExtraData( const void *pData );
 
 	// If it's one of the numbered "000", "001", etc properties in an array, then
 	// these can be used to get its array property name for debugging.
-	const char*			GetParentArrayPropName();
-	void				SetParentArrayPropName(const char *pArrayPropName);
+	const char*			GetParentArrayPropName( );
+	void				SetParentArrayPropName( const char *pArrayPropName );
 
 public:
 
@@ -162,24 +162,24 @@ public:
 
 	typedef RecvProp	PropType;
 
-	RecvTable();
-	RecvTable(RecvProp *pProps, int nProps, const char *pNetTableName);
-	~RecvTable();
+	RecvTable( );
+	RecvTable( RecvProp *pProps, int nProps, const char *pNetTableName );
+	~RecvTable( );
 
-	void		Construct(RecvProp *pProps, int nProps, const char *pNetTableName);
+	void		Construct( RecvProp *pProps, int nProps, const char *pNetTableName );
 
-	int			GetNumProps();
-	RecvProp*	GetProp(int i);
+	int			GetNumProps( );
+	RecvProp*	GetProp( int i );
 
-	const char*	GetName();
+	const char*	GetName( );
 
 	// Used by the engine while initializing array props.
-	void		SetInitialized(bool bInitialized);
-	bool		IsInitialized() const;
+	void		SetInitialized( bool bInitialized );
+	bool		IsInitialized( ) const;
 
 	// Used by the engine.
-	void		SetInMainList(bool bInList);
-	bool		IsInMainList() const;
+	void		SetInMainList( bool bInList );
+	bool		IsInMainList( ) const;
 
 public:
 
@@ -199,38 +199,38 @@ private:
 	bool			m_bInMainList;
 };
 
-inline int RecvTable::GetNumProps()
+inline int RecvTable::GetNumProps( )
 {
 	return m_nProps;
 }
 
-inline RecvProp* RecvTable::GetProp(int i)
+inline RecvProp* RecvTable::GetProp( int i )
 {
 	// ( i >= 0 && i < m_nProps );
-	return &m_pProps[i];
+	return &m_pProps [ i ];
 }
 
-inline const char* RecvTable::GetName()
+inline const char* RecvTable::GetName( )
 {
 	return m_pNetTableName;
 }
 
-inline void RecvTable::SetInitialized(bool bInitialized)
+inline void RecvTable::SetInitialized( bool bInitialized )
 {
 	m_bInitialized = bInitialized;
 }
 
-inline bool RecvTable::IsInitialized() const
+inline bool RecvTable::IsInitialized( ) const
 {
 	return m_bInitialized;
 }
 
-inline void RecvTable::SetInMainList(bool bInList)
+inline void RecvTable::SetInMainList( bool bInList )
 {
 	m_bInMainList = bInList;
 }
 
-inline bool RecvTable::IsInMainList() const
+inline bool RecvTable::IsInMainList( ) const
 {
 	return m_bInMainList;
 }
@@ -277,19 +277,19 @@ inline bool RecvTable::IsInMainList() const
 #define RECVINFO_DT(varName)					RECVINFO_NOSIZE(varName)
 #define RECVINFO_DTNAME(varName,remoteVarName)	#remoteVarName, offsetof(currentRecvDTClass, varName)
 
-void RecvProxy_FloatToFloat(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_VectorToVector(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_QuaternionToQuaternion(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_Int32ToInt8(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_Int32ToInt16(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_StringToString(const CRecvProxyData *pData, void *pStruct, void *pOut);
-void RecvProxy_Int32ToInt32(const CRecvProxyData *pData, void *pStruct, void *pOut);
+void RecvProxy_FloatToFloat( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_VectorToVector( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_QuaternionToQuaternion( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_Int32ToInt8( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_Int32ToInt16( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_StringToString( const CRecvProxyData *pData, void *pStruct, void *pOut );
+void RecvProxy_Int32ToInt32( const CRecvProxyData *pData, void *pStruct, void *pOut );
 
 // StaticDataTable does *pOut = pData.
-void DataTableRecvProxy_StaticDataTable(const RecvProp *pProp, void **pOut, void *pData, int objectID);
+void DataTableRecvProxy_StaticDataTable( const RecvProp *pProp, void **pOut, void *pData, int objectID );
 
 // PointerDataTable does *pOut = *((void**)pData)   (ie: pData is a pointer to the object to decode into).
-void DataTableRecvProxy_PointerDataTable(const RecvProp *pProp, void **pOut, void *pData, int objectID);
+void DataTableRecvProxy_PointerDataTable( const RecvProp *pProp, void **pOut, void *pData, int objectID );
 
 RecvProp RecvPropFloat(
 	const char *pVarName,
@@ -401,134 +401,134 @@ RecvProp InternalRecvPropArray(
 // Inlines.
 // ---------------------------------------------------------------------------------------- //
 
-inline void RecvProp::InitArray(int nElements, int elementStride)
+inline void RecvProp::InitArray( int nElements, int elementStride )
 {
 	m_RecvType = DPT_Array;
 	m_nElements = nElements;
 	m_ElementStride = elementStride;
 }
 
-inline int RecvProp::GetNumElements() const
+inline int RecvProp::GetNumElements( ) const
 {
 	return m_nElements;
 }
 
-inline void RecvProp::SetNumElements(int nElements)
+inline void RecvProp::SetNumElements( int nElements )
 {
 	m_nElements = nElements;
 }
 
-inline int RecvProp::GetElementStride() const
+inline int RecvProp::GetElementStride( ) const
 {
 	return m_ElementStride;
 }
 
-inline void RecvProp::SetElementStride(int stride)
+inline void RecvProp::SetElementStride( int stride )
 {
 	m_ElementStride = stride;
 }
 
-inline int RecvProp::GetFlags() const
+inline int RecvProp::GetFlags( ) const
 {
 	return m_Flags;
 }
 
-inline const char* RecvProp::GetName() const
+inline const char* RecvProp::GetName( ) const
 {
 	return m_pVarName;
 }
 
-inline SendPropType RecvProp::GetType() const
+inline SendPropType RecvProp::GetType( ) const
 {
 	return m_RecvType;
 }
 
-inline RecvTable* RecvProp::GetDataTable() const
+inline RecvTable* RecvProp::GetDataTable( ) const
 {
 	return m_pDataTable;
 }
 
-inline void RecvProp::SetDataTable(RecvTable *pTable)
+inline void RecvProp::SetDataTable( RecvTable *pTable )
 {
 	m_pDataTable = pTable;
 }
 
-inline RecvVarProxyFn RecvProp::GetProxyFn() const
+inline RecvVarProxyFn RecvProp::GetProxyFn( ) const
 {
 	return m_ProxyFn;
 }
 
-inline void RecvProp::SetProxyFn(RecvVarProxyFn fn)
+inline void RecvProp::SetProxyFn( RecvVarProxyFn fn )
 {
 	m_ProxyFn = fn;
 }
 
-inline DataTableRecvVarProxyFn RecvProp::GetDataTableProxyFn() const
+inline DataTableRecvVarProxyFn RecvProp::GetDataTableProxyFn( ) const
 {
 	return m_DataTableProxyFn;
 }
 
-inline void RecvProp::SetDataTableProxyFn(DataTableRecvVarProxyFn fn)
+inline void RecvProp::SetDataTableProxyFn( DataTableRecvVarProxyFn fn )
 {
 	m_DataTableProxyFn = fn;
 }
 
-inline int RecvProp::GetOffset() const
+inline int RecvProp::GetOffset( ) const
 {
 	return m_Offset;
 }
 
-inline void RecvProp::SetOffset(int o)
+inline void RecvProp::SetOffset( int o )
 {
 	m_Offset = o;
 }
 
-inline RecvProp* RecvProp::GetArrayProp() const
+inline RecvProp* RecvProp::GetArrayProp( ) const
 {
 	return m_pArrayProp;
 }
 
-inline void RecvProp::SetArrayProp(RecvProp *pProp)
+inline void RecvProp::SetArrayProp( RecvProp *pProp )
 {
 	m_pArrayProp = pProp;
 }
 
-inline void RecvProp::SetArrayLengthProxy(ArrayLengthRecvProxyFn proxy)
+inline void RecvProp::SetArrayLengthProxy( ArrayLengthRecvProxyFn proxy )
 {
 	m_ArrayLengthProxy = proxy;
 }
 
-inline ArrayLengthRecvProxyFn RecvProp::GetArrayLengthProxy() const
+inline ArrayLengthRecvProxyFn RecvProp::GetArrayLengthProxy( ) const
 {
 	return m_ArrayLengthProxy;
 }
 
-inline bool RecvProp::IsInsideArray() const
+inline bool RecvProp::IsInsideArray( ) const
 {
 	return m_bInsideArray;
 }
 
-inline void RecvProp::SetInsideArray()
+inline void RecvProp::SetInsideArray( )
 {
 	m_bInsideArray = true;
 }
 
-inline const void* RecvProp::GetExtraData() const
+inline const void* RecvProp::GetExtraData( ) const
 {
 	return m_pExtraData;
 }
 
-inline void RecvProp::SetExtraData(const void *pData)
+inline void RecvProp::SetExtraData( const void *pData )
 {
 	m_pExtraData = pData;
 }
 
-inline const char* RecvProp::GetParentArrayPropName()
+inline const char* RecvProp::GetParentArrayPropName( )
 {
 	return m_pParentArrayPropName;
 }
 
-inline void	RecvProp::SetParentArrayPropName(const char *pArrayPropName)
+inline void	RecvProp::SetParentArrayPropName( const char *pArrayPropName )
 {
 	m_pParentArrayPropName = pArrayPropName;
 }

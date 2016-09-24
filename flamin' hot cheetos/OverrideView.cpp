@@ -2,7 +2,7 @@
 
 OverrideView_t originalOverrideView;
 
-void __stdcall OverrideView(CViewSetup* setup)
+void __stdcall OverrideView( CViewSetup* setup )
 {
-	originalOverrideView(interfaces::clientMode, setup);
+	originalOverrideView( interfaces::clientMode, setup );
 }

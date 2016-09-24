@@ -19,7 +19,7 @@ class IMDLCache;
 
 namespace interfaces
 {
-	extern DWORD              clientdll;
+	extern DWORD              clientbase;
 
 	extern CHLClient*         client;
 	extern void*              clientMode;
@@ -35,7 +35,7 @@ namespace interfaces
 	extern IMDLCache*         modelcache;
 	extern void*              viewRender;
 
-	void  initialize();
+	void  initialize( );
 }
 
 #endif

@@ -5,9 +5,9 @@
 
 #include "stdafx.h"
 
-void __stdcall OverrideView(CViewSetup* setup);
+void __stdcall OverrideView( CViewSetup* setup );
 
-typedef void(__thiscall* OverrideView_t)(void*, CViewSetup*);
+typedef void( __thiscall* OverrideView_t )( void*, CViewSetup* );
 extern OverrideView_t originalOverrideView;
 
 #endif

@@ -11,7 +11,7 @@
 #define LittleLong( val )			( val )
 #define NUM_BYTES 256
 
-static const CRC32_t pulCRCTable[NUM_BYTES] =
+static const CRC32_t pulCRCTable [ NUM_BYTES ] =
 {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba,
 	0x076dc419, 0x706af48f, 0xe963a535, 0x9e6495a3,
@@ -79,58 +79,58 @@ static const CRC32_t pulCRCTable[NUM_BYTES] =
 	0xb40bbe37, 0xc30c8ea1, 0x5a05df1b, 0x2d02ef8d
 };
 
-void CRC32_Init(CRC32_t *pulCRC)
+void CRC32_Init( CRC32_t *pulCRC )
 {
 	*pulCRC = CRC32_INIT_VALUE;
 }
 
-void CRC32_Final(CRC32_t *pulCRC)
+void CRC32_Final( CRC32_t *pulCRC )
 {
 	*pulCRC ^= CRC32_XOR_VALUE;
 }
 
-CRC32_t	CRC32_GetTableEntry(unsigned int slot)
+CRC32_t	CRC32_GetTableEntry( unsigned int slot )
 {
-	return pulCRCTable[(unsigned char)slot];
+	return pulCRCTable [ ( unsigned char ) slot ];
 }
 
-void CRC32_ProcessBuffer(CRC32_t *pulCRC, const void *pBuffer, int nBuffer)
+void CRC32_ProcessBuffer( CRC32_t *pulCRC, const void *pBuffer, int nBuffer )
 {
 	CRC32_t ulCrc = *pulCRC;
-	unsigned char *pb = (unsigned char *)pBuffer;
+	unsigned char *pb = ( unsigned char * ) pBuffer;
 	unsigned int nFront;
 	int nMain;
 
 JustAfew:
 
-	switch (nBuffer)
+	switch ( nBuffer )
 	{
 	case 7:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 6:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 5:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 4:
-		ulCrc ^= LittleLong(*(CRC32_t *)pb);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc ^= LittleLong( *( CRC32_t * ) pb );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 		*pulCRC = ulCrc;
 		return;
 
 	case 3:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 2:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 1:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 
 	case 0:
 		*pulCRC = ulCrc;
@@ -143,31 +143,31 @@ JustAfew:
 	// The low-order two bits of pb and nBuffer in total control the
 	// upfront work.
 	//
-	nFront = ((unsigned int)pb) & 3;
+	nFront = ( ( unsigned int ) pb ) & 3;
 	nBuffer -= nFront;
-	switch (nFront)
+	switch ( nFront )
 	{
 	case 3:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 	case 2:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 	case 1:
-		ulCrc = pulCRCTable[*pb++ ^ (unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc = pulCRCTable [ *pb++ ^ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 	}
 
 	nMain = nBuffer >> 3;
-	while (nMain--)
+	while ( nMain-- )
 	{
-		ulCrc ^= LittleLong(*(CRC32_t *)pb);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc ^= LittleLong(*(CRC32_t *)(pb + 4));
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
-		ulCrc = pulCRCTable[(unsigned char)ulCrc] ^ (ulCrc >> 8);
+		ulCrc ^= LittleLong( *( CRC32_t * ) pb );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc ^= LittleLong( *( CRC32_t * ) ( pb + 4 ) );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
+		ulCrc = pulCRCTable [ ( unsigned char ) ulCrc ] ^ ( ulCrc >> 8 );
 		pb += 8;
 	}
 

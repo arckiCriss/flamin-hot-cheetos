@@ -12,8 +12,8 @@
 // TYPEDEFS
 //----------------------------------------
 
-typedef float matrix3x4[3][4];
-typedef float matrix4x4[4][4];
+typedef float matrix3x4 [ 3 ] [ 4 ];
+typedef float matrix4x4 [ 4 ] [ 4 ];
 
 typedef unsigned short MDLHandle_t;
 
@@ -27,18 +27,18 @@ class CBaseEntity;
 typedef struct player_info_s
 {
 private:
-	DWORD __pad0[2];
+	DWORD __pad0 [ 2 ];
 public:
 	int m_nXuidLow;
 	int m_nXuidHigh;
-	char m_szPlayerName[128];
+	char m_szPlayerName [ 128 ];
 	int m_nUserID;
-	char m_szSteamID[33];
+	char m_szSteamID [ 33 ];
 	UINT m_nSteam3ID;
-	char m_szFriendsName[128];
+	char m_szFriendsName [ 128 ];
 	bool m_bIsFakePlayer;
 	bool m_bIsHLTV;
-	DWORD m_dwCustomFiles[4];
+	DWORD m_dwCustomFiles [ 4 ];
 	BYTE m_FilesDownloaded;
 private:
 	int __pad1;
@@ -52,11 +52,11 @@ public:
 		CBaseEntity*	entity;
 		Vector			glowColor;
 		float			glowAlpha;
-		unsigned char   junk[16];
+		unsigned char   junk [ 16 ];
 		bool			shouldGlow;
 		bool			isUnknown;
 		bool			isFullBloom;
-		unsigned char   junk2[14];
+		unsigned char   junk2 [ 14 ];
 	};
 
 	std::vector<GlowObjectDefinition_t> glowObjectDefinitions;
@@ -66,7 +66,7 @@ public:
 class CViewSetup
 {
 public:
-	char _0x0000[16];
+	char _0x0000 [ 16 ];
 	__int32 x;
 	__int32 x_old;
 	__int32 y;
@@ -75,7 +75,7 @@ public:
 	__int32	width_old;
 	__int32 height;
 	__int32	height_old;
-	char _0x0030[128];
+	char _0x0030 [ 128 ];
 	float fov;
 	float fovViewmodel;
 	Vector origin;
@@ -93,7 +93,7 @@ public:
 	float m_flFarBlurRadius;
 	float m_nDoFQuality;
 	__int32 m_nMotionBlurMode;
-	char _0x0104[68];
+	char _0x0104 [ 68 ];
 	__int32 m_EdgeBlur;
 };
 
@@ -116,16 +116,16 @@ struct mstudiobbox_t
 	Vector	bbmin;
 	Vector	bbmax;
 	int		hitboxnameindex;
-	int		pad[3];
+	int		pad [ 3 ];
 	float	radius;
-	int		pad2[4];
+	int		pad2 [ 4 ];
 
-	char* pszHitboxName()
+	char* pszHitboxName( )
 	{
-		if (hitboxnameindex == 0)
+		if ( hitboxnameindex == 0 )
 			return "";
 
-		return ((char*)this) + hitboxnameindex;
+		return ( ( char* )this ) + hitboxnameindex;
 	}
 };
 
@@ -145,7 +145,7 @@ struct ModelRenderInfo_t
 	int hitboxset;
 	unsigned short instance;
 
-	ModelRenderInfo_t()
+	ModelRenderInfo_t( )
 	{
 		pModelToWorld = NULL;
 		pLightingOffset = NULL;
@@ -156,10 +156,10 @@ struct ModelRenderInfo_t
 struct mstudiohitboxset_t
 {
 	int                                      sznameindex;
-	inline char* const                       pszName() const { return ((char*)this) + sznameindex; }
+	inline char* const                       pszName( ) const { return ( ( char* )this ) + sznameindex; }
 	int                                      numhitboxes;
 	int                                      hitboxindex;
-	inline mstudiobbox_t*                    pHitbox(int i) const { return (mstudiobbox_t*)(((BYTE*)this) + hitboxindex) + i; };
+	inline mstudiobbox_t*                    pHitbox( int i ) const { return ( mstudiobbox_t* ) ( ( ( BYTE* )this ) + hitboxindex ) + i; };
 };
 
 struct studiohdr_t
@@ -167,7 +167,7 @@ struct studiohdr_t
 	int					id;
 	int					version;
 	int					checksum;		// this has to be the same in the phy and vtx files to load!
-	char				name[64];
+	char				name [ 64 ];
 	int					length;
 
 	Vector				eyeposition;	// ideal eye position
@@ -180,35 +180,35 @@ struct studiohdr_t
 	int					flags;
 	int					numbones;			// bones
 	int					boneindex;
-	int					RemapSeqBone(int iSequence, int iLocalBone) const;	// maps local sequence bone to global bone
-	int					RemapAnimBone(int iAnim, int iLocalBone) const;		// maps local animations bone to global bone
+	int					RemapSeqBone( int iSequence, int iLocalBone ) const;	// maps local sequence bone to global bone
+	int					RemapAnimBone( int iAnim, int iLocalBone ) const;		// maps local animations bone to global bone
 	int					numbonecontrollers;		// bone controllers
 	int					bonecontrollerindex;
 	int					numhitboxsets;
 	int					hitboxsetindex;
 
 	// Look up hitbox set by index
-	mstudiohitboxset_t	*pHitboxSet(int i) const
+	mstudiohitboxset_t	*pHitboxSet( int i ) const
 	{
-		(i >= 0 && i < numhitboxsets);
-		return (mstudiohitboxset_t *)(((BYTE *)this) + hitboxsetindex) + i;
+		( i >= 0 && i < numhitboxsets );
+		return ( mstudiohitboxset_t * ) ( ( ( BYTE * )this ) + hitboxsetindex ) + i;
 	};
 
 	// Calls through to hitbox to determine size of specified set
-	inline mstudiobbox_t *pHitbox(int i, int set) const
+	inline mstudiobbox_t *pHitbox( int i, int set ) const
 	{
-		mstudiohitboxset_t const *s = pHitboxSet(set);
-		if (!s)
+		mstudiohitboxset_t const *s = pHitboxSet( set );
+		if ( !s )
 			return NULL;
 
-		return s->pHitbox(i);
+		return s->pHitbox( i );
 	};
 
 	// Calls through to set to get hitbox count for set
-	inline int			iHitboxCount(int set) const
+	inline int			iHitboxCount( int set ) const
 	{
-		mstudiohitboxset_t const *s = pHitboxSet(set);
-		if (!s)
+		mstudiohitboxset_t const *s = pHitboxSet( set );
+		if ( !s )
 			return 0;
 
 		return s->numhitboxes;
@@ -222,21 +222,21 @@ struct studiohdr_t
 	int					localseqindex;
 
 	//public:
-	bool				SequencesAvailable() const;
-	int					GetNumSeq() const;
-	int					iRelativeAnim(int baseseq, int relanim) const;	// maps seq local anim reference to global anim index
-	int					iRelativeSeq(int baseseq, int relseq) const;		// maps seq local seq reference to global seq index
+	bool				SequencesAvailable( ) const;
+	int					GetNumSeq( ) const;
+	int					iRelativeAnim( int baseseq, int relanim ) const;	// maps seq local anim reference to global anim index
+	int					iRelativeSeq( int baseseq, int relseq ) const;		// maps seq local seq reference to global seq index
 
 																			//private:
 	mutable int			activitylistversion;	// initialization flag - have the sequences been indexed?
 	mutable int			eventsindexed;
 	//public:
-	int					GetSequenceActivity(int iSequence);
-	void				SetSequenceActivity(int iSequence, int iActivity);
-	int					GetActivityListVersion();
-	void				SetActivityListVersion(int version) const;
-	int					GetEventListVersion();
-	void				SetEventListVersion(int version);
+	int					GetSequenceActivity( int iSequence );
+	void				SetSequenceActivity( int iSequence, int iActivity );
+	int					GetActivityListVersion( );
+	void				SetActivityListVersion( int version ) const;
+	int					GetEventListVersion( );
+	void				SetEventListVersion( int version );
 
 	// raw textures
 	int					numtextures;
@@ -245,13 +245,13 @@ struct studiohdr_t
 	// raw textures search paths
 	int					numcdtextures;
 	int					cdtextureindex;
-	inline char			*pCdtexture(int i) const { return (((char *)this) + *((int *)(((BYTE *)this) + cdtextureindex) + i)); };
+	inline char			*pCdtexture( int i ) const { return ( ( ( char * )this ) + *( ( int * ) ( ( ( BYTE * )this ) + cdtextureindex ) + i ) ); };
 
 	// replaceable textures tables
 	int					numskinref;
 	int					numskinfamilies;
 	int					skinindex;
-	inline short		*pSkinref(int i) const { return (short *)(((BYTE *)this) + skinindex) + i; };
+	inline short		*pSkinref( int i ) const { return ( short * ) ( ( ( BYTE * )this ) + skinindex ) + i; };
 	int					numbodyparts;
 	int					bodypartindex;
 
@@ -260,24 +260,24 @@ struct studiohdr_t
 	int					numlocalattachments;
 	int					localattachmentindex;
 	//public:
-	int					GetNumAttachments() const;
-	int					GetAttachmentBone(int i);
+	int					GetNumAttachments( ) const;
+	int					GetAttachmentBone( int i );
 	// used on my tools in hlmv, not persistant
-	void				SetAttachmentBone(int iAttachment, int iBone);
+	void				SetAttachmentBone( int iAttachment, int iBone );
 
 	// animation node to animation node transition graph
 	//private:
 	int					numlocalnodes;
 	int					localnodeindex;
 	int					localnodenameindex;
-	inline char			*pszLocalNodeName(int iNode) const { (iNode >= 0 && iNode < numlocalnodes); return (((char *)this) + *((int *)(((BYTE *)this) + localnodenameindex) + iNode)); }
-	inline BYTE			*pLocalTransition(int i) const { (i >= 0 && i < (numlocalnodes * numlocalnodes)); return (BYTE *)(((BYTE *)this) + localnodeindex) + i; };
+	inline char			*pszLocalNodeName( int iNode ) const { ( iNode >= 0 && iNode < numlocalnodes ); return ( ( ( char * )this ) + *( ( int * ) ( ( ( BYTE * )this ) + localnodenameindex ) + iNode ) ); }
+	inline BYTE			*pLocalTransition( int i ) const { ( i >= 0 && i < ( numlocalnodes * numlocalnodes ) ); return ( BYTE * ) ( ( ( BYTE * )this ) + localnodeindex ) + i; };
 
 	//public:
-	int					EntryNode(int iSequence);
-	int					ExitNode(int iSequence);
-	char				*pszNodeName(int iNode);
-	int					GetTransition(int iFrom, int iTo) const;
+	int					EntryNode( int iSequence );
+	int					ExitNode( int iSequence );
+	char				*pszNodeName( int iNode );
+	int					GetTransition( int iFrom, int iTo ) const;
 	int					numflexdesc;
 	int					flexdescindex;
 	int					numflexcontrollers;
@@ -293,21 +293,21 @@ struct studiohdr_t
 	int					numlocalposeparameters;
 	int					localposeparamindex;
 	//public:
-	int					GetNumPoseParameters() const;
-	int					GetSharedPoseParameter(int iSequence, int iLocalPose) const;
+	int					GetNumPoseParameters( ) const;
+	int					GetSharedPoseParameter( int iSequence, int iLocalPose ) const;
 	int					surfacepropindex;
-	inline char * const pszSurfaceProp() const { return ((char *)this) + surfacepropindex; }
+	inline char * const pszSurfaceProp( ) const { return ( ( char * )this ) + surfacepropindex; }
 
 	// Key values
 	int					keyvalueindex;
 	int					keyvaluesize;
-	inline const char * KeyValueText() const { return keyvaluesize != 0 ? ((char *)this) + keyvalueindex : NULL; }
+	inline const char * KeyValueText( ) const { return keyvaluesize != 0 ? ( ( char * )this ) + keyvalueindex : NULL; }
 	int					numlocalikautoplaylocks;
 	int					localikautoplaylockindex;
-	int					GetNumIKAutoplayLocks() const;
-	int					CountAutoplaySequences() const;
-	int					CopyAutoplaySequences(unsigned short *pOut, int outCount) const;
-	int					GetAutoplayList(unsigned short **pOut) const;
+	int					GetNumIKAutoplayLocks( ) const;
+	int					CountAutoplaySequences( ) const;
+	int					CopyAutoplaySequences( unsigned short *pOut, int outCount ) const;
+	int					GetAutoplayList( unsigned short **pOut ) const;
 
 	// The collision model mass that jay wanted
 	float				mass;
@@ -318,7 +318,7 @@ struct studiohdr_t
 	int					includemodelindex;
 
 	// implementation specific call to get a named model
-	const studiohdr_t	*FindModel(void **cache, char const *modelname) const;
+	const studiohdr_t	*FindModel( void **cache, char const *modelname ) const;
 
 	// implementation specific back pointer to virtual data
 	mutable void		*virtualModel;
@@ -326,13 +326,13 @@ struct studiohdr_t
 
 	// for demand loaded animation blocks
 	int					szanimblocknameindex;
-	inline char* const pszAnimBlockName() const { return ((char *)this) + szanimblocknameindex; }
+	inline char* const pszAnimBlockName( ) const { return ( ( char * )this ) + szanimblocknameindex; }
 	int					numanimblocks;
 	int					animblockindex;
 	mutable void		*animblockModel;
-	BYTE*				GetAnimBlock(int i) const;
+	BYTE*				GetAnimBlock( int i ) const;
 	int					bonetablebynameindex;
-	inline const BYTE	*GetBoneTableSortedByName() const { return (BYTE *)this + bonetablebynameindex; }
+	inline const BYTE	*GetBoneTableSortedByName( ) const { return ( BYTE * )this + bonetablebynameindex; }
 
 	// used by tools only that don't cache, but persist mdl's peer data
 	// engine uses virtualModel to back link to cache pointers
@@ -354,11 +354,11 @@ struct studiohdr_t
 	//	numAllowedRootLODs = 0	means no restriction, any lod can be set as root lod.
 	//	numAllowedRootLODs = N	means that lod0 - lod(N-1) can be set as root lod, but not lodN or lower.
 	BYTE				numAllowedRootLODs;
-	BYTE				unused[1];
+	BYTE				unused [ 1 ];
 	int					unused4; // zero out if version < 47
 	int					numflexcontrollerui;
 	int					flexcontrolleruiindex;
-	int					unused3[2];
+	int					unused3 [ 2 ];
 
 	// FIXME: Remove when we up the model version. Move all fields of studiohdr2_t into studiohdr_t.
 	int					studiohdr2index;
@@ -366,13 +366,13 @@ struct studiohdr_t
 	// NOTE: No room to add stuff? Up the .mdl file format version
 	// [and move all fields in studiohdr2_t into studiohdr_t and kill studiohdr2_t],
 	// or add your stuff to studiohdr2_t. See NumSrcBoneTransforms/SrcBoneTransform for the pattern to use.
-	int					unused2[1];
+	int					unused2 [ 1 ];
 
-	studiohdr_t() {}
+	studiohdr_t( ) {}
 
 private:
 	// No copy constructors allowed
-	studiohdr_t(const studiohdr_t& vOther);
+	studiohdr_t( const studiohdr_t& vOther );
 	friend struct virtualmodel_t;
 };
 
@@ -407,31 +407,31 @@ enum Hitboxes
 
 enum Buttons
 {
-	IN_ATTACK = (1 << 0),
-	IN_JUMP = (1 << 1),
-	IN_DUCK = (1 << 2),
-	IN_FORWARD = (1 << 3),
-	IN_BACK = (1 << 4),
-	IN_USE = (1 << 5),
-	IN_CANCEL = (1 << 6),
-	IN_LEFT = (1 << 7),
-	IN_RIGHT = (1 << 8),
-	IN_MOVELEFT = (1 << 9),
-	IN_MOVERIGHT = (1 << 10),
-	IN_ATTACK2 = (1 << 11),
-	IN_RUN = (1 << 12),
-	IN_RELOAD = (1 << 13),
-	IN_ALT1 = (1 << 14),
-	IN_ALT2 = (1 << 15),
-	IN_SCORE = (1 << 16),
-	IN_SPEED = (1 << 17),
-	IN_WALK = (1 << 18),
-	IN_ZOOM = (1 << 19),
-	IN_WEAPON1 = (1 << 20),
-	IN_WEAPON2 = (1 << 21),
-	IN_BULLRUSH = (1 << 22),
-	IN_GRENADE1 = (1 << 23),
-	IN_GRENADE2 = (1 << 24),
+	IN_ATTACK = ( 1 << 0 ),
+	IN_JUMP = ( 1 << 1 ),
+	IN_DUCK = ( 1 << 2 ),
+	IN_FORWARD = ( 1 << 3 ),
+	IN_BACK = ( 1 << 4 ),
+	IN_USE = ( 1 << 5 ),
+	IN_CANCEL = ( 1 << 6 ),
+	IN_LEFT = ( 1 << 7 ),
+	IN_RIGHT = ( 1 << 8 ),
+	IN_MOVELEFT = ( 1 << 9 ),
+	IN_MOVERIGHT = ( 1 << 10 ),
+	IN_ATTACK2 = ( 1 << 11 ),
+	IN_RUN = ( 1 << 12 ),
+	IN_RELOAD = ( 1 << 13 ),
+	IN_ALT1 = ( 1 << 14 ),
+	IN_ALT2 = ( 1 << 15 ),
+	IN_SCORE = ( 1 << 16 ),
+	IN_SPEED = ( 1 << 17 ),
+	IN_WALK = ( 1 << 18 ),
+	IN_ZOOM = ( 1 << 19 ),
+	IN_WEAPON1 = ( 1 << 20 ),
+	IN_WEAPON2 = ( 1 << 21 ),
+	IN_BULLRUSH = ( 1 << 22 ),
+	IN_GRENADE1 = ( 1 << 23 ),
+	IN_GRENADE2 = ( 1 << 24 ),
 };
 
 enum FontFlags
@@ -453,15 +453,15 @@ enum FontFlags
 
 enum Flag
 {
-	FL_ONGROUND = (1 << 0),
-	FL_DUCKING = (1 << 1),
-	FL_WATERJUMP = (1 << 2),
-	FL_ONTRAIN = (1 << 3),
-	FL_INRAIN = (1 << 4),
-	FL_FROZEN = (1 << 5),
-	FL_ATCONTROLS = (1 << 6),
-	FL_CLIENT = (1 << 7),
-	FL_FAKECLIENT = (1 << 8),
+	FL_ONGROUND = ( 1 << 0 ),
+	FL_DUCKING = ( 1 << 1 ),
+	FL_WATERJUMP = ( 1 << 2 ),
+	FL_ONTRAIN = ( 1 << 3 ),
+	FL_INRAIN = ( 1 << 4 ),
+	FL_FROZEN = ( 1 << 5 ),
+	FL_ATCONTROLS = ( 1 << 6 ),
+	FL_CLIENT = ( 1 << 7 ),
+	FL_FAKECLIENT = ( 1 << 8 ),
 };
 
 enum LifeState

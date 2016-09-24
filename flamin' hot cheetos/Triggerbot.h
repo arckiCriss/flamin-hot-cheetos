@@ -8,9 +8,9 @@
 class Triggerbot
 {
 public:
-	Triggerbot();
+	Triggerbot( );
 
-	void think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd);
+	void think( CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd );
 
 private:
 	QAngle viewAngles;
