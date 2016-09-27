@@ -206,7 +206,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 		}
 	}
 
-	int place;
+	int place = 0;
 
 	if ( cvar::esp_draw_health_text )
 		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i HP" ), entity->GetHealth( ) );
