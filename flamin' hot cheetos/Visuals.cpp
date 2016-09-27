@@ -49,7 +49,7 @@ void Visuals::getScreenSize( )
 
 void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 {
-	const matrix3x4& trans = *( matrix3x4* ) ( ( DWORD ) entity + offsets::entity::m_rgflCoordinateFrame );
+	const matrix3x4& trans = entity->getCoordinateFrame( );
 
 	Vector min, max;
 	entity->GetRenderBounds( min, max );
@@ -197,18 +197,16 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 			default: { strcpy( weaponName, charenc( "NONE" ) ); break; }
 			}
 
-			char buffer [ 32 ];
-
 			if ( !weapon->IsKnife( ) && !weapon->IsOther( ) )
-				sprintf_s( buffer, sizeof( buffer ), "%s | %i", weaponName, weapon->GetClip1( ) );
+				sprintf_s( weaponName, sizeof( weaponName ), "%s | %i", weaponName, weapon->GetClip1( ) );
 			else
-				sprintf_s( buffer, sizeof( buffer ), "%s", weaponName );
+				sprintf_s( weaponName, sizeof( weaponName ), "%s", weaponName );
 
-			drawing.drawString( drawing.espFont, true, x + w / 2, top + 2, Color( 255, 255, 255 ), buffer );
+			drawing.drawString( drawing.espFont, true, x + w / 2, top + 2, Color( 255, 255, 255 ), weaponName );
 		}
 	}
 
-	int place = 0;
+	int place;
 
 	if ( cvar::esp_draw_health_text )
 		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i HP" ), entity->GetHealth( ) );
@@ -247,10 +245,10 @@ void Visuals::drawWorld( CBaseEntity* entity )
 		else if ( !strcmp( modelName.c_str( ), charenc( "s" ) ) )
 			modelName = charenc( "m4a1-s" );
 
-		std::locale loc;
+		/*std::locale loc;
 
 		for ( std::string::size_type i = 0; i < modelName.length( ); ++i )
-			modelName [ i ] = std::toupper( modelName [ i ], loc );
+			modelName [ i ] = std::toupper( modelName [ i ], loc );*/
 
 		drawBoundingBox( entity, Color( 255, 255, 255 ), modelName.c_str( ) );
 	}
@@ -258,7 +256,7 @@ void Visuals::drawWorld( CBaseEntity* entity )
 
 void Visuals::drawBoundingBox( CBaseEntity* entity, Color color, const char* text )
 {
-	const matrix3x4& trans = *( matrix3x4* ) ( ( DWORD ) entity + offsets::entity::m_rgflCoordinateFrame );
+	const matrix3x4& trans = entity->getCoordinateFrame( );
 
 	Vector min, max;
 	entity->GetRenderBounds( min, max );
@@ -340,10 +338,15 @@ void Visuals::drawGlow( CBaseEntity* entity )
 
 	static GlowObjectPointer_t getGlowObjectPointer = ( GlowObjectPointer_t ) ( tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33" ), charenc( "x????xxxx" ) ) );
 	static void* glowObjectPointer = getGlowObjectPointer( );
+	if ( !glowObjectPointer )
+		return;
 
 	UINT32 glowIndex = *( UINT32* ) ( ( uintptr_t ) entity + 0xA2F8 + 0x18 );
+
 	CGlowObjectManager::GlowObjectDefinition_t* glowObjectArray = *( CGlowObjectManager::GlowObjectDefinition_t** )glowObjectPointer;
 	CGlowObjectManager::GlowObjectDefinition_t* glowObject = &glowObjectArray [ glowIndex ];
+	if ( !glowObject )
+		return;
 
 	if ( entity->GetTeamNum( ) == 2 )
 		glowColor = Color( 223, 175, 86, 153 );
@@ -392,6 +395,8 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 	static DWORD playerResource = tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7" ), charenc( "xxxxxxxx????xx?????xxxxx" ) ) + 0xE;
 	static DWORD resourcePointer = **( DWORD** ) playerResource;
+	if ( !resourcePointer )
+		return;
 
 	int place = 0, place2 = 0;
 	bool doSwap = false, doSwap2 = false;

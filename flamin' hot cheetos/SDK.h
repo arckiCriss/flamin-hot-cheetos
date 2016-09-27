@@ -108,6 +108,10 @@ public:
 	{
 		return *( ULONG* ) ( ( DWORD )this + offsets::player::m_hOwner );
 	}
+	matrix3x4& getCoordinateFrame( )
+	{
+		return *( matrix3x4* ) ( ( DWORD )this + offsets::entity::m_rgflCoordinateFrame );
+	}
 	Vector& GetAbsOrigin( )
 	{
 		__asm
@@ -257,7 +261,7 @@ public:
 		default: return false;
 		}
 	}
-	void SetPattern( player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "" )
+	void setPattern( player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "" )
 	{
 		if ( this->IsOther( ) )
 			return;
@@ -485,7 +489,7 @@ public:
 	void GetScreenSize( int& width, int& height )
 	{
 		typedef void( __thiscall* original )( void*, int&, int& );
-		return GetVirtualFunction<original>( this, 5 )( this, width, height );
+		GetVirtualFunction<original>( this, 5 )( this, width, height );
 	}
 	bool GetPlayerInfo( int iIndex, player_info_t* pInfo )
 	{

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <future>
 
 //------------------------------------------------------------------------------------------
 // flamin' hot cheetos
@@ -25,7 +24,7 @@
 
 bool shouldUnload = false;
 
-void initializeRoutine( void* lpArguments )
+DWORD __stdcall initializeRoutine( void* lpArguments )
 {
 	while ( !GetModuleHandleA( charenc( "client.dll" ) )
 		|| !GetModuleHandleA( charenc( "engine.dll" ) ) )
@@ -44,9 +43,11 @@ void initializeRoutine( void* lpArguments )
 	hooks::restore( );
 
 	FreeLibraryAndExitThread( ( HMODULE ) lpArguments, 0 );
+
+	return 1;
 }
 
-void handleCore( void* lpArguments )
+DWORD __stdcall handleCore( void* lpArguments )
 {
 	while ( !shouldUnload )
 	{
@@ -69,6 +70,8 @@ void handleCore( void* lpArguments )
 
 		Sleep( 1000 );
 	}
+
+	return 1;
 }
 
 BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
@@ -77,10 +80,10 @@ BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	{
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls( hInstance );
-		std::async( std::launch::async, initializeRoutine, hInstance );
-		std::async( std::launch::async, handleCore, hInstance );
-		// CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
-		// CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
+		/*std::async( std::launch::async, initializeRoutine, hInstance );
+		std::async( std::launch::async, handleCore, hInstance );*/
+		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
+		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
 		break;
 	}
 
