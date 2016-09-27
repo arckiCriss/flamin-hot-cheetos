@@ -10,22 +10,22 @@
 //  - make this project a little prettier
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html
 //  - use engine button handling to replace winapi functions
-//  - clean-up classes such as vector (credits/thanks to whoever created it though!)
-//  - implement proper aimbot smoothing (for mouse simulated)
+//  - clean-up classes such as vector (credits to whoever created it though)
+//  - implement proper aimbot smoothing (for mouse simulation)
 //  - improve header inclusion
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
 // notes:
-//  - modern c++ functions such as sleep_for and async threading breaks injection
-//    - probably because of the injection method and run-time shit it does on entry
-//  - manual mapping crashes game on team selection
+//  - modern c++ functions such as sleep_for and async threading (can) break injection
+//  - manual mapping crashes game
 //    - this is possible that it's just a injector specific bug
+//    - fixed when compiling using v120 toolkit?
 //------------------------------------------------------------------------------------------
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine( void* lpArguments )
+void initializeRoutine( void* lpArguments )
 {
 	while ( !GetModuleHandleA( charenc( "client.dll" ) )
 		|| !GetModuleHandleA( charenc( "engine.dll" ) ) )
@@ -41,12 +41,12 @@ DWORD __stdcall initializeRoutine( void* lpArguments )
 	while ( !shouldUnload )
 		Sleep( 1000 );
 
-	FreeLibraryAndExitThread( ( HMODULE ) lpArguments, 0 );
+	hooks::restore( );
 
-	return 1;
+	FreeLibraryAndExitThread( ( HMODULE ) lpArguments, 0 );
 }
 
-DWORD __stdcall handleCore( void* lpArguments )
+void handleCore( void* lpArguments )
 {
 	while ( !shouldUnload )
 	{
@@ -69,8 +69,6 @@ DWORD __stdcall handleCore( void* lpArguments )
 
 		Sleep( 1000 );
 	}
-
-	return 1;
 }
 
 BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
@@ -78,12 +76,11 @@ BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
-		// DisableThreadLibraryCalls(hInstance);
-		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
-		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
-		break;
-	case DLL_PROCESS_DETACH:
-		hooks::restore( );
+		DisableThreadLibraryCalls( hInstance );
+		std::async( std::launch::async, initializeRoutine, hInstance );
+		std::async( std::launch::async, handleCore, hInstance );
+		// CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
+		// CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
 		break;
 	}
 

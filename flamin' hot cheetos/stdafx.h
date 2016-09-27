@@ -5,6 +5,7 @@
 #pragma warning(disable: 4307)
 #pragma warning(disable: 4172)
 #pragma warning(disable: 4996)
+#pragma warning(disable: 4244)
 
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_WARNINGS
@@ -14,6 +15,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <locale>
 
 #include "cx_strenc.h"
 

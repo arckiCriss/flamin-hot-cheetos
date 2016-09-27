@@ -25,11 +25,11 @@ namespace hooks
 		renderview = std::make_unique<VFTManager>( ( DWORD** ) interfaces::viewRender, true );
 		originalRenderView = renderview->hook( 6, ( RenderView_t ) RenderView );
 
-		// clientmode = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
-		// originalOverrideView = clientmode->hook(18, (OverrideView_t)OverrideView);
-
 		surface = std::make_unique<VFTManager>( ( DWORD** ) interfaces::surface, true );
 		originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
+
+		// clientmode = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
+		// originalOverrideView = clientmode->hook(18, (OverrideView_t)OverrideView);
 
 		interfaces::engine->ClientCmd_Unrestricted( charenc( "echo [successfully hooked functions]" ) );
 	}
@@ -39,9 +39,9 @@ namespace hooks
 		panel->restoreTable( );
 		client->restoreTable( );
 		modelcache->restoreTable( );
-		// clientModeHook->restoreTable();
 		surface->restoreTable( );
-		Sleep( 300 );
+		// clientmode->restoreTable();
+		Sleep( 500 );
 
 		interfaces::engine->ClientCmd_Unrestricted( charenc( "cl_mouseenable 1" ) );
 		interfaces::engine->ClientCmd_Unrestricted( charenc( "echo [successfully unhooked functions]" ) );

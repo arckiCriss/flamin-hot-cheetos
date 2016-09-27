@@ -34,7 +34,7 @@ void Menu::setMouse( )
 	if ( interfaces::engine->InGame( ) )
 	{
 		char buffer [ 32 ];
-		w_sprintf_s( buffer, sizeof( buffer ), charenc( "cl_mouseenable %i" ), !isCursorActive );
+		/*w_*/sprintf_s( buffer, sizeof( buffer ), charenc( "cl_mouseenable %i" ), !isCursorActive );
 		interfaces::engine->ExecuteClientCmd( buffer );
 	}
 }
@@ -282,7 +282,6 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, float min, floa
 		sliderPosition = 0;
 
 	barPosition = ( sliderPosition / w * 100 ) * 2;
-
 	if ( barPosition > w )
 		barPosition = w;
 
@@ -292,12 +291,7 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, float min, floa
 	drawing.drawFilledRect( x + barPosition + distance, y + 2.8f, 2, 10, Color( 255, 165, 0 ) );
 	drawing.drawOutlinedRect( x + barPosition + distance, y + 2.8f, 3, 11, Color( 0, 0, 0 ) );
 
-	if ( value >= 0.0f && value < 10.0f )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
-	else if ( value > 9.0f && value < 100.0f )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
-	else if ( value > 99.0f && value < 1000.0f )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
+	drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%.1f", value );
 }
 
 void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text )
@@ -321,7 +315,6 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int ma
 		sliderPosition = 0;
 
 	barPosition = ( sliderPosition / w * 100 ) * 2;
-
 	if ( barPosition > w )
 		barPosition = w;
 
@@ -331,12 +324,7 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int ma
 	drawing.drawFilledRect( x + barPosition + distance, y + 2.8f, 2, 10, Color( 255, 165, 0 ) );
 	drawing.drawOutlinedRect( x + barPosition + distance, y + 2.8f, 3, 11, Color( 0, 0, 0 ) );
 
-	if ( value >= 0 && value < 10 )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%i", value );
-	else if ( value > 9 && value < 100 )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%i", value );
-	else if ( value > 99 && value < 1000 )
-		drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%i", value );
+	drawing.drawString( drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color( 150, 150, 150 ), "%i", value );
 }
 
 void Menu::getKeyPressed( int x, int y, int w, int h, int distance, int& value, const char* text )

@@ -146,8 +146,8 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 			case WEAPON_DEAGLE: { strcpy( weaponName, charenc( "DEAGLE" ) ); break; }
 			case WEAPON_DUALS: { strcpy( weaponName, charenc( "DUALIES" ) ); break; }
 			case WEAPON_FIVE7: { strcpy( weaponName, charenc( "FIVE-SEVEN" ) ); break; }
-			case WEAPON_GLOCK: { strcpy( weaponName, charenc( "GLOCK" ) ); break; }
-			case WEAPON_AK47: { strcpy( weaponName, charenc( "AK47" ) ); break; }
+			case WEAPON_GLOCK: { strcpy( weaponName, charenc( "GLOCK-18" ) ); break; }
+			case WEAPON_AK47: { strcpy( weaponName, charenc( "AK-47" ) ); break; }
 			case WEAPON_AUG: { strcpy( weaponName, charenc( "AUG" ) ); break; }
 			case WEAPON_AWP: { strcpy( weaponName, charenc( "AWP" ) ); break; }
 			case WEAPON_FAMAS: { strcpy( weaponName, charenc( "FAMAS" ) ); break; }
@@ -193,7 +193,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 			case WEAPON_M4A1S: { strcpy( weaponName, charenc( "M4A1-S" ) ); break; }
 			case WEAPON_USPS: { strcpy( weaponName, charenc( "USP-S" ) ); break; }
 			case WEAPON_CZ75: { strcpy( weaponName, charenc( "CZ-75" ) ); break; }
-			case WEAPON_C4: { strcpy( weaponName, charenc( "BOMB" ) ); break; }
+			case WEAPON_C4: { strcpy( weaponName, charenc( "C4" ) ); break; }
 			default: { strcpy( weaponName, charenc( "NONE" ) ); break; }
 			}
 
@@ -246,6 +246,11 @@ void Visuals::drawWorld( CBaseEntity* entity )
 			modelName = charenc( "cz75" );
 		else if ( !strcmp( modelName.c_str( ), charenc( "s" ) ) )
 			modelName = charenc( "m4a1-s" );
+
+		std::locale loc;
+
+		for ( std::string::size_type i = 0; i < modelName.length( ); ++i )
+			modelName [ i ] = std::toupper( modelName [ i ], loc );
 
 		drawBoundingBox( entity, Color( 255, 255, 255 ), modelName.c_str( ) );
 	}
