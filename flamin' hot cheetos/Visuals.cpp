@@ -456,8 +456,8 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 					drawing.drawFilledRect( x + 8, y + 38 + ( place * 20 ), boardWidth - 18, 19, Color( 20, 20, 20, 150 ) );
 
 				drawing.drawString( drawing.scoreboardFont, false, x + 10, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), players [ i ].name );
-				drawing.drawString( drawing.scoreboardFont, false, x + 325 + 65, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), "$%i", players [ i ].health );
-				drawing.drawString( drawing.scoreboardFont, false, x + 375 + 65, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), "%i", players [ i ].money );
+				drawing.drawString( drawing.scoreboardFont, false, x + 325 + 65, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), "%i", players [ i ].health );
+				drawing.drawString( drawing.scoreboardFont, false, x + 375 + 65, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), "$%i", players [ i ].money );
 				drawing.drawString( drawing.scoreboardFont, false, x + 475 + 65, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), "%i", players [ i ].mmwins );
 				drawing.drawString( drawing.scoreboardFont, false, x + 605, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), players [ i ].mmrank );
 				drawing.drawString( drawing.scoreboardFont, false, x + 805, y + 40 + ( place * 20 ), Color( 255, 0, 0 ), players [ i ].steamid );
@@ -484,7 +484,7 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 				drawing.drawString( drawing.scoreboardFont, false, x + 10, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), players [ i ].name );
 				drawing.drawString( drawing.scoreboardFont, false, x + 325 + 65, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), "%i", players [ i ].health );
-				drawing.drawString( drawing.scoreboardFont, false, x + 375 + 65, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), "%i", players [ i ].money );
+				drawing.drawString( drawing.scoreboardFont, false, x + 375 + 65, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), "$%i", players [ i ].money );
 				drawing.drawString( drawing.scoreboardFont, false, x + 475 + 65, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), "%i", players [ i ].mmwins );
 				drawing.drawString( drawing.scoreboardFont, false, x + 605, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), players [ i ].mmrank );
 				drawing.drawString( drawing.scoreboardFont, false, x + 805, y + 195 + ( place2 * 20 ), Color( 0, 100, 255 ), players [ i ].steamid );
