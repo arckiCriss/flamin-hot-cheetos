@@ -260,14 +260,6 @@ bool Tools::isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
 	return ( weapon->GetNextPrimaryAttack( ) > serverTime );
 }
 
-int Tools::random( int min, int max )
-{
-	if ( min == max )
-		return max;
-
-	return min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
-}
-
 float Tools::random( float min, float max )
 {
 	if ( min == max )

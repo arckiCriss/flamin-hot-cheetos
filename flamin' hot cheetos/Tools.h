@@ -34,7 +34,6 @@ public:
 	bool               isAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon );
 	bool               isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon );
 
-	int                random( int min, int max );
 	float              random( float min, float max );
 
 	void               moveMouse( float x, float y );
