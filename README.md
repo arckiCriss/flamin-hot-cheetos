@@ -1,7 +1,7 @@
 # flamin-hot-cheetos
 open-source csgo internal assistance
 
-disclaimer: the information below may be outdated!
+disclaimer: I am not responsible for anything that may occur as you will be breaking Valve's TOS!
 
 overview:
 
