@@ -80,8 +80,6 @@ BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	{
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls( hInstance );
-		/*std::async( std::launch::async, initializeRoutine, hInstance );
-		std::async( std::launch::async, handleCore, hInstance );*/
 		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
 		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
 		break;
