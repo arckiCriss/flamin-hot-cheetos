@@ -17,7 +17,7 @@ namespace offsets
 		player::m_nTickBase = 0x3420;
 		player::m_hActiveWeapon = 0x2EE8;
 		player::m_szLastPlaceName = 0x35A4;
-		player::m_hOwner = 0x31C0;
+		player::m_hOwner = 0x29BC;
 		player::m_vecPunchAngle = 0x3020;
 		player::m_bIsScoped = 0x389C;
 		player::m_vecVelocity = 0x110;
@@ -36,11 +36,11 @@ namespace offsets
 		weapon::m_nFallbackSeed = 0x3174;
 		weapon::m_nFallbackPaintKit = 0x3170;
 		weapon::m_flFallbackWear = 0x3178;
-		weapon::m_iItemIDHigh = 0x2D70 + 0x0040 + 0x01F0;
-		weapon::m_iEntityQuality = 0x2D70 + 0x0040 + 0x01DC;
+		weapon::m_iItemIDHigh = 0x2FA0;
+		weapon::m_iEntityQuality = 0x2F8C;
 		weapon::m_nFallbackStatTrak = 0x317C;
-		weapon::m_szCustomName = 0x2D70 + 0x0040 + 0x026C;
-		weapon::m_iAccountID = 0x2D70 + 0x0040 + 0x01F8;
+		weapon::m_szCustomName = 0x301C;
+		weapon::m_iAccountID = 0x2FA8;
 
 		entity::m_CollisionGroup = 0x470;
 		entity::m_rgflCoordinateFrame = entity::m_CollisionGroup - 0x30;

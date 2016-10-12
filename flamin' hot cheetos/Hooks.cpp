@@ -4,7 +4,6 @@ namespace hooks
 {
 	std::unique_ptr<VFTManager> client = nullptr;
 	std::unique_ptr<VFTManager> panel = nullptr;
-	std::unique_ptr<VFTManager> clientmode = nullptr;
 	std::unique_ptr<VFTManager> surface = nullptr;
 	std::unique_ptr<VFTManager> modelcache = nullptr;
 	std::unique_ptr<VFTManager> renderview = nullptr;
@@ -28,9 +27,6 @@ namespace hooks
 		surface = std::make_unique<VFTManager>( ( DWORD** ) interfaces::surface, true );
 		originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
 
-		// clientmode = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
-		// originalOverrideView = clientmode->hook(18, (OverrideView_t)OverrideView);
-
 		interfaces::engine->ClientCmd_Unrestricted( charenc( "echo [successfully hooked functions]" ) );
 	}
 
@@ -40,7 +36,7 @@ namespace hooks
 		client->restoreTable( );
 		modelcache->restoreTable( );
 		surface->restoreTable( );
-		// clientmode->restoreTable();
+
 		Sleep( 500 );
 
 		interfaces::engine->ClientCmd_Unrestricted( charenc( "cl_mouseenable 1" ) );

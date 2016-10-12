@@ -44,7 +44,7 @@ void Menu::getMouse( )
 	if ( !isCursorActive )
 		return;
 
-	if ( GetAsyncKeyState( VK_LBUTTON ) )
+	if ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 )
 	{
 		isLeftClick = true;
 	}
@@ -58,7 +58,7 @@ void Menu::getMouse( )
 		isLeftClick = false;
 	}
 
-	if ( GetAsyncKeyState( VK_RBUTTON ) )
+	if ( GetAsyncKeyState( VK_RBUTTON ) & 0x8000 )
 	{
 		isRightClick = true;
 	}

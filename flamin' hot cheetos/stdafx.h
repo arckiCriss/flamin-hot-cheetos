@@ -37,6 +37,7 @@
 #include "Aimbot.h"
 #include "Triggerbot.h"
 
+void uninitializeRoutine( void* lpArguments );
 extern bool shouldUnload;
 
 #endif

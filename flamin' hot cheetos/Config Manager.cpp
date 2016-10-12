@@ -4,7 +4,7 @@ ConfigManager configManager;
 
 void ConfigManager::initialize( const char* fileName )
 {
-	std::string folder = charenc( "csgo\\cfg\\cheetos\\" );
+	std::string folder = strenc( "csgo\\cfg\\cheetos\\" );
 	CreateDirectory( folder.c_str( ), 0 );
 
 	std::string file = folder + fileName;
@@ -20,9 +20,7 @@ void ConfigManager::getInteger( const char* section, const char* key, int& value
 
 void ConfigManager::getFloat( const char* section, const char* key, float& value )
 {
-	char result [ 255 ];
-	char buffer [ 255 ];
-
+	char result [ 255 ], buffer [ 255 ];
 	sprintf( buffer, "%f", value );
 	GetPrivateProfileStringA( section, key, buffer, result, 255, directory );
 	value = ( float ) atof( result );
@@ -30,9 +28,7 @@ void ConfigManager::getFloat( const char* section, const char* key, float& value
 
 void ConfigManager::getBoolean( const char* section, const char* key, bool& value )
 {
-	char result [ 255 ];
-	char buffer [ 255 ];
-
+	char result [ 255 ], buffer [ 255 ];
 	sprintf( buffer, "%s", value ? "true" : "false" );
 	GetPrivateProfileString( section, key, buffer, result, 255, directory );
 	value = ( strcmp( result, "True" ) == 0 || strcmp( result, "true" ) == 0 ) ? true : false;
@@ -41,7 +37,6 @@ void ConfigManager::getBoolean( const char* section, const char* key, bool& valu
 char* ConfigManager::getString( const char* section, const char* key, char* value )
 {
 	char* result = new char [ 255 ];
-
 	memset( result, 0x00, 255 );
 	GetPrivateProfileString( section, key, value, result, 255, directory );
 	return result;
@@ -50,7 +45,6 @@ char* ConfigManager::getString( const char* section, const char* key, char* valu
 void ConfigManager::setInteger( const char* section, const char* key, int value )
 {
 	char buffer [ 255 ];
-
 	sprintf( buffer, "%d", value );
 	WritePrivateProfileString( section, key, buffer, directory );
 }
@@ -58,7 +52,6 @@ void ConfigManager::setInteger( const char* section, const char* key, int value 
 void ConfigManager::setFloat( const char* section, const char* key, float value )
 {
 	char buffer [ 255 ];
-
 	sprintf( buffer, "%f", value );
 	WritePrivateProfileString( section, key, buffer, directory );
 }
@@ -66,7 +59,6 @@ void ConfigManager::setFloat( const char* section, const char* key, float value 
 void ConfigManager::setBoolean( const char* section, const char* key, bool value )
 {
 	char buffer [ 255 ];
-
 	sprintf( buffer, "%s", value ? "true" : "false" );
 	WritePrivateProfileString( section, key, buffer, directory );
 }

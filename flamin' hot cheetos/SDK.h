@@ -118,7 +118,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EAX + 0x28]
+			CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	Vector GetAbsAngles( )
@@ -136,8 +136,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-				MOV EDX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EDX + 0x28]
+			MOV EDX, DWORD PTR DS : [ECX]
+			CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant( )
@@ -146,8 +146,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [ EDI + 0x8 ]
-				MOV EDX, DWORD PTR DS : [ecx]
-				CALL [ EDX + 0x24 ]
+			MOV EDX, DWORD PTR DS : [ecx]
+			CALL [ EDX + 0x24 ]
 		}
 	}
 	bool SetupBones( matrix3x4* matrix, int maxbones, int mask, float time )
@@ -156,12 +156,12 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x4]
-				MOV EDX, DWORD PTR DS : [ECX]
-				PUSH time
-				PUSH mask
-				PUSH maxbones
-				PUSH matrix
-				CALL DWORD PTR DS : [EDX + 0x34]
+			MOV EDX, DWORD PTR DS : [ECX]
+			PUSH time
+			PUSH mask
+			PUSH maxbones
+			PUSH matrix
+			CALL DWORD PTR DS : [EDX + 0x34]
 		}
 	}
 	model_t* GetModel( )
@@ -170,8 +170,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [ EDI + 0x4 ]
-				MOV EDX, DWORD PTR DS : [ECX]
-				CALL [ EDX + 0x20 ]
+			MOV EDX, DWORD PTR DS : [ECX]
+			CALL [ EDX + 0x20 ]
 		}
 	}
 	IVClientClass* GetClientClass( )
