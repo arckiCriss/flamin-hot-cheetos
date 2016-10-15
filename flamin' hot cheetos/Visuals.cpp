@@ -343,7 +343,7 @@ void Visuals::drawGlow( CBaseEntity* entity )
 	if ( !glowObjectPointer )
 		return;
 
-	UINT32 glowIndex = *( UINT32* ) ( ( uintptr_t ) entity + 0xA2F8 + 0x18 );
+	UINT32 glowIndex = *( UINT32* ) ( ( uintptr_t ) entity + 0xA308 + 0x18 );
 
 	CGlowObjectManager::GlowObjectDefinition_t* glowObjectArray = *( CGlowObjectManager::GlowObjectDefinition_t** )glowObjectPointer;
 	CGlowObjectManager::GlowObjectDefinition_t* glowObject = &glowObjectArray [ glowIndex ];
