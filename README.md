@@ -1,7 +1,7 @@
 # flamin-hot-cheetos
 open-source csgo internal assistance
 
-disclaimer: I am not responsible for anything that may occur as you will be breaking Valve's TOS!
+disclaimer: I am not responsible for anything that may occur; you will be breaching valve's terms of service
 
 overview:
 
@@ -18,17 +18,20 @@ features:
    - aimbot
       - dynamic hitbox selection
       - randomized hitbox position
+      - randomized recoil control
       - randomized angles
-      - fully mouse based, no forced angle setting
+      - engine based, no mouse simulation
 
    - visuals
       - dynamic esp using coordinate frame calculations (bounding box)
       - ability to draw: box, weapon, callout, health, armor and world
-      - etc
+      - spectator style glow esp
+      - matchmaking scoreboard (press page-up in game)
     
    - miscellaneous
-      - configuration system
+      - configuration system (modify values via config.ini)
       - automatic game resolution change detection
       - basic bunnyhop
-      - hitbox triggerbot via engine ray tracing
+      - standalone recoil control
+      - hitbox triggerbot using engine ray tracing
       - skin changer (modify skins via skinconfig.ini)
