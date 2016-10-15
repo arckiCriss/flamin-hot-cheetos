@@ -7,7 +7,7 @@
 
 unsigned short __stdcall FindMDL( const char* mdlrelativepath );
 
-typedef unsigned short( __stdcall* FindMDL_t )( const char* );
+typedef unsigned short( __thiscall* FindMDL_t )( IMDLCache*, const char* );
 extern FindMDL_t originalFindMDL;
 
 #endif

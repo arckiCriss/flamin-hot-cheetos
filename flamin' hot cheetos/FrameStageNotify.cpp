@@ -4,7 +4,7 @@ FrameStageNotify_t originalFrameStageNotify;
 
 void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 {
-	originalFrameStageNotify( curstage );
+	originalFrameStageNotify( interfaces::client, curstage );
 
 	if ( curstage == FRAME_NET_UPDATE_POSTDATAUPDATE_START )
 	{
