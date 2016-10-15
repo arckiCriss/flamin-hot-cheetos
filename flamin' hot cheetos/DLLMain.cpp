@@ -12,6 +12,7 @@
 //  - implement proper aimbot smoothing (for mouse simulation)
 //  - improve header inclusion
 //  - keyboard hook for keystate management
+//  - use something else instead of FindMDL for knife changing
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------

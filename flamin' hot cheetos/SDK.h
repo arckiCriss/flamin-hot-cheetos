@@ -7,8 +7,11 @@
 
 #include "stdafx.h"
 
+#include "Control Variables.h"
+
 #include "Offsets.h"
 
+#include "Color.h"
 #include "SDKDefinitions.h"
 
 #include "dt_recv.h"
@@ -102,7 +105,7 @@ public:
 	}
 	QAngle GetPunchAngles( )
 	{
-		return *( QAngle* ) ( ( DWORD )this + offsets::player::m_vecPunchAngle );
+		return *( QAngle* ) ( ( DWORD )this + offsets::player::m_aimPunchAngle );
 	}
 	ULONG GetOwner( )
 	{
@@ -266,6 +269,23 @@ public:
 		if ( this->IsOther( ) )
 			return;
 
+		if ( this->IsKnife( ) )
+		{
+			switch ( cvar::misc_knifechanger_model )
+			{
+			case 0: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_BAYONET; break; }
+			case 1: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_FLIP; break; }
+			case 2: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_GUT; break; }
+			case 3: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_KARAMBIT; break; }
+			case 4: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_M9BAYONET; break; }
+			case 5: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_HUNTSMAN; break; }
+			case 6: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_FALCHION; break; }
+			case 7: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_BUTTERFLY; break; }
+			case 8: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_DAGGER; break; }
+			case 9: { *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex ) = WEAPON_KNIFE_BOWIE; break; }
+			}
+		}
+
 		*( int* ) ( ( DWORD )this + offsets::weapon::m_OriginalOwnerXuidLow ) = 0;
 		*( int* ) ( ( DWORD )this + offsets::weapon::m_OriginalOwnerXuidHigh ) = 0;
 		*( int* ) ( ( DWORD )this + offsets::weapon::m_nFallbackSeed ) = seed;
@@ -373,10 +393,10 @@ public:
 class ISurface
 {
 public:
-	void DrawSetColor( int r, int g, int b, int a )
+	void DrawSetColor( Color color )
 	{
-		typedef void( __thiscall* original )( void*, int, int, int, int );
-		GetVirtualFunction<original>( this, 15 )( this, r, g, b, a );
+		typedef void( __thiscall* original )( void*, Color );
+		GetVirtualFunction<original>( this, 14 )( this, color );
 	}
 	void DrawFilledRect( int x0, int y0, int x1, int y1 )
 	{
@@ -398,10 +418,10 @@ public:
 		typedef void( __thiscall* original )( void*, unsigned long );
 		GetVirtualFunction<original>( this, 23 )( this, font );
 	}
-	void DrawSetTextColor( int r, int g, int b, int a )
+	void DrawSetTextColor( Color color )
 	{
-		typedef void( __thiscall* original )( void*, int, int, int, int );
-		GetVirtualFunction<original>( this, 25 )( this, r, g, b, a );
+		typedef void( __thiscall* original )( void*, Color );
+		GetVirtualFunction<original>( this, 24 )( this, color );
 	}
 	void DrawSetTextPos( int x, int y )
 	{

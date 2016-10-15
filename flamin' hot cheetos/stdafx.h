@@ -16,6 +16,7 @@
 #include <memory>
 #include <vector>
 #include <locale>
+#include <mutex>
 
 #include "cx_strenc.h"
 
@@ -39,5 +40,8 @@
 
 void uninitializeRoutine( void* lpArguments );
 extern bool shouldUnload;
+
+// windows mouse sensitivity (usually 1 is default)
+#define systemSensitivity 1.0f
 
 #endif

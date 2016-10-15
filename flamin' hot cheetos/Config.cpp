@@ -11,7 +11,7 @@ Config::Config( )
 
 void Config::loadConfig( )
 {
-	if ( doesFileExist( charenc( "csgo//cfg//cheetos//config.ini" ) ) )
+	if ( doesFileExist( strenc( "csgo//cfg//cheetos//config.ini" ) ) )
 	{
 		configManager.initialize( charenc( "config.ini" ) );
 
@@ -94,7 +94,7 @@ void Config::saveConfig( )
 
 void Config::loadSkinConfig( )
 {
-	if ( doesFileExist( charenc( "csgo//cfg//cheetos//skinconfig.ini" ) ) )
+	if ( doesFileExist( strenc( "csgo//cfg//cheetos//skinconfig.ini" ) ) )
 	{
 		configManager.initialize( charenc( "skinconfig.ini" ) );
 

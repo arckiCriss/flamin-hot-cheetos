@@ -1,8 +1,5 @@
 #include "Miscellaneous.h"
 
-// windows mouse sensitivity (usually 1 is default)
-#define systemSensitivity 1.0f
-
 Misc miscellaneous;
 
 void Misc::doBunnyhop( CBaseEntity* local, CUserCmd* cmd )

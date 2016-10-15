@@ -4,21 +4,20 @@ PaintTraverse_t originalPaintTraverse;
 
 void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool allowforce )
 {
-	originalPaintTraverse( interfaces::panel, vguipanel, forcerepaint, allowforce );
+	originalPaintTraverse( vguipanel, forcerepaint, allowforce );
 
-	static bool doOnce = false;
-	if ( !doOnce )
+	static std::once_flag onceFlag;
+	std::call_once( onceFlag, [ ]
 	{
 		drawing.initializeFonts( );
-		doOnce = true;
-	}
+	} );
 
 	static unsigned int drawpanel = 0;
 
 	if ( !drawpanel )
 	{
-		const char* pszPanelName = interfaces::panel->GetName( vguipanel );
-		if ( pszPanelName && pszPanelName [ 0 ] == 'M' && pszPanelName [ 3 ] == 'S' && pszPanelName [ 9 ] == 'T' && pszPanelName [ 12 ] == 'P' )
+		const char* panelName = interfaces::panel->GetName( vguipanel );
+		if ( panelName && panelName [ 0 ] == 'M' && panelName [ 3 ] == 'S' && panelName [ 9 ] == 'T' && panelName [ 12 ] == 'P' )
 			drawpanel = vguipanel;
 	}
 
@@ -30,12 +29,11 @@ void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool al
 			if ( !local )
 				return;
 
-			visuals.getScreenSize( );
 			visuals.think( local );
 		}
 
-		menu.think( );
+		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 10-14-2016" ) );
 
-		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 10-09-2016" ) );
+		menu.think( );
 	}
 }

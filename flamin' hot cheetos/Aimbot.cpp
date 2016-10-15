@@ -1,8 +1,5 @@
 #include "Aimbot.h"
 
-// windows mouse sensitivity (usually 1 is default)
-#define systemSensitivity 1.0f
-
 Aimbot aimbot;
 
 Aimbot::Aimbot( )
@@ -56,7 +53,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	finalAngles = viewAngles - aimAngles;
 	tools.normalizeAngles( finalAngles );
 
-	finalAngles = viewAngles - ( viewAngles - aimAngles ) / cvar::aimbot_smoothing;
+	finalAngles = viewAngles - finalAngles / cvar::aimbot_smoothing;
 	tools.normalizeAngles( finalAngles );
 	tools.clampAngles( finalAngles );
 

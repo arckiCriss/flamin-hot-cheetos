@@ -16,6 +16,8 @@ void Visuals::think( CBaseEntity* local )
 	if ( !cvar::esp_enabled )
 		return;
 
+	getScreenSize( );
+
 	for ( int i = 1; i <= interfaces::entitylist->GetHighestEntityIndex( ); i++ )
 	{
 		if ( i == local->GetIndex( ) )

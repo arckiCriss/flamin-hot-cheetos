@@ -4,8 +4,8 @@ RenderView_t originalRenderView;
 
 void __stdcall RenderView( CViewSetup& view, int clearflags, int whattodraw )
 {
-	if ( cvar::misc_overridefov )
+	if ( cvar::misc_overridefov > 0 )
 		view.fovViewmodel += cvar::misc_overridefov;
 
-	originalRenderView( interfaces::viewRender, view, clearflags, whattodraw );
+	originalRenderView( view, clearflags, whattodraw );
 }

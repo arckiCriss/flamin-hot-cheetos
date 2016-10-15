@@ -14,11 +14,11 @@ namespace offsets
 		player::m_bGunGameImmunity = 0x38B0;
 		player::m_vecOrigin = 0x134;
 		player::m_vecViewOffset = 0x104;
-		player::m_nTickBase = 0x3420;
+		player::m_nTickBase = 0x3424;
 		player::m_hActiveWeapon = 0x2EE8;
 		player::m_szLastPlaceName = 0x35A4;
 		player::m_hOwner = 0x29BC;
-		player::m_vecPunchAngle = 0x3020;
+		player::m_aimPunchAngle = 0x301C;
 		player::m_bIsScoped = 0x389C;
 		player::m_vecVelocity = 0x110;
 		player::m_iAccount = 0xA9EC;
@@ -61,7 +61,7 @@ namespace offsets
 		DWORD m_hActiveWeapon = 0;
 		DWORD m_iShotsFired = 0;
 		DWORD m_hOwner = 0;
-		DWORD m_vecPunchAngle = 0;
+		DWORD m_aimPunchAngle = 0;
 		DWORD m_bIsScoped = 0;
 		DWORD m_vecVelocity = 0;
 		DWORD m_iAccount = 0;

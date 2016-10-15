@@ -33,61 +33,60 @@ void Drawing::initializeFonts( )
 
 int getWidth( unsigned long font, const char* text, ... )
 {
-	int wide = 0, tall = 0;
+	int width = 0, height = 0;
 	int bufferSize = MultiByteToWideChar( CP_UTF8, 0x0, text, -1, 0, 0 );
 
 	wchar_t* unicode = new wchar_t [ bufferSize ];
 	MultiByteToWideChar( CP_UTF8, 0x0, text, -1, unicode, bufferSize );
 
-	interfaces::surface->GetTextSize( font, unicode, wide, tall );
+	interfaces::surface->GetTextSize( font, unicode, width, height );
 	delete [ ] unicode;
 
-	return wide;
+	return width;
 }
 
-std::wstring getWide( const std::string& text )
+void Drawing::drawString( unsigned long font, bool shouldCenter, int x, int y, Color color, const char* fmt, ... )
 {
-	std::wstring wide( text.length( ), L' ' );
-	std::copy( text.begin( ), text.end( ), wide.begin( ) );
-
-	return wide;
-}
-
-void Drawing::drawString( unsigned long font, bool shouldCenter, int x, int y, Color color, const char* text, ... )
-{
-	if ( !text )
+	if ( !fmt )
 		return;
 
-	char buffer [ MAX_PATH ];
-
-	vsprintf_s( buffer, text, ( char* ) &text + _INTSIZEOF( text ) );
+	va_list args;
+	va_start( args, fmt );
+	char buffer [ 1024 ];
+	vsprintf_s( buffer, fmt, args );
 
 	if ( shouldCenter )
 		x -= getWidth( font, buffer ) / 2;
 
-	interfaces::surface->DrawSetTextColor( color.r( ), color.g( ), color.b( ), color.a( ) );
-	interfaces::surface->DrawSetTextFont( font );
 	interfaces::surface->DrawSetTextPos( x, y );
+	interfaces::surface->DrawSetTextFont( font );
+	interfaces::surface->DrawSetTextColor( color );
 
-	std::wstring wide = getWide( std::string( buffer ) );
-	interfaces::surface->DrawPrintText( wide.c_str( ), wide.length( ) );
+	int chars = MultiByteToWideChar( CP_ACP, 0, buffer, -1, NULL, 0 );
+
+	const WCHAR* text = new WCHAR [ chars ];
+	MultiByteToWideChar( CP_ACP, 0, buffer, -1, ( LPWSTR ) text, chars );
+
+	va_end( args );
+
+	interfaces::surface->DrawPrintText( text, wcslen( text ) );
 }
 
 void Drawing::drawLine( int x1, int y1, int x2, int y2, Color color )
 {
-	interfaces::surface->DrawSetColor( color.r( ), color.g( ), color.b( ), color.a( ) );
+	interfaces::surface->DrawSetColor( color );
 	interfaces::surface->DrawLine( x1, y1, x2, y2 );
 }
 
 void Drawing::drawFilledRect( int x, int y, int w, int h, Color color )
 {
-	interfaces::surface->DrawSetColor( color.r( ), color.g( ), color.b( ), color.a( ) );
+	interfaces::surface->DrawSetColor( color );
 	interfaces::surface->DrawFilledRect( x, y, x + w, y + h );
 }
 
 void Drawing::drawOutlinedRect( int x, int y, int w, int h, Color color )
 {
-	interfaces::surface->DrawSetColor( color.r( ), color.g( ), color.b( ), color.a( ) );
+	interfaces::surface->DrawSetColor( color );
 	interfaces::surface->DrawOutlinedRect( x, y, x + w, y + h );
 }
 
@@ -95,7 +94,7 @@ void Drawing::drawOutlinedBox( int x, int y, int w, int h, Color color, Color co
 {
 	drawOutlinedRect( x, y, w, h, color );
 
-	interfaces::surface->DrawSetColor( colorOutline.r( ), colorOutline.g( ), colorOutline.b( ), colorOutline.a( ) );
+	interfaces::surface->DrawSetColor( colorOutline );
 	interfaces::surface->DrawOutlinedRect( x + 1, y + 1, x + w - 1, y + h - 1 );
 	interfaces::surface->DrawOutlinedRect( x - 1, y - 1, x + w + 1, y + h + 1 );
 }

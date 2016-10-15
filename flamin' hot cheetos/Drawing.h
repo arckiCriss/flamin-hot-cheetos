@@ -16,8 +16,7 @@ public:
 	void drawLine( int x1, int y1, int x2, int y2, Color color );
 	void drawFilledRect( int x, int y, int w, int h, Color color );
 	void drawOutlinedRect( int x, int y, int w, int h, Color color );
-
-	void drawString( unsigned long font, bool shouldCenter, int x, int y, Color color, const char* text, ... );
+	void drawString( unsigned long font, bool shouldCenter, int x, int y, Color color, const char* fmt, ... );
 	void drawOutlinedBox( int x, int y, int w, int h, Color color, Color colorOutline );
 	void drawBar( int x, int y, int w, int h, Color color, float value );
 
