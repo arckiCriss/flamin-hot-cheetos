@@ -28,7 +28,7 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 					continue;
 
 				std::string modelName = interfaces::modelinfo->GetModelName( entity->GetModel( ) );
-				if ( modelName.find( charenc( "models/weapons" ) ) == std::string::npos )
+				if ( modelName.find( strenc( "models/weapons" ) ) == std::string::npos )
 					continue;
 
 				CBaseEntity* owner = interfaces::entitylist->GetClientEntityFromHandle( entity->GetOwner( ) );
@@ -38,7 +38,7 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 
 				CBaseCombatWeapon* weapon = ( CBaseCombatWeapon* ) entity;
 				if ( !weapon )
-					return;
+					continue;
 
 				if ( !weapon->IsKnife( ) )
 				{

@@ -179,15 +179,13 @@ public:
 	}
 	IVClientClass* GetClientClass( )
 	{
-		void* pNetworkable = ( void* ) ( this + 0x8 );
 		typedef IVClientClass* ( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( pNetworkable, 2 )( pNetworkable );
+		return GetVirtualFunction<original>( ( void* ) ( this + 0x8 ), 2 )( ( void* ) ( this + 0x8 ) );
 	}
 	void GetRenderBounds( Vector& mins, Vector& maxs )
 	{
-		void* pRenderable = ( void* ) ( this + 0x4 );
 		typedef void( __thiscall* original )( void*, Vector&, Vector& );
-		GetVirtualFunction<original>( pRenderable, 17 )( pRenderable, mins, maxs );
+		GetVirtualFunction<original>( ( void* ) ( this + 0x4 ), 17 )( ( void* ) ( this + 0x4 ), mins, maxs );
 	}
 };
 
