@@ -17,7 +17,7 @@ namespace offsets
 		player::m_nTickBase = 0x3424;
 		player::m_hActiveWeapon = 0x2EE8;
 		player::m_szLastPlaceName = 0x35A4;
-		player::m_hOwner = 0x29BC;
+		player::m_hOwner = 0x148;
 		player::m_aimPunchAngle = 0x301C;
 		player::m_bIsScoped = 0x389C;
 		player::m_vecVelocity = 0x110;

@@ -358,10 +358,10 @@ public:
 		typedef CBaseEntity* ( __thiscall* original )( void*, int );
 		return GetVirtualFunction<original>( this, 3 )( this, entnum );
 	}
-	CBaseEntity* GetClientEntityFromHandle( int hEnt )
+	CBaseEntity* GetClientEntityFromHandle( int ent )
 	{
 		typedef CBaseEntity* ( __thiscall* original )( void*, int );
-		return GetVirtualFunction<original>( this, 4 )( this, hEnt );
+		return GetVirtualFunction<original>( this, 4 )( this, ent );
 	}
 	int GetHighestEntityIndex( )
 	{
