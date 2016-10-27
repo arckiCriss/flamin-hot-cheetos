@@ -6,6 +6,7 @@
 //=============================================================================//
 #ifndef CHECKSUM_CRC_H
 #define CHECKSUM_CRC_H
+
 #pragma once
 
 typedef unsigned int CRC32_t;

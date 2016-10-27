@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Tools.h" />
     <ClInclude Include="FindMDL.h" />
     <ClInclude Include="RenderView.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp" />
     <ClCompile Include="FindMDL.cpp" />
     <ClCompile Include="RenderView.cpp" />
     <ClCompile Include="IN_KeyEvent.cpp" />

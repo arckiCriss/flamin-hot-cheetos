@@ -1,5 +1,6 @@
 #ifndef DT_RECV_H
 #define DT_RECV_H
+
 #pragma once
 
 struct RecvProp;

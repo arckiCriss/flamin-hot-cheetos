@@ -94,6 +94,9 @@
     <Filter Include="Project Files\SDK\Definitions">
       <UniqueIdentifier>{d316fb36-5cd1-4e6d-8c27-258206a83a30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Features\Proxy">
+      <UniqueIdentifier>{24d051c3-b95e-4f46-b3b2-808ad558dacb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLMain.cpp">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="Tools.cpp">
       <Filter>Project Files\SDK\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp">
+      <Filter>Project Files\Features\Proxy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="SDKDefinitions.h">
       <Filter>Project Files\SDK\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h">
+      <Filter>Project Files\Features\Proxy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
