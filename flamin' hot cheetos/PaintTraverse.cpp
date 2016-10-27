@@ -32,7 +32,7 @@ void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool al
 			visuals.think( local );
 		}
 
-		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 10-14-2016" ) );
+		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 10-27-2016" ) );
 
 		menu.think( );
 	}
