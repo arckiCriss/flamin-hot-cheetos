@@ -5,20 +5,12 @@
 
 #include "stdafx.h"
 
-class Proxy
+namespace proxy
 {
-public:
-	Proxy( );
+	extern RecvVarProxyFn modelIndexProxy;
 
 	void initialize( );
-
-private:
 	void setModelIndex( const CRecvProxyData* proxydata, void* datastruct, void* out );
-
-private:
-	RecvVarProxyFn modelIndexProxy;
-};
-
-extern Proxy proxy;
+}
 
 #endif

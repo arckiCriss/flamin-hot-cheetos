@@ -52,9 +52,6 @@
     <Filter Include="Project Files\Core\Hooks\RenderView">
       <UniqueIdentifier>{597ef671-e2f2-4ce1-bac3-f7f854e90934}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Core\Hooks\FindMDL">
-      <UniqueIdentifier>{8c773b51-e2e5-4b90-b667-d7a9c2e9d6a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Core\Encryption">
       <UniqueIdentifier>{a964d8d7-a2b7-4210-bd31-0bd5700284b1}</UniqueIdentifier>
     </Filter>
@@ -159,9 +156,6 @@
     <ClCompile Include="RenderView.cpp">
       <Filter>Project Files\Core\Hooks\RenderView</Filter>
     </ClCompile>
-    <ClCompile Include="FindMDL.cpp">
-      <Filter>Project Files\Core\Hooks\FindMDL</Filter>
-    </ClCompile>
     <ClCompile Include="checksum_crc.cpp">
       <Filter>Project Files\SDK\Checksum</Filter>
     </ClCompile>
@@ -184,15 +178,6 @@
     </ClInclude>
     <ClInclude Include="VFTManager.h">
       <Filter>Project Files\Core\VFT</Filter>
-    </ClInclude>
-    <ClInclude Include="cx_strenc.h">
-      <Filter>Project Files\Core\Encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="cx_fnv1.h">
-      <Filter>Project Files\Core\Encryption</Filter>
-    </ClInclude>
-    <ClInclude Include="cx_pcg32.h">
-      <Filter>Project Files\Core\Encryption</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Project Files\Features\Drawing</Filter>
@@ -251,9 +236,6 @@
     <ClInclude Include="RenderView.h">
       <Filter>Project Files\Core\Hooks\RenderView</Filter>
     </ClInclude>
-    <ClInclude Include="FindMDL.h">
-      <Filter>Project Files\Core\Hooks\FindMDL</Filter>
-    </ClInclude>
     <ClInclude Include="checksum_crc.h">
       <Filter>Project Files\SDK\Checksum</Filter>
     </ClInclude>
@@ -271,6 +253,15 @@
     </ClInclude>
     <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h">
       <Filter>Project Files\Features\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_fnv1.h">
+      <Filter>Project Files\Core\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_pcg32.h">
+      <Filter>Project Files\Core\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_strenc.h">
+      <Filter>Project Files\Core\Encryption</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

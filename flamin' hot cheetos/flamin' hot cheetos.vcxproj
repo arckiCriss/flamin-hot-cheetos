@@ -113,7 +113,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <Optimization>Full</Optimization>
+      <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;FLAMINHOTCHEETOS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -144,9 +144,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_fnv1.h" />
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_pcg32.h" />
+    <ClInclude Include="..\flamin%27 hot cheetos\cx_strenc.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Tools.h" />
-    <ClInclude Include="FindMDL.h" />
     <ClInclude Include="RenderView.h" />
     <ClInclude Include="IN_KeyEvent.h" />
     <ClInclude Include="Weapons.h" />
@@ -163,9 +165,6 @@
     <ClInclude Include="CreateMove.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Control Variables.h" />
-    <ClInclude Include="cx_fnv1.h" />
-    <ClInclude Include="cx_pcg32.h" />
-    <ClInclude Include="cx_strenc.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="dt_recv.h" />
     <ClInclude Include="Menu.h" />
@@ -180,7 +179,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp" />
-    <ClCompile Include="FindMDL.cpp" />
     <ClCompile Include="RenderView.cpp" />
     <ClCompile Include="IN_KeyEvent.cpp" />
     <ClCompile Include="Weapons.cpp" />

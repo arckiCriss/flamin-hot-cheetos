@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "SDKDefinitions.h"
-#include "cx_strenc.h"
+//#include "cx_strenc.h"
 
 namespace WeaponConfig
 {

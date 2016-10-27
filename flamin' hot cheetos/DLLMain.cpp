@@ -12,7 +12,6 @@
 //  - implement proper aimbot smoothing (for mouse simulation)
 //  - improve header inclusion
 //  - keyboard hook for keystate management
-//  - use something else instead of FindMDL for knife changing
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
@@ -81,12 +80,11 @@ DWORD __stdcall handleCore( void* lpArguments )
 	return 1;
 }
 
-BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
+int __stdcall DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 {
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
-		DisableThreadLibraryCalls( hInstance );
 		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
 		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
 		break;
@@ -95,5 +93,5 @@ BOOL APIENTRY DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 		break;
 	}
 
-	return TRUE;
+	return 1;
 }
