@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -166,7 +166,6 @@
     <ClInclude Include="cx_pcg32.h" />
     <ClInclude Include="cx_strenc.h" />
     <ClInclude Include="Drawing.h" />
-    <ClInclude Include="dt_common.h" />
     <ClInclude Include="dt_recv.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="SDKDefinitions.h" />

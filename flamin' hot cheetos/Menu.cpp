@@ -34,7 +34,7 @@ void Menu::setMouse( )
 	if ( interfaces::engine->InGame( ) )
 	{
 		char buffer [ 32 ];
-		/*w_*/sprintf_s( buffer, sizeof( buffer ), charenc( "cl_mouseenable %i" ), !isCursorActive );
+		w_sprintf_s( buffer, sizeof( buffer ), charenc( "cl_mouseenable %i" ), !isCursorActive );
 		interfaces::engine->ExecuteClientCmd( buffer );
 	}
 }
