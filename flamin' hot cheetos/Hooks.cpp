@@ -27,7 +27,7 @@ namespace hooks
 		surface = std::make_unique<VFTManager>( ( DWORD** ) interfaces::surface, true );
 		originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
 
-		interfaces::engine->ClientCmd_Unrestricted( charenc( "echo [successfully hooked functions]" ) );
+		interfaces::engine->clientCmd_Unrestricted( charenc( "echo [successfully hooked functions]" ) );
 	}
 
 	void restore( )
@@ -39,7 +39,7 @@ namespace hooks
 
 		Sleep( 500 );
 
-		interfaces::engine->ClientCmd_Unrestricted( charenc( "cl_mouseenable 1" ) );
-		interfaces::engine->ClientCmd_Unrestricted( charenc( "echo [successfully unhooked functions]" ) );
+		interfaces::engine->clientCmd_Unrestricted( charenc( "cl_mouseenable 1" ) );
+		interfaces::engine->clientCmd_Unrestricted( charenc( "echo [successfully unhooked functions]" ) );
 	}
 }

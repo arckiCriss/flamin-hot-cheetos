@@ -1,10 +1,6 @@
 #ifndef SDK_H
 #define SDK_H
 
-#ifdef CreateFont
-#undef CreateFont
-#endif
-
 #include "stdafx.h"
 
 #include "Control Variables.h"
@@ -21,19 +17,19 @@
 // GET ENGINE FUNCTIONS
 //----------------------------------------
 
-inline void**& GetVirtualTable( void* inst, size_t offset = 0 )
+inline void**& getVirtualTable( void* inst, size_t offset = 0 )
 {
 	return *reinterpret_cast< void*** >( ( size_t ) inst + offset );
 }
-inline const void** GetVirtualTable( const void* inst, size_t offset = 0 )
+inline const void** getVirtualTable( const void* inst, size_t offset = 0 )
 {
 	return *reinterpret_cast< const void*** >( ( size_t ) inst + offset );
 }
 
 template<typename Fn>
-inline Fn GetVirtualFunction( const void* inst, size_t index, size_t offset = 0 )
+inline Fn getVirtualFunction( const void* inst, size_t index, size_t offset = 0 )
 {
-	return reinterpret_cast< Fn >( GetVirtualTable( inst, offset ) [ index ] );
+	return reinterpret_cast< Fn >( getVirtualTable( inst, offset ) [ index ] );
 }
 
 //----------------------------------------
@@ -43,71 +39,71 @@ inline Fn GetVirtualFunction( const void* inst, size_t index, size_t offset = 0 
 class CBaseEntity
 {
 public:
-	char GetLifeState( )
+	char getLifeState( )
 	{
 		return *( char* ) ( ( DWORD )this + offsets::player::m_lifeState );
 	}
-	int GetHealth( )
+	int getHealth( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_iHealth );
 	}
-	int GetArmor( )
+	int getArmor( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_ArmorValue );
 	}
-	int GetTeamNum( )
+	int getTeamNum( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_iTeamNum );
 	}
-	bool IsProtected( )
+	bool isProtected( )
 	{
 		return *( bool* ) ( ( DWORD )this + offsets::player::m_bGunGameImmunity );
 	}
-	bool IsScoped( )
+	bool isScoped( )
 	{
 		return *( bool* ) ( ( DWORD )this + offsets::player::m_bIsScoped );
 	}
-	int GetAccount( )
+	int getAccount( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_iAccount );
 	}
-	int GetFlags( )
+	int getFlags( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_fFlags );
 	}
-	int GetShotsFired( )
+	int getShotsFired( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_iShotsFired );
 	}
-	int GetTickBase( )
+	int getTickBase( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::player::m_nTickBase );
 	}
-	const char* GetLastPlaceName( )
+	const char* getLastPlaceName( )
 	{
 		return ( char* ) ( ( DWORD )this + offsets::player::m_szLastPlaceName );
 	}
-	Vector GetViewOffset( )
+	Vector getViewOffset( )
 	{
 		return *( Vector* ) ( ( DWORD )this + offsets::player::m_vecViewOffset );
 	}
-	Vector GetOrigin( )
+	Vector getOrigin( )
 	{
 		return *( Vector* ) ( ( DWORD )this + offsets::player::m_vecOrigin );
 	}
-	Vector GetEyePosition( )
+	Vector getEyePosition( )
 	{
-		return ( GetOrigin( ) + GetViewOffset( ) );
+		return ( getOrigin( ) + getViewOffset( ) );
 	}
-	Vector GetVelocity( )
+	Vector getVelocity( )
 	{
 		return *( Vector* ) ( ( DWORD )this + offsets::player::m_vecVelocity );
 	}
-	QAngle GetPunchAngles( )
+	QAngle getPunchAngles( )
 	{
 		return *( QAngle* ) ( ( DWORD )this + offsets::player::m_aimPunchAngle );
 	}
-	ULONG GetOwner( )
+	ULONG getOwner( )
 	{
 		return *( ULONG* ) ( ( DWORD )this + offsets::player::m_hOwner );
 	}
@@ -115,16 +111,7 @@ public:
 	{
 		return *( matrix3x4* ) ( ( DWORD )this + offsets::entity::m_rgflCoordinateFrame );
 	}
-	Vector& GetAbsOrigin( )
-	{
-		__asm
-		{
-			MOV ECX, this
-			MOV EAX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EAX + 0x28]
-		}
-	}
-	Vector GetAbsAngles( )
+	Vector getAbsAngles( )
 	{
 		__asm
 		{
@@ -133,7 +120,7 @@ public:
 				CALL DWORD PTR DS : [EAX + 0x2C]
 		}
 	}
-	int GetIndex( )
+	int getIndex( )
 	{
 		__asm
 		{
@@ -143,7 +130,7 @@ public:
 			CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
-	bool IsDormant( )
+	bool isDormant( )
 	{
 		__asm
 		{
@@ -153,7 +140,7 @@ public:
 			CALL [ EDX + 0x24 ]
 		}
 	}
-	bool SetupBones( matrix3x4* matrix, int maxbones, int mask, float time )
+	bool setupBones( matrix3x4* matrix, int maxbones, int mask, float time )
 	{
 		__asm
 		{
@@ -167,7 +154,7 @@ public:
 			CALL DWORD PTR DS : [EDX + 0x34]
 		}
 	}
-	model_t* GetModel( )
+	model_t* getModel( )
 	{
 		__asm
 		{
@@ -177,15 +164,15 @@ public:
 			CALL [ EDX + 0x20 ]
 		}
 	}
-	IVClientClass* GetClientClass( )
+	IVClientClass* getClientClass( )
 	{
 		typedef IVClientClass* ( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( ( void* ) ( this + 0x8 ), 2 )( ( void* ) ( this + 0x8 ) );
+		return getVirtualFunction<original>( ( void* ) ( this + 0x8 ), 2 )( ( void* ) ( this + 0x8 ) );
 	}
-	void GetRenderBounds( Vector& mins, Vector& maxs )
+	void getRenderBounds( Vector& mins, Vector& maxs )
 	{
 		typedef void( __thiscall* original )( void*, Vector&, Vector& );
-		GetVirtualFunction<original>( ( void* ) ( this + 0x4 ), 17 )( ( void* ) ( this + 0x4 ), mins, maxs );
+		getVirtualFunction<original>( ( void* ) ( this + 0x4 ), 17 )( ( void* ) ( this + 0x4 ), mins, maxs );
 	}
 };
 
@@ -198,21 +185,21 @@ class CBaseCombatWeapon : public CBaseEntity
 private:
 	DWORD dwBase;
 public:
-	int GetItemDefinitionIndex( )
+	int getItemDefinitionIndex( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::weapon::m_iItemDefinitionIndex );
 	}
-	int GetClip1( )
+	int getClip1( )
 	{
 		return *( int* ) ( ( DWORD )this + offsets::weapon::m_iClip1 );
 	}
-	float GetNextPrimaryAttack( )
+	float getNextPrimaryAttack( )
 	{
 		return *( float* ) ( ( DWORD )this + offsets::weapon::m_flNextPrimaryAttack );
 	}
-	bool IsPistol( )
+	bool isPistol( )
 	{
-		switch ( this->GetItemDefinitionIndex( ) )
+		switch ( this->getItemDefinitionIndex( ) )
 		{
 		case WEAPON_DEAGLE: return true;
 		case WEAPON_DUALS: return true;
@@ -227,9 +214,9 @@ public:
 		default: return false;
 		}
 	}
-	bool IsKnife( )
+	bool isKnife( )
 	{
-		switch ( this->GetItemDefinitionIndex( ) )
+		switch ( this->getItemDefinitionIndex( ) )
 		{
 		case WEAPON_KNIFE_CT: return true;
 		case WEAPON_KNIFE_T: return true;
@@ -246,9 +233,9 @@ public:
 		default: return false;
 		}
 	}
-	bool IsOther( )
+	bool isOther( )
 	{
-		switch ( this->GetItemDefinitionIndex( ) )
+		switch ( this->getItemDefinitionIndex( ) )
 		{
 		case ITEM_NONE: return true;
 		case WEAPON_TASER: return true;
@@ -264,10 +251,10 @@ public:
 	}
 	void setPattern( player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "" )
 	{
-		if ( this->IsOther( ) )
+		if ( this->isOther( ) )
 			return;
 
-		if ( this->IsKnife( ) )
+		if ( this->isKnife( ) )
 		{
 			switch ( cvar::misc_knifechanger_model )
 			{
@@ -295,9 +282,9 @@ public:
 		if ( stattrak > 0 )
 			*( int* ) ( ( DWORD )this + offsets::weapon::m_nFallbackStatTrak ) = stattrak;
 
-		if ( stattrak > 0 && !this->IsKnife( ) )
+		if ( stattrak > 0 && !this->isKnife( ) )
 			*( int* ) ( ( DWORD )this + offsets::weapon::m_iEntityQuality ) = 1;
-		else if ( this->IsKnife( ) )
+		else if ( this->isKnife( ) )
 			*( int* ) ( ( DWORD )this + offsets::weapon::m_iEntityQuality ) = 3;
 		else
 			*( int* ) ( ( DWORD )this + offsets::weapon::m_iEntityQuality ) = 4;
@@ -314,10 +301,10 @@ public:
 class CHLClient
 {
 public:
-	IVClientClass* GetAllClasses( )
+	IVClientClass* getAllClasses( )
 	{
 		typedef IVClientClass* ( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 8 )( this );
+		return getVirtualFunction<original>( this, 8 )( this );
 	}
 };
 
@@ -328,19 +315,19 @@ public:
 class IVClientClass
 {
 public:
-	const char* GetName( )
+	const char* getName( )
 	{
 		return *( char** ) ( this + 0x8 );
 	}
-	RecvTable* GetTable( )
+	RecvTable* getTable( )
 	{
 		return *( RecvTable** ) ( this + 0xC );
 	}
-	IVClientClass* NextClass( )
+	IVClientClass* getNextClass( )
 	{
 		return *( IVClientClass** ) ( this + 0x10 );
 	}
-	int GetClassID( )
+	int getClassID( )
 	{
 		return *( int* ) ( this + 0x14 );
 	}
@@ -353,20 +340,20 @@ public:
 class IClientEntityList
 {
 public:
-	CBaseEntity* GetClientEntity( int entnum )
+	CBaseEntity* getClientEntity( int entnum )
 	{
 		typedef CBaseEntity* ( __thiscall* original )( void*, int );
-		return GetVirtualFunction<original>( this, 3 )( this, entnum );
+		return getVirtualFunction<original>( this, 3 )( this, entnum );
 	}
-	CBaseEntity* GetClientEntityFromHandle( int ent )
+	CBaseEntity* getClientEntityFromHandle( int ent )
 	{
 		typedef CBaseEntity* ( __thiscall* original )( void*, int );
-		return GetVirtualFunction<original>( this, 4 )( this, ent );
+		return getVirtualFunction<original>( this, 4 )( this, ent );
 	}
-	int GetHighestEntityIndex( )
+	int getHighestEntityIndex( )
 	{
 		typedef int( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 6 )( this );
+		return getVirtualFunction<original>( this, 6 )( this );
 	}
 };
 
@@ -377,10 +364,10 @@ public:
 class IPanel
 {
 public:
-	const char* GetName( unsigned int vguiPanel )
+	const char* getName( unsigned int vguiPanel )
 	{
 		typedef const char*( __thiscall* original )( void*, unsigned int );
-		return GetVirtualFunction<original>( this, 36 )( this, vguiPanel );
+		return getVirtualFunction<original>( this, 36 )( this, vguiPanel );
 	}
 };
 
@@ -391,80 +378,70 @@ public:
 class ISurface
 {
 public:
-	void DrawSetColor( Color color )
+	void drawSetColor( Color color )
 	{
 		typedef void( __thiscall* original )( void*, Color );
-		GetVirtualFunction<original>( this, 14 )( this, color );
+		getVirtualFunction<original>( this, 14 )( this, color );
 	}
-	void DrawFilledRect( int x0, int y0, int x1, int y1 )
+	void drawFilledRect( int x0, int y0, int x1, int y1 )
 	{
 		typedef void( __thiscall* original )( void*, int, int, int, int );
-		GetVirtualFunction<original>( this, 16 )( this, x0, y0, x1, y1 );
+		getVirtualFunction<original>( this, 16 )( this, x0, y0, x1, y1 );
 	}
-	void DrawOutlinedRect( int x0, int y0, int x1, int y1 )
+	void drawOutlinedRect( int x0, int y0, int x1, int y1 )
 	{
 		typedef void( __thiscall* original )( void*, int x0, int y0, int x1, int y1 );
-		GetVirtualFunction<original>( this, 18 )( this, x0, y0, x1, y1 );
+		getVirtualFunction<original>( this, 18 )( this, x0, y0, x1, y1 );
 	}
-	void DrawLine( int x0, int y0, int x1, int y1 )
+	void drawLine( int x0, int y0, int x1, int y1 )
 	{
 		typedef void( __thiscall* original )( void*, int, int, int, int );
-		GetVirtualFunction<original>( this, 19 )( this, x0, y0, x1, y1 );
+		getVirtualFunction<original>( this, 19 )( this, x0, y0, x1, y1 );
 	}
-	void DrawSetTextFont( unsigned long font )
+	void drawSetTextFont( unsigned long font )
 	{
 		typedef void( __thiscall* original )( void*, unsigned long );
-		GetVirtualFunction<original>( this, 23 )( this, font );
+		getVirtualFunction<original>( this, 23 )( this, font );
 	}
-	void DrawSetTextColor( Color color )
+	void drawSetTextColor( Color color )
 	{
 		typedef void( __thiscall* original )( void*, Color );
-		GetVirtualFunction<original>( this, 24 )( this, color );
+		getVirtualFunction<original>( this, 24 )( this, color );
 	}
-	void DrawSetTextPos( int x, int y )
+	void drawSetTextPos( int x, int y )
 	{
 		typedef void( __thiscall* original )( void*, int, int );
-		GetVirtualFunction<original>( this, 26 )( this, x, y );
+		getVirtualFunction<original>( this, 26 )( this, x, y );
 	}
-	void DrawPrintText( const wchar_t* text, int textLen )
+	void drawPrintText( const wchar_t* text, int textLen )
 	{
 		typedef void( __thiscall* original )( void*, const wchar_t *, int, int );
-		GetVirtualFunction<original>( this, 28 )( this, text, textLen, 0 );
+		getVirtualFunction<original>( this, 28 )( this, text, textLen, 0 );
 	}
-	unsigned long CreateFont( )
+	unsigned long createFont( )
 	{
 		typedef unsigned int( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 71 )( this );
+		return getVirtualFunction<original>( this, 71 )( this );
 	}
-	void SetFontGlyphSet( unsigned long& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags )
+	void setFontGlyphSet( unsigned long& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags )
 	{
 		typedef void( __thiscall* original )( void*, unsigned long, const char*, int, int, int, int, int, int, int );
-		GetVirtualFunction<original>( this, 72 )( this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0 );
+		getVirtualFunction<original>( this, 72 )( this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0 );
 	}
-	bool AddCustomFontFile( const char* fontName )
-	{
-		typedef bool( __thiscall* original )( void*, const char* );
-		return GetVirtualFunction<original>( this, 73 )( this, fontName );
-	}
-	void GetTextSize( unsigned long font, const wchar_t *text, int &wide, int &tall )
+	void getTextSize( unsigned long font, const wchar_t *text, int &wide, int &tall )
 	{
 		typedef void( __thiscall* original )( void*, unsigned long font, const wchar_t *text, int &wide, int &tall );
-		GetVirtualFunction<original>( this, 79 )( this, font, text, wide, tall );
+		getVirtualFunction<original>( this, 79 )( this, font, text, wide, tall );
 	}
-	void GetCursorPos( int& x, int& y )
+	void getCursorPos( int& x, int& y )
 	{
 		typedef void( __thiscall* original )( void*, int &, int & );
-		GetVirtualFunction<original>( this, 100 )( this, x, y );
+		getVirtualFunction<original>( this, 100 )( this, x, y );
 	}
-	void SetCursorPos( int x, int y )
-	{
-		typedef void( __thiscall* original )( void*, int, int );
-		GetVirtualFunction<original>( this, 101 )( this, x, y );
-	}
-	const char* GetFontName( unsigned long font )
+	const char* getFontName( unsigned long font )
 	{
 		typedef const char*( __thiscall* original )( void*, unsigned long );
-		return GetVirtualFunction<original>( this, 134 )( this, font );
+		return getVirtualFunction<original>( this, 134 )( this, font );
 	}
 };
 
@@ -475,25 +452,10 @@ public:
 class IVDebugOverlay
 {
 public:
-	void AddBoxOverlay( const Vector& origin, const Vector& mins, const Vector& max, Vector const& orientation, int r, int g, int b, int a, float duration )
-	{
-		typedef void( __thiscall* original )( void*, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float );
-		GetVirtualFunction<original>( this, 3 )( this, origin, mins, max, orientation, r, g, b, a, duration );
-	}
-	void AddLineOverlay( const Vector& origin, const Vector& dest, int r, int g, int b, bool noDepthTest, float duration )
-	{
-		typedef void( __thiscall* original )( void*, const Vector& origin, const Vector& dest, int r, int g, int b, bool noDepthTest, float duration );
-		GetVirtualFunction<original>( this, 5 )( this, origin, dest, r, g, b, noDepthTest, duration );
-	}
-	void AddSweptBoxOverlay( const Vector& origin, const Vector& end, const Vector& mins, const Vector& max, Vector const& orientation, int r, int g, int b, int a, float duration )
-	{
-		typedef void( __thiscall* original )( void*, const Vector&, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float );
-		GetVirtualFunction<original>( this, 9 )( this, origin, end, mins, max, orientation, r, g, b, a, duration );
-	}
-	bool ScreenPosition( const Vector& vIn, Vector& vOut )
+	bool getScreenPosition( const Vector& vIn, Vector& vOut )
 	{
 		typedef bool( __thiscall* original )( void*, const Vector&, Vector& );
-		return GetVirtualFunction<original>( this, 13 )( this, vIn, vOut );
+		return getVirtualFunction<original>( this, 13 )( this, vIn, vOut );
 	}
 };
 
@@ -504,60 +466,55 @@ public:
 class IEngineClient
 {
 public:
-	void GetScreenSize( int& width, int& height )
+	void getScreenSize( int& width, int& height )
 	{
 		typedef void( __thiscall* original )( void*, int&, int& );
-		GetVirtualFunction<original>( this, 5 )( this, width, height );
+		getVirtualFunction<original>( this, 5 )( this, width, height );
 	}
-	bool GetPlayerInfo( int iIndex, player_info_t* pInfo )
+	bool getPlayerInfo( int iIndex, player_info_t* pInfo )
 	{
 		typedef bool( __thiscall* original )( void*, int, player_info_t* );
-		return GetVirtualFunction<original>( this, 8 )( this, iIndex, pInfo );
+		return getVirtualFunction<original>( this, 8 )( this, iIndex, pInfo );
 	}
-	int GetLocalPlayer( )
+	int getLocalPlayer( )
 	{
 		typedef int( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 12 )( this );
+		return getVirtualFunction<original>( this, 12 )( this );
 	}
-	float GetLastTimeStamp( )
+	float getLastTimeStamp( )
 	{
 		typedef float( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 14 )( this );
+		return getVirtualFunction<original>( this, 14 )( this );
 	}
-	void GetViewAngles( QAngle& angles )
+	void getViewAngles( QAngle& angles )
 	{
 		typedef void( __thiscall* original )( void*, QAngle& );
-		GetVirtualFunction<original>( this, 18 )( this, angles );
+		getVirtualFunction<original>( this, 18 )( this, angles );
 	}
-	void SetViewAngles( QAngle& angles )
+	void setViewAngles( QAngle& angles )
 	{
 		typedef void( __thiscall* original )( void*, QAngle& );
-		GetVirtualFunction<original>( this, 19 )( this, angles );
+		getVirtualFunction<original>( this, 19 )( this, angles );
 	}
-	int GetMaxClients( )
-	{
-		typedef int( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 20 )( this );
-	}
-	bool InGame( )
+	bool inGame( )
 	{
 		typedef bool( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 26 )( this );
+		return getVirtualFunction<original>( this, 26 )( this );
 	}
-	bool IsConnected( )
+	bool isConnected( )
 	{
 		typedef bool( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 27 )( this );
+		return getVirtualFunction<original>( this, 27 )( this );
 	}
-	void ExecuteClientCmd( const char* command )
+	void executeClientCmd( const char* command )
 	{
 		typedef void( __thiscall* original )( void*, const char* );
-		GetVirtualFunction<original>( this, 108 )( this, command );
+		getVirtualFunction<original>( this, 108 )( this, command );
 	}
-	void ClientCmd_Unrestricted( const char* command )
+	void clientCmd_Unrestricted( const char* command )
 	{
 		typedef void( __thiscall* original )( void*, const char *, char );
-		GetVirtualFunction<original>( this, 114 )( this, command, 0 );
+		getVirtualFunction<original>( this, 114 )( this, command, 0 );
 	}
 };
 
@@ -568,7 +525,7 @@ public:
 class CUserCmd
 {
 public:
-	CRC32_t GetChecksum( ) const
+	CRC32_t getChecksum( ) const
 	{
 		CRC32_t crc;
 		CRC32_Init( &crc );
@@ -620,10 +577,10 @@ public:
 		unsigned long	m_crc;
 	};
 
-	CUserCmd* GetUserCmd( int slot, int seq )
+	CUserCmd* getUserCmd( int slot, int seq )
 	{
 		typedef CUserCmd* ( __thiscall* original )( void*, int, int );
-		return GetVirtualFunction<original>( this, 8 )( this, slot, seq );
+		return getVirtualFunction<original>( this, 8 )( this, slot, seq );
 	}
 };
 
@@ -634,14 +591,6 @@ public:
 class IEngineTrace
 {
 public:
-	enum TraceType_t
-	{
-		TRACE_EVERYTHING = 0,
-		TRACE_WORLD_ONLY,				// NOTE: This does *not* test static props!!!
-		TRACE_ENTITIES_ONLY,			// NOTE: This version will *not* test static props
-		TRACE_EVERYTHING_FILTER_PROPS,	// NOTE: This version will pass the IHandleEntity for props through the filter, unlike all other filters
-	};
-
 	struct cplane_t
 	{
 		Vector normal;
@@ -660,13 +609,13 @@ public:
 
 	struct Ray_t
 	{
-		VectorAligned	 m_start;	// starting point, centered within the extents
-		VectorAligned	 m_delta;	// direction + length of the ray
-		VectorAligned	 m_startOffset;	// Add this to m_Start to get the actual ray start
-		VectorAligned	 m_extents;	// Describes an axis aligned box extruded along a ray
+		VectorAligned	 m_start;
+		VectorAligned	 m_delta;
+		VectorAligned	 m_startOffset;
+		VectorAligned	 m_extents;
 		const matrix3x4* m_worldAxisTransform;
-		bool			 m_isRay;	// are the extents zero?
-		bool			 m_isSwept;	// is delta != 0?
+		bool			 m_isRay;
+		bool			 m_isSwept;
 
 		Ray_t( ) : m_worldAxisTransform( 0 ) {}
 
@@ -683,37 +632,6 @@ public:
 
 			VectorClear( m_startOffset );
 			VectorCopy( start, m_start );
-		}
-		void Init( Vector const& start, Vector const& end, Vector const& mins, Vector const& maxs )
-		{
-			( &end );
-			VectorSubtract( end, start, m_delta ); //wait
-
-			m_worldAxisTransform = 0;
-			m_isSwept = ( m_delta.LengthSqr( ) != 0 );
-
-			VectorSubtract( maxs, mins, m_extents );
-			m_extents *= 0.5f;
-			m_isRay = ( m_extents.LengthSqr( ) < 1e-6 );
-
-			VectorAdd( mins, maxs, m_startOffset );
-			m_startOffset *= 0.5f;
-			VectorAdd( start, m_startOffset, m_start );
-			m_startOffset *= -1.0f;
-		}
-		Vector InvDelta( ) const
-		{
-			Vector invDelta;
-
-			for ( int i = 0; i < 3; ++i )
-			{
-				if ( m_delta [ i ] != 0.0f )
-					invDelta [ i ] = 1.0f / m_delta [ i ];
-				else
-					invDelta [ i ] = FLT_MAX;
-			}
-
-			return invDelta;
 		}
 	};
 
@@ -734,79 +652,19 @@ public:
 		WORD		 worldSurfaceIndex;
 		CBaseEntity* entity;
 		int			 hitbox;
-
-		bool DidHitWorld( IClientEntityList* entitylist )
-		{
-			return entity == ( CBaseEntity* ) entitylist->GetClientEntity( 0 );
-		}
-		bool DidHitNonWorldEntity( IClientEntityList* entitylist )
-		{
-			return entity != 0 && !DidHitWorld( entitylist );
-		}
-		bool DidHit( ) const
-		{
-			return fraction < 1.0f || allSolid || startSolid;
-		}
 	};
 
-	class ITraceFilter
+	class CTraceFilter
 	{
 	public:
-		virtual bool ShouldHitEntity( CBaseEntity* entity, int contentsMask ) = 0;
-		virtual TraceType_t GetTraceType( ) const = 0;
-	};
-
-	class CTraceFilter : public ITraceFilter
-	{
-	public:
-		bool ShouldHitEntity( CBaseEntity* entityHandle, int contentsMask )
-		{
-			return !( entityHandle == skip );
-		}
-		virtual TraceType_t GetTraceType( ) const
-		{
-			return TRACE_EVERYTHING;
-		}
-
 		void* skip;
 	};
 
-	class CTraceFilterSkipTwoEntities : public ITraceFilter
-	{
-	public:
-		CTraceFilterSkipTwoEntities( void* passEntity1, void* passEntity2 )
-		{
-			passentity1 = passEntity1;
-			passentity2 = passEntity2;
-		}
-		virtual bool ShouldHitEntity( CBaseEntity* entityHandle, int contentsMask )
-		{
-			return !( entityHandle == passentity1 || entityHandle == passentity2 );
-		}
-		virtual TraceType_t GetTraceType( ) const
-		{
-			return TRACE_EVERYTHING;
-		}
-
-		void* passentity1;
-		void* passentity2;
-	};
-
 public:
-	void TraceRay( const Ray_t& ray, unsigned int mask, CTraceFilter* filter, trace_t* trace )
+	void traceRay( const Ray_t& ray, unsigned int mask, CTraceFilter* filter, trace_t* trace )
 	{
 		typedef void( __thiscall* original )( void*, const Ray_t&, unsigned int, CTraceFilter*, trace_t* );
-		GetVirtualFunction<original>( this, 5 )( this, ray, mask, filter, trace );
-	}
-	void ClipRayToEntity( const Ray_t& ray, unsigned int mask, CBaseEntity* entity, trace_t* trace )
-	{
-		typedef void( __thiscall* original )( void*, const Ray_t&, unsigned int, CBaseEntity*, trace_t* );
-		GetVirtualFunction<original>( this, 3 )( this, ray, mask, entity, trace );
-	}
-	int GetPointContents( const Vector& absPosition, unsigned int mask, CBaseEntity** entity = 0 )
-	{
-		typedef int( __thiscall* original )( void*, const Vector&, unsigned int, CBaseEntity** );
-		return GetVirtualFunction<original>( this, 0 )( this, absPosition, mask, entity );
+		getVirtualFunction<original>( this, 5 )( this, ray, mask, filter, trace );
 	}
 };
 
@@ -854,30 +712,25 @@ public:
 class IVModelInfo
 {
 public:
-	int GetModelIndex( const char* modelName )
+	int getModelIndex( const char* modelName )
 	{
 		typedef int( __thiscall* original )( void*, const char* );
-		return GetVirtualFunction<original>( this, 2 )( this, modelName );
+		return getVirtualFunction<original>( this, 2 )( this, modelName );
 	}
-	const char* GetModelName( const model_t* pModel )
+	const char* getModelName( const model_t* pModel )
 	{
 		typedef const char* ( __thiscall* original )( void*, const model_t* );
-		return GetVirtualFunction<original>( this, 3 )( this, pModel );
+		return getVirtualFunction<original>( this, 3 )( this, pModel );
 	}
-	int GetInt( const char* keyName, int defaultValue = 0 )
+	int getInt( const char* keyName, int defaultValue = 0 )
 	{
 		typedef int( __thiscall* original )( void*, const char*, int );
-		return GetVirtualFunction<original>( this, 6 )( this, keyName, defaultValue );
+		return getVirtualFunction<original>( this, 6 )( this, keyName, defaultValue );
 	}
-	void GetModelMaterials( const model_t* model, int count, IMaterial** ppMaterial )
-	{
-		typedef void( __thiscall* original )( void*, const model_t*, int, IMaterial** );
-		return GetVirtualFunction< original >( this, 17 )( this, model, count, ppMaterial );
-	}
-	studiohdr_t* GetStudioModel( const model_t* model )
+	studiohdr_t* getStudioModel( const model_t* model )
 	{
 		typedef studiohdr_t* ( __thiscall* original )( void*, const model_t* );
-		return GetVirtualFunction<original>( this, 30 )( this, model );
+		return getVirtualFunction<original>( this, 30 )( this, model );
 	}
 };
 
@@ -888,25 +741,25 @@ public:
 class ConVar
 {
 public:
-	float GetFloat( )
+	float getFloat( )
 	{
 		typedef float( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 12 )( this );
+		return getVirtualFunction<original>( this, 12 )( this );
 	}
-	int GetInt( )
+	int getInt( )
 	{
 		typedef int( __thiscall* original )( void* );
-		return GetVirtualFunction<original>( this, 13 )( this );
+		return getVirtualFunction<original>( this, 13 )( this );
 	}
 };
 
 class ICVar
 {
 public:
-	ConVar* FindVar( const char *var )
+	ConVar* findVar( const char *var )
 	{
 		typedef ConVar*( __thiscall* original )( void*, const char * );
-		return GetVirtualFunction<original>( this, 15 )( this, var );
+		return getVirtualFunction<original>( this, 15 )( this, var );
 	}
 };
 

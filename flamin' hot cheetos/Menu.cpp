@@ -31,11 +31,11 @@ void Menu::setMouse( )
 
 	isCursorActive = !isCursorActive;
 
-	if ( interfaces::engine->InGame( ) )
+	if ( interfaces::engine->inGame( ) )
 	{
 		char buffer [ 32 ];
 		w_sprintf_s( buffer, sizeof( buffer ), charenc( "cl_mouseenable %i" ), !isCursorActive );
-		interfaces::engine->ExecuteClientCmd( buffer );
+		interfaces::engine->executeClientCmd( buffer );
 	}
 }
 
@@ -216,7 +216,7 @@ void Menu::drawMouse( )
 	if ( !isCursorActive )
 		return;
 
-	interfaces::surface->GetCursorPos( cursorPosition [ 0 ], cursorPosition [ 1 ] );
+	interfaces::surface->getCursorPos( cursorPosition [ 0 ], cursorPosition [ 1 ] );
 
 	drawing.drawFilledRect( cursorPosition [ 0 ] + 1, cursorPosition [ 1 ], 1, 17, Color( 3, 6, 26 ) );
 

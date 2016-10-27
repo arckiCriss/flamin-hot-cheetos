@@ -12,26 +12,26 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 		{
 			player_info_t info;
 
-			CBaseEntity* local = interfaces::entitylist->GetClientEntity( interfaces::engine->GetLocalPlayer( ) );
+			CBaseEntity* local = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
 			if ( !local
-				|| local->GetLifeState( ) != LIFE_ALIVE
-				|| !interfaces::engine->GetPlayerInfo( local->GetIndex( ), &info ) )
+				|| local->getLifeState( ) != LIFE_ALIVE
+				|| !interfaces::engine->getPlayerInfo( local->getIndex( ), &info ) )
 				return;
 
-			for ( int i = 1; i <= interfaces::entitylist->GetHighestEntityIndex( ); i++ )
+			for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
 			{
-				if ( i == local->GetIndex( ) )
+				if ( i == local->getIndex( ) )
 					continue;
 
-				CBaseEntity* entity = interfaces::entitylist->GetClientEntity( i );
+				CBaseEntity* entity = interfaces::entitylist->getClientEntity( i );
 				if ( !entity )
 					continue;
 
-				std::string modelName = interfaces::modelinfo->GetModelName( entity->GetModel( ) );
+				std::string modelName = interfaces::modelinfo->getModelName( entity->getModel( ) );
 				if ( modelName.find( strenc( "models/weapons" ) ) == std::string::npos )
 					continue;
 
-				CBaseEntity* owner = interfaces::entitylist->GetClientEntityFromHandle( entity->GetOwner( ) );
+				CBaseEntity* owner = interfaces::entitylist->getClientEntityFromHandle( entity->getOwner( ) );
 				if ( !owner
 					|| owner != local )
 					continue;
@@ -40,9 +40,9 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 				if ( !weapon )
 					continue;
 
-				if ( !weapon->IsKnife( ) )
+				if ( !weapon->isKnife( ) )
 				{
-					weapon->setPattern( info, config.skincfg [ weapon->GetItemDefinitionIndex( ) ].skin, config.skincfg [ weapon->GetItemDefinitionIndex( ) ].wear, config.skincfg [ weapon->GetItemDefinitionIndex( ) ].seed, config.skincfg [ weapon->GetItemDefinitionIndex( ) ].stattrak, config.skincfg [ weapon->GetItemDefinitionIndex( ) ].name );
+					weapon->setPattern( info, config.skincfg [ weapon->getItemDefinitionIndex( ) ].skin, config.skincfg [ weapon->getItemDefinitionIndex( ) ].wear, config.skincfg [ weapon->getItemDefinitionIndex( ) ].seed, config.skincfg [ weapon->getItemDefinitionIndex( ) ].stattrak, config.skincfg [ weapon->getItemDefinitionIndex( ) ].name );
 				}
 				else
 				{

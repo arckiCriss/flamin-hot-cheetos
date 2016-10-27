@@ -7,7 +7,7 @@ void Misc::doBunnyhop( CBaseEntity* local, CUserCmd* cmd )
 	if ( !cvar::misc_bunnyhop )
 		return;
 
-	if ( ( cmd->buttons & IN_JUMP ) && !( local->GetFlags( ) & FL_ONGROUND ) )
+	if ( ( cmd->buttons & IN_JUMP ) && !( local->getFlags( ) & FL_ONGROUND ) )
 		cmd->buttons &= ~IN_JUMP;
 }
 
@@ -16,12 +16,12 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 	if ( !cvar::misc_rcs )
 		return;
 
-	if ( weapon->IsOther( ) || weapon->IsKnife( ) )
+	if ( weapon->isOther( ) || weapon->isKnife( ) )
 		return;
 
 	static QAngle oldPunchAngles = QAngle( 0.0f, 0.0f, 0.0f );
 
-	QAngle punchAngles = local->GetPunchAngles( );
+	QAngle punchAngles = local->getPunchAngles( );
 	if ( punchAngles.x == 0.0f || punchAngles.y == 0.0f )
 		return;
 
@@ -31,7 +31,7 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 		return;
 	}
 
-	int shotsFired = local->GetShotsFired( ), oldShotsFired = 0;
+	int shotsFired = local->getShotsFired( ), oldShotsFired = 0;
 
 	if ( cmd->buttons & IN_ATTACK && shotsFired > 1 && shotsFired > oldShotsFired )
 	{
@@ -46,9 +46,9 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 		tools.normalizeAngles( finalAngles );
 		tools.clampAngles( finalAngles );
 
-		interfaces::engine->SetViewAngles( finalAngles );
+		interfaces::engine->setViewAngles( finalAngles );
 
-		/*static float gameSensitivity = interfaces::convar->FindVar( charenc( "sensitivity" ) )->GetFloat( );
+		/*static float gameSensitivity = interfaces::convar->findVar( charenc( "sensitivity" ) )->getFloat( );
 
 		float pixels = 0.022f * gameSensitivity * systemSensitivity;
 

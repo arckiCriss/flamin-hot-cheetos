@@ -18,23 +18,23 @@ void Visuals::think( CBaseEntity* local )
 
 	getScreenSize( );
 
-	for ( int i = 1; i <= interfaces::entitylist->GetHighestEntityIndex( ); i++ )
+	for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
 	{
-		if ( i == local->GetIndex( ) )
+		if ( i == local->getIndex( ) )
 			continue;
 
-		CBaseEntity* entity = interfaces::entitylist->GetClientEntity( i );
+		CBaseEntity* entity = interfaces::entitylist->getClientEntity( i );
 		if ( !entity
-			|| entity->IsDormant( ) )
+			|| entity->isDormant( ) )
 			continue;
 
 		if ( cvar::esp_draw_world )
 			drawWorld( entity );
 
-		if ( entity->GetClientClass( )->GetClassID( ) != CCSPlayer
-			|| entity->GetLifeState( ) != LIFE_ALIVE
-			|| entity->GetTeamNum( ) == local->GetTeamNum( )
-			|| !interfaces::engine->GetPlayerInfo( i, &info ) )
+		if ( entity->getClientClass( )->getClassID( ) != CCSPlayer
+			|| entity->getLifeState( ) != LIFE_ALIVE
+			|| entity->getTeamNum( ) == local->getTeamNum( )
+			|| !interfaces::engine->getPlayerInfo( i, &info ) )
 			continue;
 
 		drawGlow( entity );
@@ -46,7 +46,7 @@ void Visuals::think( CBaseEntity* local )
 
 void Visuals::getScreenSize( )
 {
-	interfaces::engine->GetScreenSize( width, height );
+	interfaces::engine->getScreenSize( width, height );
 }
 
 void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
@@ -54,7 +54,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 	const matrix3x4& trans = entity->getCoordinateFrame( );
 
 	Vector min, max;
-	entity->GetRenderBounds( min, max );
+	entity->getRenderBounds( min, max );
 
 	Vector pointList [ ] = {
 		Vector( min.x, min.y, min.z ),
@@ -108,19 +108,18 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 	float w = right - left;
 	float h = top - bottom;
 
-	bool isVisible = tools.isVisible( local->GetEyePosition( ), entity->GetEyePosition( ), entity );
-	if ( isVisible )
+	if ( tools.isVisible( local->getEyePosition( ), entity->getEyePosition( ), entity ) )
 	{
-		if ( entity->GetTeamNum( ) == 2 )
+		if ( entity->getTeamNum( ) == 2 )
 			espColor = Color( 255, 0, 0 );
-		else if ( entity->GetTeamNum( ) == 3 )
+		else if ( entity->getTeamNum( ) == 3 )
 			espColor = Color( 0, 0, 255 );
 	}
 	else
 	{
-		if ( entity->GetTeamNum( ) == 2 )
+		if ( entity->getTeamNum( ) == 2 )
 			espColor = Color( 255, 255, 0 );
-		else if ( entity->GetTeamNum( ) == 3 )
+		else if ( entity->getTeamNum( ) == 3 )
 			espColor = Color( 0, 255, 0 );
 	}
 
@@ -128,10 +127,10 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 		drawing.drawOutlinedBox( x, y, w, h, espColor, Color( 0, 0, 0 ) );
 
 	if ( cvar::esp_draw_health )
-		drawing.drawBar( x - 4, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->GetHealth( ) * 2.55f, entity->GetHealth( ) * 2.55f, 0 ), entity->GetHealth( ) );
+		drawing.drawBar( x - 4, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->getHealth( ) * 2.55f, entity->getHealth( ) * 2.55f, 0 ), entity->getHealth( ) );
 
 	if ( cvar::esp_draw_armor )
-		drawing.drawBar( x - 9, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->GetArmor( ) * 2.55f, entity->GetArmor( ) * 2.55f, 0 ), entity->GetArmor( ) );
+		drawing.drawBar( x - 9, y + h / 2 - 1, 4, h + 1, Color( 255.0f - entity->getArmor( ) * 2.55f, entity->getArmor( ) * 2.55f, 0 ), entity->getArmor( ) );
 
 	if ( cvar::esp_draw_name )
 		drawing.drawString( drawing.espFont, true, x + w / 2, y - 16, Color( 255, 255, 255 ), info.m_szPlayerName );
@@ -142,7 +141,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 		if ( weapon )
 		{
 			char weaponName [ 32 ];
-			switch ( weapon->GetItemDefinitionIndex( ) )
+			switch ( weapon->getItemDefinitionIndex( ) )
 			{
 			case ITEM_NONE: { strcpy( weaponName, charenc( "NONE" ) ); break; }
 			case WEAPON_DEAGLE: { strcpy( weaponName, charenc( "DEAGLE" ) ); break; }
@@ -199,8 +198,8 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 			default: { strcpy( weaponName, charenc( "NONE" ) ); break; }
 			}
 
-			if ( !weapon->IsKnife( ) && !weapon->IsOther( ) )
-				sprintf_s( weaponName, sizeof( weaponName ), "%s | %i", weaponName, weapon->GetClip1( ) );
+			if ( !weapon->isKnife( ) && !weapon->isOther( ) )
+				sprintf_s( weaponName, sizeof( weaponName ), "%s | %i", weaponName, weapon->getClip1( ) );
 			else
 				sprintf_s( weaponName, sizeof( weaponName ), "%s", weaponName );
 
@@ -211,46 +210,41 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 	int place = 0;
 
 	if ( cvar::esp_draw_health_text )
-		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i HP" ), entity->GetHealth( ) );
+		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i HP" ), entity->getHealth( ) );
 
 	if ( cvar::esp_draw_armor_text )
-		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i AP" ), entity->GetArmor( ) );
+		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), charenc( "%i AP" ), entity->getArmor( ) );
 
 	if ( cvar::esp_draw_callout )
-		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), entity->GetLastPlaceName( ) );
+		drawing.drawString( drawing.espFont, false, x + w + 5, y - 4 + ( place++ * 11 ), Color( 255, 255, 255 ), entity->getLastPlaceName( ) );
 }
 
 void Visuals::drawWorld( CBaseEntity* entity )
 {
-	if ( entity->GetAbsAngles( ).x == 0.0f && entity->GetAbsAngles( ).z == 0.0f )
+	if ( entity->getAbsAngles( ).x == 0.0f && entity->getAbsAngles( ).z == 0.0f )
 		return;
 
-	std::string modelName = interfaces::modelinfo->GetModelName( entity->GetModel( ) );
-	if ( modelName.find( charenc( "models/weapons/w_pist_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_rif_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_mach_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_snip_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_eq_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_shot_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos
-		|| modelName.find( charenc( "models/weapons/w_smg_" ) ) != std::string::npos && modelName.find( charenc( "_dropped.mdl" ) ) != std::string::npos )
+	std::string modelName = interfaces::modelinfo->getModelName( entity->getModel( ) );
+	if ( modelName.find( strenc( "models/weapons/w_pist_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_rif_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_mach_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_snip_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_eq_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_shot_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
+		|| modelName.find( strenc( "models/weapons/w_smg_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos )
 	{
-		modelName.erase( 0, modelName.find_first_of( "_", std::string( charenc( "abc" ) ).length( ) ) + 1 );
+		modelName.erase( 0, modelName.find_first_of( "_", std::string( strenc( "abc" ) ).length( ) ) + 1 );
 		modelName.erase( modelName.find_last_of( "_" ), 12 );
-		modelName.erase( 0, modelName.find_first_of( "_", std::string( charenc( "abc" ) ).length( ) ) + 1 );
+		modelName.erase( 0, modelName.find_first_of( "_", std::string( strenc( "abc" ) ).length( ) ) + 1 );
 
 		if ( !strcmp( modelName.c_str( ), charenc( "ied" ) ) )
-			modelName = charenc( "c4" );
+			modelName = strenc( "c4" );
 		else if ( !strcmp( modelName.c_str( ), charenc( "223" ) ) )
-			modelName = charenc( "usp-s" );
+			modelName = strenc( "usp-s" );
 		else if ( !strcmp( modelName.c_str( ), charenc( "75" ) ) )
-			modelName = charenc( "cz75" );
+			modelName = strenc( "cz75" );
 		else if ( !strcmp( modelName.c_str( ), charenc( "s" ) ) )
-			modelName = charenc( "m4a1-s" );
-
-		/*std::locale loc;
-
-		for ( std::string::size_type i = 0; i < modelName.length( ); ++i )
-			modelName [ i ] = std::toupper( modelName [ i ], loc );*/
+			modelName = strenc( "m4a1-s" );
 
 		drawBoundingBox( entity, Color( 255, 255, 255 ), modelName.c_str( ) );
 	}
@@ -261,7 +255,7 @@ void Visuals::drawBoundingBox( CBaseEntity* entity, Color color, const char* tex
 	const matrix3x4& trans = entity->getCoordinateFrame( );
 
 	Vector min, max;
-	entity->GetRenderBounds( min, max );
+	entity->getRenderBounds( min, max );
 
 	Vector pointList [ ] = {
 		Vector( min.x, min.y, min.z ),
@@ -350,9 +344,9 @@ void Visuals::drawGlow( CBaseEntity* entity )
 	if ( !glowObject )
 		return;
 
-	if ( entity->GetTeamNum( ) == 2 )
+	if ( entity->getTeamNum( ) == 2 )
 		glowColor = Color( 223, 175, 86, 153 );
-	else if ( entity->GetTeamNum( ) == 3 )
+	else if ( entity->getTeamNum( ) == 3 )
 		glowColor = Color( 113, 154, 220, 153 );
 
 	glowObject->glowColor = Vector( ( 1.0f / 255.0f ) * glowColor.r( ), ( 1.0f / 255.0f ) * glowColor.g( ), ( 1.0f / 255.0f ) * glowColor.b( ) );
@@ -403,13 +397,13 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 	int place = 0, place2 = 0;
 	bool doSwap = false, doSwap2 = false;
 
-	for ( int i = 1; i <= interfaces::engine->GetMaxClients( ); i++ )
+	for ( int i = 1; i <= interfaces::globalvars->maxclients; i++ )
 	{
 		player_info_t info;
 
-		CBaseEntity* entity = interfaces::entitylist->GetClientEntity( i );
+		CBaseEntity* entity = interfaces::entitylist->getClientEntity( i );
 		if ( !entity
-			|| !interfaces::engine->GetPlayerInfo( i, &info ) )
+			|| !interfaces::engine->getPlayerInfo( i, &info ) )
 			continue;
 
 		int playerRank = *( int* ) ( resourcePointer + offsets::player::m_iCompetitiveRanking + i * 4 );
@@ -439,7 +433,7 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 		case 18: {strcpy( playerRankName, charenc( "The Global Elite" ) ); break; }
 		}
 
-		if ( entity->GetTeamNum( ) == 2 )
+		if ( entity->getTeamNum( ) == 2 )
 		{
 			place++;
 
@@ -449,8 +443,8 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 				players [ i ].name = info.m_szPlayerName;
 				players [ i ].steamid = info.m_szSteamID;
-				players [ i ].health = entity->GetHealth( );
-				players [ i ].money = entity->GetAccount( );
+				players [ i ].health = entity->getHealth( );
+				players [ i ].money = entity->getAccount( );
 				players [ i ].mmrank = playerRankName;
 				players [ i ].mmwins = playerWins;
 
@@ -466,7 +460,7 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 			}
 		}
 
-		if ( entity->GetTeamNum( ) == 3 )
+		if ( entity->getTeamNum( ) == 3 )
 		{
 			place2++;
 
@@ -476,8 +470,8 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 				players [ i ].name = info.m_szPlayerName;
 				players [ i ].steamid = info.m_szSteamID;
-				players [ i ].health = entity->GetHealth( );
-				players [ i ].money = entity->GetAccount( );
+				players [ i ].health = entity->getHealth( );
+				players [ i ].money = entity->getAccount( );
 				players [ i ].mmrank = playerRankName;
 				players [ i ].mmwins = playerWins;
 

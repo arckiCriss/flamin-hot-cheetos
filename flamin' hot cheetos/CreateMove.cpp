@@ -6,7 +6,7 @@ void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bo
 {
 	originalCreateMove( interfaces::client, sequence_number, input_sample_frametime, active );
 
-	CUserCmd* cmd = interfaces::input->GetUserCmd( 0, sequence_number );
+	CUserCmd* cmd = interfaces::input->getUserCmd( 0, sequence_number );
 	if ( !cmd )
 		return;
 
@@ -15,8 +15,8 @@ void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bo
 	if ( !verified )
 		return;
 
-	CBaseEntity* local = interfaces::entitylist->GetClientEntity( interfaces::engine->GetLocalPlayer( ) );
-	if ( !local || local->GetLifeState( ) != LIFE_ALIVE )
+	CBaseEntity* local = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
+	if ( !local || local->getLifeState( ) != LIFE_ALIVE )
 		return;
 
 	miscellaneous.doBunnyhop( local, cmd );
@@ -33,5 +33,5 @@ void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bo
 	tools.clampAngles( cmd->viewangles );
 
 	verified->m_cmd = *cmd;
-	verified->m_crc = cmd->GetChecksum( );
+	verified->m_crc = cmd->getChecksum( );
 }

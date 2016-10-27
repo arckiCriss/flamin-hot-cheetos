@@ -21,7 +21,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( menu.isActive( ) )
 		return;
 
-	if ( weapon->IsOther( ) || weapon->IsKnife( ) )
+	if ( weapon->isOther( ) || weapon->isKnife( ) )
 		return;
 
 	if ( !( GetAsyncKeyState( cvar::general_key_aimbot ) & 0x8000 ) )
@@ -34,17 +34,17 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( bestTarget == -1 )
 		return;
 
-	CBaseEntity* entity = interfaces::entitylist->GetClientEntity( bestTarget );
+	CBaseEntity* entity = interfaces::entitylist->getClientEntity( bestTarget );
 	if ( !entity )
 		return;
 
-	if ( tools.getDistance( local->GetEyePosition( ), hitboxPosition ) > 8192.0f )
+	if ( tools.getDistance( local->getEyePosition( ), hitboxPosition ) > 8192.0f )
 		return;
 
 	hitboxPosition.x += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
 	hitboxPosition.y += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
 
-	tools.computeAngle( local->GetEyePosition( ), hitboxPosition, aimAngles );
+	tools.computeAngle( local->getEyePosition( ), hitboxPosition, aimAngles );
 	tools.normalizeAngles( aimAngles );
 
 	aimAngles -= getRandomizedRecoil( local );
@@ -57,7 +57,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	tools.normalizeAngles( finalAngles );
 	tools.clampAngles( finalAngles );
 
-	interfaces::engine->SetViewAngles( finalAngles );
+	interfaces::engine->setViewAngles( finalAngles );
 
 	/*if ( finalAngles.x > cvar::aimbot_smoothing )
 		finalAngles.x = cvar::aimbot_smoothing;
@@ -69,7 +69,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	else if ( finalAngles.y < -cvar::aimbot_smoothing )
 		finalAngles.y = -cvar::aimbot_smoothing;
 
-	static float gameSensitivity = interfaces::convar->FindVar( charenc( "sensitivity" ) )->GetFloat( );
+	static float gameSensitivity = interfaces::convar->findVar( charenc( "sensitivity" ) )->getFloat( );
 
 	float pixels = 0.022f * gameSensitivity * systemSensitivity;
 
@@ -81,10 +81,10 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 
 QAngle Aimbot::getRandomizedRecoil( CBaseEntity* local )
 {
-	QAngle punchAngles = local->GetPunchAngles( ) * tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max );
+	QAngle punchAngles = local->getPunchAngles( ) * tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max );
 	tools.normalizeAngles( punchAngles );
 
-	return ( local->GetShotsFired( ) > 1 ? punchAngles : QAngle( 0.0f, 0.0f, 0.0f ) );
+	return ( local->getShotsFired( ) > 1 ? punchAngles : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
 QAngle Aimbot::getRandomizedAngles( CBaseEntity* local )
@@ -110,7 +110,7 @@ QAngle Aimbot::getRandomizedAngles( CBaseEntity* local )
 		break;
 	}
 
-	return ( local->GetShotsFired( ) > 1 ? randomizedValue : QAngle( 0.0f, 0.0f, 0.0f ) );
+	return ( local->getShotsFired( ) > 1 ? randomizedValue : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
 bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest )
@@ -133,7 +133,7 @@ bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& 
 		if ( !tools.getHitboxPosition( hitbox, temp, entity ) )
 			continue;
 
-		float fov = tools.getFov( viewAngles, tools.computeAngle( local->GetEyePosition( ), temp ) );
+		float fov = tools.getFov( viewAngles, tools.computeAngle( local->getEyePosition( ), temp ) );
 		if ( fov < bestFov )
 		{
 			bestFov = fov;
@@ -155,33 +155,33 @@ int Aimbot::getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector
 	int bestTarget = -1;
 	float bestFov = cvar::aimbot_fov;
 
-	interfaces::engine->GetViewAngles( viewAngles );
+	interfaces::engine->getViewAngles( viewAngles );
 
 	for ( int i = 1; i <= interfaces::globalvars->maxclients; i++ )
 	{
-		if ( i == local->GetIndex( ) )
+		if ( i == local->getIndex( ) )
 			continue;
 
-		CBaseEntity* entity = interfaces::entitylist->GetClientEntity( i );
+		CBaseEntity* entity = interfaces::entitylist->getClientEntity( i );
 		if ( !entity
-			|| entity->IsDormant( )
-			|| entity->GetLifeState( ) != LIFE_ALIVE
-			|| entity->IsProtected( )
-			|| entity->GetClientClass( )->GetClassID( ) != CCSPlayer
-			|| entity->GetTeamNum( ) == local->GetTeamNum( )
-			|| !( entity->GetFlags( ) & FL_ONGROUND ) )
+			|| entity->isDormant( )
+			|| entity->getLifeState( ) != LIFE_ALIVE
+			|| entity->isProtected( )
+			|| entity->getClientClass( )->getClassID( ) != CCSPlayer
+			|| entity->getTeamNum( ) == local->getTeamNum( )
+			|| !( entity->getFlags( ) & FL_ONGROUND ) )
 			continue;
 
 		Vector hitbox;
 		if ( getClosestHitbox( local, entity, hitbox ) )
 			continue;
 
-		hitbox = tools.getPredictedPosition( hitbox, entity->GetVelocity( ) );
+		hitbox = tools.getPredictedPosition( hitbox, entity->getVelocity( ) );
 
-		float fov = tools.getFov( viewAngles + local->GetPunchAngles( ) * 2.0f, tools.computeAngle( local->GetEyePosition( ), hitbox ) );
+		float fov = tools.getFov( viewAngles + local->getPunchAngles( ) * 2.0f, tools.computeAngle( local->getEyePosition( ), hitbox ) );
 		if ( fov < bestFov && fov < cvar::aimbot_fov )
 		{
-			if ( tools.isVisible( local->GetEyePosition( ), hitbox, entity ) )
+			if ( tools.isVisible( local->getEyePosition( ), hitbox, entity ) )
 			{
 				bestFov = fov;
 				dest = hitbox;

@@ -12,19 +12,19 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 	if ( !cvar::misc_triggerbot )
 		return;
 
-	if ( weapon->IsOther( ) || weapon->IsKnife( ) )
+	if ( weapon->isOther( ) || weapon->isKnife( ) )
 		return;
 
 	if ( !( GetAsyncKeyState( cvar::general_key_triggerbot ) & 0x8000 ) )
 		return;
 
-	interfaces::engine->GetViewAngles( viewAngles );
-	viewAngles += local->GetPunchAngles( ) * 2.0f;
+	interfaces::engine->getViewAngles( viewAngles );
+	viewAngles += local->getPunchAngles( ) * 2.0f;
 
 	Vector traceStart, traceEnd;
 	tools.angleVectors( viewAngles, traceEnd );
 
-	traceStart = local->GetEyePosition( );
+	traceStart = local->getEyePosition( );
 	traceEnd = traceStart + ( traceEnd * 8192.0f );
 
 	IEngineTrace::trace_t trace;
@@ -33,20 +33,20 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 	filter.skip = local;
 
 	ray.Init( traceStart, traceEnd );
-	interfaces::enginetrace->TraceRay( ray, 0x46004003, &filter, &trace );
+	interfaces::enginetrace->traceRay( ray, 0x46004003, &filter, &trace );
 
 	if ( !trace.entity
 		|| trace.entity == local
-		|| trace.entity->GetLifeState( ) != LIFE_ALIVE
-		|| trace.entity->IsProtected( )
-		|| trace.entity->GetTeamNum( ) == local->GetTeamNum( ) )
+		|| trace.entity->getLifeState( ) != LIFE_ALIVE
+		|| trace.entity->isProtected( )
+		|| trace.entity->getTeamNum( ) == local->getTeamNum( ) )
 		return;
 
 	if ( !( trace.hitgroup < 10 && trace.hitgroup > 0 ) )
 		return;
 
-	weapon->GetItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;
+	weapon->getItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;
 
-	if ( weapon->IsPistol( ) && tools.isNotAbleToShoot( local, weapon ) )
-		weapon->GetItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons &= ~IN_ATTACK2 : cmd->buttons &= ~IN_ATTACK;
+	if ( weapon->isPistol( ) && tools.isNotAbleToShoot( local, weapon ) )
+		weapon->getItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons &= ~IN_ATTACK2 : cmd->buttons &= ~IN_ATTACK;
 }

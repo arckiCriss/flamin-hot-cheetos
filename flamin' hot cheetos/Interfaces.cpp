@@ -39,6 +39,6 @@ namespace interfaces
 		DWORD* clientVmt = ( DWORD* ) *( DWORD* ) client;
 		input = *( CInput** ) ( clientVmt [ 15 ] + 0x1 );
 
-		engine->ClientCmd_Unrestricted( charenc( "echo [successfully initialized interfaces]" ) );
+		engine->clientCmd_Unrestricted( charenc( "echo [successfully initialized interfaces]" ) );
 	}
 }

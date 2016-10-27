@@ -13,7 +13,7 @@ public:
 	void initialize( );
 
 private:
-	void setModelIndex( const CRecvProxyData* dataconst, void* datastruct, void* out );
+	void setModelIndex( const CRecvProxyData* proxydata, void* datastruct, void* out );
 
 private:
 	RecvVarProxyFn modelIndexProxy;

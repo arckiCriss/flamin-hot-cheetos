@@ -77,10 +77,10 @@ bool Tools::isVisible( Vector& start, Vector& end, CBaseEntity* entity )
 	IEngineTrace::trace_t trace;
 	IEngineTrace::Ray_t ray;
 	IEngineTrace::CTraceFilter filter;
-	filter.skip = interfaces::entitylist->GetClientEntity( interfaces::engine->GetLocalPlayer( ) );
+	filter.skip = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
 
 	ray.Init( start, end );
-	interfaces::enginetrace->TraceRay( ray, 0x4600400B, &filter, &trace );
+	interfaces::enginetrace->traceRay( ray, 0x4600400B, &filter, &trace );
 
 	return ( trace.entity == entity || trace.fraction > 0.99f );
 }
@@ -88,12 +88,12 @@ bool Tools::isVisible( Vector& start, Vector& end, CBaseEntity* entity )
 CBaseCombatWeapon* Tools::getActiveWeapon( CBaseEntity* entity )
 {
 	ULONG weaponHandle = ( ULONG ) *( DWORD* ) ( ( DWORD ) entity + 0x2EE8 );
-	return ( CBaseCombatWeapon* ) interfaces::entitylist->GetClientEntityFromHandle( weaponHandle );
+	return ( CBaseCombatWeapon* ) interfaces::entitylist->getClientEntityFromHandle( weaponHandle );
 }
 
 bool Tools::WorldToScreen( Vector& world, Vector& screen )
 {
-	return ( interfaces::debugoverlay->ScreenPosition( world, screen ) != 1 );
+	return ( interfaces::debugoverlay->getScreenPosition( world, screen ) != 1 );
 }
 
 float DotProductFloat( const float* v1, const float* v2 )
@@ -144,15 +144,15 @@ bool Tools::getHitboxPosition( int hitbox, Vector& output, CBaseEntity* entity )
 	if ( hitbox >= 22 )
 		return false;
 
-	const model_t* model = entity->GetModel( );
+	const model_t* model = entity->getModel( );
 	if ( model )
 	{
-		studiohdr_t* studioHdr = interfaces::modelinfo->GetStudioModel( model );
+		studiohdr_t* studioHdr = interfaces::modelinfo->getStudioModel( model );
 		if ( !studioHdr )
 			return false;
 
 		matrix3x4 matrix [ 128 ];
-		if ( !entity->SetupBones( matrix, 128, 0x100, interfaces::engine->GetLastTimeStamp( ) ) )
+		if ( !entity->setupBones( matrix, 128, 0x100, interfaces::engine->getLastTimeStamp( ) ) )
 			return false;
 
 		mstudiobbox_t* box = studioHdr->pHitbox( hitbox, 0 );
@@ -250,14 +250,14 @@ void Tools::clampAngles( QAngle& angles )
 
 bool Tools::isAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
 {
-	float serverTime = ( float ) entity->GetTickBase( ) * interfaces::globalvars->interval_per_tick;
-	return ( weapon->GetNextPrimaryAttack( ) < serverTime );
+	float serverTime = ( float ) entity->getTickBase( ) * interfaces::globalvars->interval_per_tick;
+	return ( weapon->getNextPrimaryAttack( ) < serverTime );
 }
 
 bool Tools::isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
 {
-	float serverTime = ( float ) entity->GetTickBase( ) * interfaces::globalvars->interval_per_tick;
-	return ( weapon->GetNextPrimaryAttack( ) > serverTime );
+	float serverTime = ( float ) entity->getTickBase( ) * interfaces::globalvars->interval_per_tick;
+	return ( weapon->getNextPrimaryAttack( ) > serverTime );
 }
 
 float Tools::random( float min, float max )
