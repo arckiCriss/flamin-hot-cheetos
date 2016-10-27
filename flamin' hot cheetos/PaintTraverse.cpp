@@ -16,8 +16,7 @@ void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool al
 
 	if ( !drawpanel )
 	{
-		const char* panelName = interfaces::panel->getName( vguipanel );
-		if ( panelName && panelName [ 0 ] == 'M' && panelName [ 3 ] == 'S' && panelName [ 9 ] == 'T' && panelName [ 12 ] == 'P' )
+		if ( !strcmp( interfaces::panel->getName( vguipanel ), charenc( "MatSystemTopPanel" ) ) )
 			drawpanel = vguipanel;
 	}
 
