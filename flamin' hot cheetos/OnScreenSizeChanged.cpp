@@ -2,9 +2,9 @@
 
 OnScreenSizeChanged_t originalOnScreenSizeChanged;
 
-void __stdcall OnScreenSizeChanged( int oldwidth, int oldheight )
+void __stdcall OnScreenSizeChanged( int oldWidth, int oldHeight )
 {
-	originalOnScreenSizeChanged( interfaces::surface, oldwidth, oldheight );
+	originalOnScreenSizeChanged( interfaces::surface, oldWidth, oldHeight );
 
 	drawing.initializeFonts( );
 }

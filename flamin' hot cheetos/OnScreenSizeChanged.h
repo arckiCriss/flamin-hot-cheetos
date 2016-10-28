@@ -5,7 +5,7 @@
 
 #include "stdafx.h"
 
-void __stdcall OnScreenSizeChanged( int oldwidth, int oldheight );
+void __stdcall OnScreenSizeChanged( int oldWidth, int oldHeight );
 
 typedef void( __thiscall* OnScreenSizeChanged_t )( ISurface*, int, int );
 extern OnScreenSizeChanged_t originalOnScreenSizeChanged;

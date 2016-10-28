@@ -2,9 +2,9 @@
 
 PaintTraverse_t originalPaintTraverse;
 
-void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool allowforce )
+void __stdcall PaintTraverse( unsigned int vguipanel, bool forceRepaint, bool allowForce )
 {
-	originalPaintTraverse( interfaces::panel, vguipanel, forcerepaint, allowforce );
+	originalPaintTraverse( interfaces::panel, vguipanel, forceRepaint, allowForce );
 
 	static std::once_flag onceFlag;
 	std::call_once( onceFlag, [ ]
