@@ -15,14 +15,14 @@ namespace hooks
 
 		client = std::make_unique<VFTManager>( ( DWORD** ) interfaces::client, true );
 		originalKeyEvent = client->hook( 20, ( IN_KeyEvent_t ) IN_KeyEvent );
-		originalCreateMove = client->hook( 21, ( CreateMove_t ) CreateMove );
+		// originalCreateMove = client->hook( 21, ( CreateMove_t ) CreateMove );
 		originalFrameStageNotify = client->hook( 36, ( FrameStageNotify_t ) FrameStageNotify );
 
 		renderview = std::make_unique<VFTManager>( ( DWORD** ) interfaces::viewRender, true );
-		originalRenderView = renderview->hook( 6, ( RenderView_t ) RenderView );
+		// originalRenderView = renderview->hook( 6, ( RenderView_t ) RenderView );
 
 		surface = std::make_unique<VFTManager>( ( DWORD** ) interfaces::surface, true );
-		originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
+		// originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
 
 		proxy::initialize( );
 

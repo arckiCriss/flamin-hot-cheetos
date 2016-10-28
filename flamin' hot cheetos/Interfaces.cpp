@@ -30,9 +30,9 @@ namespace interfaces
 		debugoverlay = ( IVDebugOverlay* ) tools.getInterface( charenc( "engine.dll" ), charenc( "VDebugOverlay" ) );
 		enginetrace = ( IEngineTrace* ) tools.getInterface( charenc( "engine.dll" ), charenc( "EngineTraceClient" ) );
 		modelinfo = ( IVModelInfo* ) tools.getInterface( charenc( "engine.dll" ), charenc( "VModelInfoClient" ) );
-		globalvars = ( CGlobalVars* ) *( DWORD* ) *( DWORD* ) ( tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\x8B\x40\x10\x89\x41\x04" ), charenc( "x????xxxxxx" ) ) + 0x1 );
+		globalvars = ( CGlobalVars* ) *( DWORD* ) *( DWORD* ) ( tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\x8B\x40\x10\x89\x41\x04" ), strenc( "x????xxxxxx" ) ) + 0x1 );
 		convar = ( ICVar* ) tools.getInterface( charenc( "vstdlib.dll" ), charenc( "VEngineCvar" ) );
-		viewRender = **( void*** ) ( ( DWORD ) tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\xFF\x50\x14\xE8\x00\x00\x00\x00\x5D" ), charenc( "xxxx????x" ) ) - 7 );
+		viewRender = **( void*** ) ( ( DWORD ) tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xFF\x50\x14\xE8\x00\x00\x00\x00\x5D" ), strenc( "xxxx????x" ) ) - 7 );
 
 		DWORD* clientVmt = ( DWORD* ) *( DWORD* ) client;
 		input = *( CInput** ) ( clientVmt [ 15 ] + 0x1 );

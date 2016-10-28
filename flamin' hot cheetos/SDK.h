@@ -116,8 +116,8 @@ public:
 		__asm
 		{
 			MOV ECX, this;
-			MOV EAX, DWORD PTR DS : [ECX]; Ge
-				CALL DWORD PTR DS : [EAX + 0x2C]
+			MOV EAX, DWORD PTR DS : [ECX];
+			CALL DWORD PTR DS : [EAX + 0x2C]
 		}
 	}
 	int getIndex( )
@@ -495,6 +495,11 @@ public:
 	{
 		typedef void( __thiscall* original )( void*, QAngle& );
 		getVirtualFunction<original>( this, 19 )( this, angles );
+	}
+	int getMaxClients( )
+	{
+		typedef int( __thiscall* original )( void* );
+		return getVirtualFunction<original>( this, 20 )( this );
 	}
 	bool inGame( )
 	{

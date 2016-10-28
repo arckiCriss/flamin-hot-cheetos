@@ -26,8 +26,7 @@ void Visuals::think( CBaseEntity* local )
 			|| entity->isDormant( ) )
 			continue;
 
-		if ( cvar::esp_draw_world )
-			drawWorld( entity );
+		// drawWorld( entity );
 
 		if ( entity->getClientClass( )->getClassID( ) != CCSPlayer
 			|| entity->getLifeState( ) != LIFE_ALIVE
@@ -35,7 +34,7 @@ void Visuals::think( CBaseEntity* local )
 			|| !interfaces::engine->getPlayerInfo( i, &info ) )
 			continue;
 
-		drawGlow( entity );
+		// drawGlow( entity );
 		// drawPlayer( local, entity );
 	}
 
@@ -219,6 +218,9 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 
 void Visuals::drawWorld( CBaseEntity* entity )
 {
+	if ( !cvar::esp_draw_world )
+		return;
+
 	if ( entity->getAbsAngles( ).x == 0.0f && entity->getAbsAngles( ).z == 0.0f )
 		return;
 
@@ -330,7 +332,7 @@ void Visuals::drawGlow( CBaseEntity* entity )
 	if ( !cvar::esp_draw_glow )
 		return;
 
-	static GlowObjectPointer_t getGlowObjectPointer = ( GlowObjectPointer_t ) ( tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33" ), charenc( "x????xxxx" ) ) );
+	static GlowObjectPointer_t getGlowObjectPointer = ( GlowObjectPointer_t ) ( tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33" ), strenc( "x????xxxx" ) ) );
 	static void* glowObjectPointer = getGlowObjectPointer( );
 	if ( !glowObjectPointer )
 		return;
@@ -388,10 +390,12 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 	drawing.drawString( drawing.scoreboardFont, false, x + 15, y + 190, Color( 0, 100, 255 ), charenc( "Counter-Terrorists" ) );
 	drawing.drawLine( x + 10, y + 205, x + boardWidth - 10, y + 205, Color( 0, 100, 255 ) );
 
-	static DWORD playerResource = tools.getPatternOffset( charenc( "client.dll" ), ( PBYTE ) charenc( "\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7" ), charenc( "xxxxxxxx????xx?????xxxxx" ) ) + 0xE;
-	static DWORD resourcePointer = **( DWORD** ) playerResource;
-	if ( !resourcePointer )
-		return;
+	static DWORD playerResource = 0;
+
+	if ( !playerResource )
+		playerResource = tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7" ), strenc( "xxxxxxxx????xx?????xxxxx" ) ) + 0xE;
+	
+	DWORD resourcePointer = **( DWORD** ) playerResource;
 
 	int place = 0, place2 = 0;
 	bool doSwap = false, doSwap2 = false;

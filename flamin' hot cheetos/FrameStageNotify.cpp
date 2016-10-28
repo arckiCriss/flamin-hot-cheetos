@@ -4,9 +4,7 @@ FrameStageNotify_t originalFrameStageNotify;
 
 void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 {
-	originalFrameStageNotify( interfaces::client, curstage );
-
-	if ( curstage == FRAME_NET_UPDATE_POSTDATAUPDATE_START )
+	while ( curstage == FRAME_NET_UPDATE_POSTDATAUPDATE_START )
 	{
 		if ( cvar::misc_skinchanger )
 		{
@@ -16,7 +14,7 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 			if ( !local
 				|| local->getLifeState( ) != LIFE_ALIVE
 				|| !interfaces::engine->getPlayerInfo( local->getIndex( ), &info ) )
-				return;
+				break;
 
 			for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
 			{
@@ -71,6 +69,10 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 					}
 				}
 			}
+
+			break;
 		}
 	}
+
+	originalFrameStageNotify( interfaces::client, curstage );
 }
