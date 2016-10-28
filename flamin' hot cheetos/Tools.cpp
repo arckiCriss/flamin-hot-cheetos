@@ -5,11 +5,11 @@ Tools tools;
 void* Tools::getInterface( std::string moduleName, std::string interfaceName )
 {
 	typedef void* ( *CreateInterfaceFn )( const char* name, int* returnCode );
-	CreateInterfaceFn CreateInterface = nullptr;
+	CreateInterfaceFn createInterface = nullptr;
 
-	while ( !CreateInterface )
+	while ( !createInterface )
 	{
-		CreateInterface = ( CreateInterfaceFn ) GetProcAddress( GetModuleHandleA( moduleName.c_str( ) ), charenc( "CreateInterface" ) );
+		createInterface = ( CreateInterfaceFn ) GetProcAddress( GetModuleHandleA( moduleName.c_str( ) ), charenc( "CreateInterface" ) );
 		Sleep( 10 );
 	}
 
@@ -18,19 +18,17 @@ void* Tools::getInterface( std::string moduleName, std::string interfaceName )
 	for ( int i = 0; i < 100; i++ )
 	{
 		sprintf_s( buffer, "%s%0.3d", interfaceName.c_str( ), i );
-		void* createdInterface = CreateInterface( buffer, nullptr );
+		void* createdInterface = createInterface( buffer, nullptr );
 
-		if ( createdInterface && createdInterface != nullptr )
+		if ( createdInterface != nullptr )
 			break;
 	}
 
-	return ( void* ) CreateInterface( buffer, nullptr );
+	return ( void* ) createInterface( buffer, nullptr );
 }
 
 DWORD_PTR Tools::getPatternOffset( std::string moduleName, PBYTE pattern, std::string mask, DWORD_PTR codeBase, DWORD_PTR codeSize )
 {
-	bool didPatternMatch = false;
-
 	HMODULE module = GetModuleHandleA( moduleName.c_str( ) );
 	if ( !module )
 		return 0;
@@ -49,6 +47,8 @@ DWORD_PTR Tools::getPatternOffset( std::string moduleName, PBYTE pattern, std::s
 
 	if ( !codeBase || !codeSize || !maskSize )
 		return 0;
+
+	bool didPatternMatch = false;
 
 	for ( DWORD_PTR i = codeBase; i <= codeBase + codeSize; i++ )
 	{
@@ -145,29 +145,27 @@ bool Tools::getHitboxPosition( int hitbox, Vector& output, CBaseEntity* entity )
 		return false;
 
 	const model_t* model = entity->getModel( );
-	if ( model )
-	{
-		studiohdr_t* studioHdr = interfaces::modelinfo->getStudioModel( model );
-		if ( !studioHdr )
-			return false;
+	if ( !model )
+		return false;
 
-		matrix3x4 matrix [ 128 ];
-		if ( !entity->setupBones( matrix, 128, 0x100, interfaces::engine->getLastTimeStamp( ) ) )
-			return false;
+	studiohdr_t* studioHdr = interfaces::modelinfo->getStudioModel( model );
+	if ( !studioHdr )
+		return false;
 
-		mstudiobbox_t* box = studioHdr->pHitbox( hitbox, 0 );
-		if ( !box )
-			return false;
+	matrix3x4 matrix [ 128 ];
+	if ( !entity->setupBones( matrix, 128, 0x100, interfaces::engine->getLastTimeStamp( ) ) )
+		return false;
 
-		Vector min, max;
-		VectorTransform( box->bbmin, matrix [ box->bone ], min );
-		VectorTransform( box->bbmax, matrix [ box->bone ], max );
-		output = ( min + max ) * 0.5f;
+	mstudiobbox_t* box = studioHdr->pHitbox( hitbox, 0 );
+	if ( !box )
+		return false;
 
-		return true;
-	}
+	Vector min, max;
+	VectorTransform( box->bbmin, matrix [ box->bone ], min );
+	VectorTransform( box->bbmax, matrix [ box->bone ], max );
+	output = ( min + max ) * 0.5f;
 
-	return false;
+	return true;
 }
 
 Vector Tools::getPredictedPosition( Vector src, Vector velocity )
@@ -252,12 +250,6 @@ bool Tools::isAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
 {
 	float serverTime = ( float ) entity->getTickBase( ) * interfaces::globalvars->interval_per_tick;
 	return ( weapon->getNextPrimaryAttack( ) < serverTime );
-}
-
-bool Tools::isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon )
-{
-	float serverTime = ( float ) entity->getTickBase( ) * interfaces::globalvars->interval_per_tick;
-	return ( weapon->getNextPrimaryAttack( ) > serverTime );
 }
 
 float Tools::random( float min, float max )

@@ -32,7 +32,6 @@ public:
 	void               clampAngles( QAngle& angles );
 
 	bool               isAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon );
-	bool               isNotAbleToShoot( CBaseEntity* entity, CBaseCombatWeapon* weapon );
 
 	float              random( float min, float max );
 

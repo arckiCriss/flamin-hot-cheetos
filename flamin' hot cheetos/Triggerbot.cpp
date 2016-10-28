@@ -47,6 +47,6 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 
 	weapon->getItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;
 
-	if ( weapon->isPistol( ) && tools.isNotAbleToShoot( local, weapon ) )
+	if ( weapon->isPistol( ) && !tools.isAbleToShoot( local, weapon ) )
 		weapon->getItemDefinitionIndex( ) == WEAPON_REVOLVER ? cmd->buttons &= ~IN_ATTACK2 : cmd->buttons &= ~IN_ATTACK;
 }
