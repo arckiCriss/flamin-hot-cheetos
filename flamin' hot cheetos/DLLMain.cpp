@@ -22,6 +22,8 @@
 //    - fixed when compiling using v120 toolkit?
 //------------------------------------------------------------------------------------------
 
+void uninitializeRoutine( void* lpArguments );
+
 bool shouldUnload = false;
 
 void initializeRoutine( void* lpArguments )

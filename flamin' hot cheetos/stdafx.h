@@ -32,15 +32,6 @@
 #include "Control Variables.h"
 #include "Offsets.h"
 
-#include "Menu.h"
-#include "Visuals.h"
-#include "Miscellaneous.h"
-#include "Aimbot.h"
-#include "Triggerbot.h"
-
-void uninitializeRoutine( void* lpArguments );
-extern bool shouldUnload;
-
 // windows mouse sensitivity (usually 1 is default)
 #define systemSensitivity 1.0f
 

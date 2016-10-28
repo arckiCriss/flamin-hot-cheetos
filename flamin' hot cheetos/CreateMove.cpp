@@ -1,5 +1,9 @@
 #include "CreateMove.h"
 
+#include "Miscellaneous.h"
+#include "Aimbot.h"
+#include "Triggerbot.h"
+
 CreateMove_t originalCreateMove;
 
 void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bool active )

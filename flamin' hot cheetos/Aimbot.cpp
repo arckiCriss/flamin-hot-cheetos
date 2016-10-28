@@ -18,9 +18,6 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( !cvar::aimbot_enabled )
 		return;
 
-	if ( menu.isActive( ) )
-		return;
-
 	if ( !weapon->isValid( ) )
 		return;
 

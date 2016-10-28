@@ -1,5 +1,8 @@
 #include "PaintTraverse.h"
 
+#include "Visuals.h"
+#include "Menu.h"
+
 PaintTraverse_t originalPaintTraverse;
 
 void __stdcall PaintTraverse( unsigned int vguipanel, bool forceRepaint, bool allowForce )
