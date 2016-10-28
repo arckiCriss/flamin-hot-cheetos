@@ -20,7 +20,7 @@ class Visuals
 public:
 	Visuals( );
 
-	void think( CBaseEntity* local );
+	void think( );
 	void getScreenSize( );
 
 private:

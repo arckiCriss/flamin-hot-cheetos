@@ -22,14 +22,7 @@ void __stdcall PaintTraverse( unsigned int vguipanel, bool forcerepaint, bool al
 
 	if ( drawpanel == vguipanel )
 	{
-		if ( interfaces::engine->inGame( ) && interfaces::engine->isConnected( ) )
-		{
-			CBaseEntity* local = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
-			if ( !local )
-				return;
-
-			visuals.think( local );
-		}
+		visuals.think( );
 
 		drawing.drawString( drawing.menuTitleFont, false, 3, 3, Color( 255, 255, 255 ), charenc( "flamin' hot cheetos | 10-27-2016" ) );
 

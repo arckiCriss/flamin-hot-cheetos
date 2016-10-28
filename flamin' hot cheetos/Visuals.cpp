@@ -11,9 +11,16 @@ Visuals::Visuals( )
 	glowColor = Color( 0, 0, 0, 0 );
 }
 
-void Visuals::think( CBaseEntity* local )
+void Visuals::think( )
 {
 	if ( !cvar::esp_enabled )
+		return;
+
+	if ( !interfaces::engine->inGame( ) || !interfaces::engine->isConnected( ) )
+		return;
+
+	CBaseEntity* local = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
+	if ( !local )
 		return;
 
 	for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
@@ -26,7 +33,7 @@ void Visuals::think( CBaseEntity* local )
 			|| entity->isDormant( ) )
 			continue;
 
-		// drawWorld( entity );
+		drawWorld( entity );
 
 		if ( entity->getClientClass( )->getClassID( ) != CCSPlayer
 			|| entity->getLifeState( ) != LIFE_ALIVE
@@ -34,8 +41,8 @@ void Visuals::think( CBaseEntity* local )
 			|| !interfaces::engine->getPlayerInfo( i, &info ) )
 			continue;
 
-		// drawGlow( entity );
-		// drawPlayer( local, entity );
+		drawGlow( entity );
+		drawPlayer( local, entity );
 	}
 
 	drawScoreboard( local );
@@ -304,8 +311,8 @@ void Visuals::drawBoundingBox( CBaseEntity* entity, Color color, const char* tex
 			bottom = arr [ i ].y;
 	}
 
-	float h = bottom - top;
 	float w = right - left;
+	float h = bottom - top;
 
 	drawing.drawLine( left, bottom, left, top, color );
 	drawing.drawLine( left - 1, bottom - 1, left - 1, top + 2, Color( 0, 0, 0 ) );
@@ -332,10 +339,15 @@ void Visuals::drawGlow( CBaseEntity* entity )
 	if ( !cvar::esp_draw_glow )
 		return;
 
-	static GlowObjectPointer_t getGlowObjectPointer = ( GlowObjectPointer_t ) ( tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33" ), strenc( "x????xxxx" ) ) );
-	static void* glowObjectPointer = getGlowObjectPointer( );
-	if ( !glowObjectPointer )
+	static GlowObjectPointer_t getGlowObject = 0;
+
+	if ( !getGlowObject )
+		getGlowObject = ( GlowObjectPointer_t ) ( tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33" ), strenc( "x????xxxx" ) ) );
+
+	if ( !getGlowObject )
 		return;
+
+	void* glowObjectPointer = getGlowObject( );
 
 	UINT32 glowIndex = *( UINT32* ) ( ( uintptr_t ) entity + 0xA308 + 0x18 );
 
@@ -394,7 +406,10 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 	if ( !playerResource )
 		playerResource = tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7" ), strenc( "xxxxxxxx????xx?????xxxxx" ) ) + 0xE;
-	
+
+	if ( !playerResource )
+		return;
+
 	DWORD resourcePointer = **( DWORD** ) playerResource;
 
 	int place = 0, place2 = 0;

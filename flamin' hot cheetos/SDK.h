@@ -596,6 +596,14 @@ public:
 class IEngineTrace
 {
 public:
+	enum TraceType_t
+	{
+		TRACE_EVERYTHING = 0,
+		TRACE_WORLD_ONLY,
+		TRACE_ENTITIES_ONLY,
+		TRACE_EVERYTHING_FILTER_PROPS,
+	};
+
 	struct cplane_t
 	{
 		Vector normal;
@@ -614,6 +622,8 @@ public:
 
 	struct Ray_t
 	{
+		Ray_t( ) { }
+
 		VectorAligned	 m_start;
 		VectorAligned	 m_delta;
 		VectorAligned	 m_startOffset;
@@ -622,21 +632,15 @@ public:
 		bool			 m_isRay;
 		bool			 m_isSwept;
 
-		Ray_t( ) : m_worldAxisTransform( 0 ) {}
-
-		void Init( Vector const& start, Vector const& end )
+		void Init( Vector start, Vector end )
 		{
-			( &end );
-			VectorSubtract( end, start, m_delta );
-
+			m_delta = VectorAligned( end - start );
 			m_isSwept = ( m_delta.LengthSqr( ) != 0 );
-
-			VectorClear( m_extents );
-			m_worldAxisTransform = 0;
+			m_extents.Zero( );
+			m_worldAxisTransform = NULL;
 			m_isRay = true;
-
-			VectorClear( m_startOffset );
-			VectorCopy( start, m_start );
+			m_startOffset.Zero( );
+			m_start = start;
 		}
 	};
 
@@ -659,9 +663,24 @@ public:
 		int			 hitbox;
 	};
 
-	class CTraceFilter
+	class ITraceFilter
 	{
 	public:
+		virtual bool shouldHitEntity( CBaseEntity* entity, int contentsMask ) = 0;
+		virtual TraceType_t getTraceType( ) const = 0;
+	};
+	class CTraceFilter : public ITraceFilter
+	{
+	public:
+		bool shouldHitEntity( CBaseEntity* entityHandle, int contentsMask )
+		{
+			return !( entityHandle == skip );
+		}
+		virtual TraceType_t getTraceType( ) const
+		{
+			return TRACE_EVERYTHING;
+		}
+
 		void* skip;
 	};
 

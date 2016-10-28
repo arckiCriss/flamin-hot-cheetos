@@ -21,17 +21,17 @@ namespace interfaces
 	void initialize( )
 	{
 		clientbase = ( DWORD ) GetModuleHandleA( charenc( "client.dll" ) );
-		client = ( CHLClient* ) tools.getInterface( charenc( "client.dll" ), charenc( "VClient" ) );
+		client = ( CHLClient* ) tools.getInterface( strenc( "client.dll" ), strenc( "VClient" ) );
 		clientMode = **( void*** ) ( ( *( DWORD** ) interfaces::client ) [ 10 ] + 0x5 );
-		engine = ( IEngineClient* ) tools.getInterface( charenc( "engine.dll" ), charenc( "VEngineClient" ) );
-		entitylist = ( IClientEntityList* ) tools.getInterface( charenc( "client.dll" ), charenc( "VClientEntityList" ) );
-		surface = ( ISurface* ) tools.getInterface( charenc( "vguimatsurface.dll" ), charenc( "VGUI_Surface" ) );
-		panel = ( IPanel* ) tools.getInterface( charenc( "vgui2.dll" ), charenc( "VGUI_Panel" ) );
-		debugoverlay = ( IVDebugOverlay* ) tools.getInterface( charenc( "engine.dll" ), charenc( "VDebugOverlay" ) );
-		enginetrace = ( IEngineTrace* ) tools.getInterface( charenc( "engine.dll" ), charenc( "EngineTraceClient" ) );
-		modelinfo = ( IVModelInfo* ) tools.getInterface( charenc( "engine.dll" ), charenc( "VModelInfoClient" ) );
+		engine = ( IEngineClient* ) tools.getInterface( strenc( "engine.dll" ), strenc( "VEngineClient" ) );
+		entitylist = ( IClientEntityList* ) tools.getInterface( strenc( "client.dll" ), strenc( "VClientEntityList" ) );
+		surface = ( ISurface* ) tools.getInterface( strenc( "vguimatsurface.dll" ), strenc( "VGUI_Surface" ) );
+		panel = ( IPanel* ) tools.getInterface( strenc( "vgui2.dll" ), strenc( "VGUI_Panel" ) );
+		debugoverlay = ( IVDebugOverlay* ) tools.getInterface( strenc( "engine.dll" ), strenc( "VDebugOverlay" ) );
+		enginetrace = ( IEngineTrace* ) tools.getInterface( strenc( "engine.dll" ), strenc( "EngineTraceClient" ) );
+		modelinfo = ( IVModelInfo* ) tools.getInterface( strenc( "engine.dll" ), strenc( "VModelInfoClient" ) );
 		globalvars = ( CGlobalVars* ) *( DWORD* ) *( DWORD* ) ( tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xA1\x00\x00\x00\x00\x8B\x40\x10\x89\x41\x04" ), strenc( "x????xxxxxx" ) ) + 0x1 );
-		convar = ( ICVar* ) tools.getInterface( charenc( "vstdlib.dll" ), charenc( "VEngineCvar" ) );
+		convar = ( ICVar* ) tools.getInterface( strenc( "vstdlib.dll" ), strenc( "VEngineCvar" ) );
 		viewRender = **( void*** ) ( ( DWORD ) tools.getPatternOffset( strenc( "client.dll" ), ( PBYTE ) charenc( "\xFF\x50\x14\xE8\x00\x00\x00\x00\x5D" ), strenc( "xxxx????x" ) ) - 7 );
 
 		DWORD* clientVmt = ( DWORD* ) *( DWORD* ) client;
