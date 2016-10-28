@@ -197,63 +197,180 @@ public:
 	{
 		return *( float* ) ( ( DWORD )this + offsets::weapon::m_flNextPrimaryAttack );
 	}
-	bool isPistol( )
+	int getWeaponType( )
 	{
 		switch ( this->getItemDefinitionIndex( ) )
 		{
-		case WEAPON_DEAGLE: return true;
-		case WEAPON_DUALS: return true;
-		case WEAPON_FIVE7: return true;
-		case WEAPON_GLOCK: return true;
-		case WEAPON_TEC9: return true;
-		case WEAPON_P2000: return true;
-		case WEAPON_USPS: return true;
-		case WEAPON_P250: return true;
-		case WEAPON_CZ75: return true;
-		case WEAPON_REVOLVER: return true;
-		default: return false;
+		case WEAPON_DEAGLE:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_DUALS:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_FIVE7:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_GLOCK:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_AK47:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_AUG:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_AWP:
+			return WEAPON_TYPE_SNIPER;
+		case WEAPON_FAMAS:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_G3SG1:
+			return WEAPON_TYPE_SNIPER;
+		case WEAPON_GALIL:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_M249:
+			return WEAPON_TYPE_MG;
+		case WEAPON_M4A1:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_MAC10:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_P90:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_UMP45:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_XM1014:
+			return WEAPON_TYPE_SHOTGUN;
+		case WEAPON_BIZON:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_MAG7:
+			return WEAPON_TYPE_SHOTGUN;
+		case WEAPON_NEGEV:
+			return WEAPON_TYPE_MG;
+		case WEAPON_SAWEDOFF:
+			return WEAPON_TYPE_SHOTGUN;
+		case WEAPON_TEC9:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_TASER:
+			return WEAPON_TYPE_TASER;
+		case WEAPON_P2000:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_MP7:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_MP9:
+			return WEAPON_TYPE_SMG;
+		case WEAPON_NOVA:
+			return WEAPON_TYPE_SHOTGUN;
+		case WEAPON_P250:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_SCAR20:
+			return WEAPON_TYPE_SNIPER;
+		case WEAPON_SG553:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_SCOUT:
+			return WEAPON_TYPE_SNIPER;
+		case WEAPON_KNIFE_T:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_FLASH:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_HE:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_SMOKE:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_MOLOTOV:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_DECOY:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_INC:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_C4:
+			return WEAPON_TYPE_GRENADE;
+		case WEAPON_KNIFE_CT:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_M4A1S:
+			return WEAPON_TYPE_RIFLE;
+		case WEAPON_USPS:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_CZ75:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_REVOLVER:
+			return WEAPON_TYPE_PISTOLS;
+		case WEAPON_KNIFE_BAYONET:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_FLIP:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_GUT:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_KARAMBIT:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_M9BAYONET:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_FALCHION:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_HUNTSMAN:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_BUTTERFLY:
+			return WEAPON_TYPE_KNIFE;
+		case WEAPON_KNIFE_BOWIE:
+			return WEAPON_TYPE_KNIFE;
+		default:
+			break;
 		}
+
+		return WEAPON_TYPE_INVALID;
 	}
-	bool isKnife( )
+	bool isPistol( void )
 	{
-		switch ( this->getItemDefinitionIndex( ) )
-		{
-		case WEAPON_KNIFE_CT: return true;
-		case WEAPON_KNIFE_T: return true;
-		case WEAPON_KNIFE_GUT: return true;
-		case WEAPON_KNIFE_FLIP: return true;
-		case WEAPON_KNIFE_BAYONET: return true;
-		case WEAPON_KNIFE_M9BAYONET: return true;
-		case WEAPON_KNIFE_KARAMBIT: return true;
-		case WEAPON_KNIFE_HUNTSMAN: return true;
-		case WEAPON_KNIFE_BUTTERFLY: return true;
-		case WEAPON_KNIFE_BOWIE: return true;
-		case WEAPON_KNIFE_FALCHION: return true;
-		case WEAPON_KNIFE_DAGGER: return true;
-		default: return false;
-		}
+		return this->getWeaponType( ) == WEAPON_TYPE_PISTOLS ? true : false;
 	}
-	bool isOther( )
+	bool isTaser( void )
 	{
-		switch ( this->getItemDefinitionIndex( ) )
+		return this->getWeaponType( ) == WEAPON_TYPE_TASER ? true : false;
+	}
+	bool isShotgun( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_SHOTGUN ? true : false;
+	}
+	bool isSMG( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_SMG ? true : false;
+	}
+	bool isRifle( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_RIFLE ? true : false;
+	}
+	bool isMG( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_MG ? true : false;
+	}
+	bool isSniper( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_SNIPER ? true : false;
+	}
+	bool isGrenade( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_GRENADE ? true : false;
+	}
+	bool isKnife( void )
+	{
+		return this->getWeaponType( ) == WEAPON_TYPE_KNIFE ? true : false;
+	}
+	bool isValid( )
+	{
+		switch ( this->getWeaponType( ) )
 		{
-		case ITEM_NONE: return true;
-		case WEAPON_TASER: return true;
-		case WEAPON_FLASH: return true;
-		case WEAPON_HE: return true;
-		case WEAPON_SMOKE: return true;
-		case WEAPON_MOLOTOV: return true;
-		case WEAPON_DECOY: return true;
-		case WEAPON_INC: return true;
-		case WEAPON_C4: return true;
-		default: return false;
+		case WEAPON_TYPE_PISTOLS:
+			break;
+		case WEAPON_TYPE_SHOTGUN:
+			break;
+		case WEAPON_TYPE_SMG:
+			break;
+		case WEAPON_TYPE_RIFLE:
+			break;
+		case WEAPON_TYPE_MG:
+			break;
+		case WEAPON_TYPE_SNIPER:
+			break;
+		default:
+			return false;
 		}
+
+		return ( this->getClip1( ) > 0 );
 	}
 	void setPattern( player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "" )
 	{
-		if ( this->isOther( ) )
-			return;
-
 		if ( this->isKnife( ) )
 		{
 			switch ( cvar::misc_knifechanger_model )

@@ -12,7 +12,7 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 	if ( !cvar::misc_triggerbot )
 		return;
 
-	if ( weapon->isOther( ) || weapon->isKnife( ) )
+	if ( !weapon->isValid( ) )
 		return;
 
 	if ( !( GetAsyncKeyState( cvar::general_key_triggerbot ) & 0x8000 ) )

@@ -4,7 +4,9 @@ FrameStageNotify_t originalFrameStageNotify;
 
 void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 {
-	while ( curstage == FRAME_NET_UPDATE_POSTDATAUPDATE_START )
+	originalFrameStageNotify( interfaces::client, curstage );
+
+	if ( curstage == FRAME_NET_UPDATE_POSTDATAUPDATE_START )
 	{
 		if ( cvar::misc_skinchanger )
 		{
@@ -14,7 +16,7 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 			if ( !local
 				|| local->getLifeState( ) != LIFE_ALIVE
 				|| !interfaces::engine->getPlayerInfo( local->getIndex( ), &info ) )
-				break;
+				return;
 
 			for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
 			{
@@ -36,6 +38,12 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 
 				CBaseCombatWeapon* weapon = ( CBaseCombatWeapon* ) entity;
 				if ( !weapon )
+					continue;
+
+				if ( weapon->isGrenade( ) || weapon->isTaser( ) )
+					continue;
+
+				if ( !weapon->isShotgun( ) && !weapon->isRifle( ) && !weapon->isSniper( ) && !weapon->isPistol( ) && !weapon->isMG( ) && !weapon->isSMG( ) && !weapon->isKnife( ) )
 					continue;
 
 				if ( !weapon->isKnife( ) )
@@ -69,10 +77,6 @@ void __stdcall FrameStageNotify( ClientFrameStage_t curstage )
 					}
 				}
 			}
-
-			break;
 		}
 	}
-
-	originalFrameStageNotify( interfaces::client, curstage );
 }

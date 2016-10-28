@@ -16,7 +16,7 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 	if ( !cvar::misc_rcs )
 		return;
 
-	if ( weapon->isOther( ) || weapon->isKnife( ) )
+	if ( !weapon->isValid( ) )
 		return;
 
 	static QAngle oldPunchAngles = QAngle( 0.0f, 0.0f, 0.0f );

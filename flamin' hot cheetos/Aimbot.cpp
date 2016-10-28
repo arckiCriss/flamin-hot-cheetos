@@ -21,7 +21,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( menu.isActive( ) )
 		return;
 
-	if ( weapon->isOther( ) || weapon->isKnife( ) )
+	if ( !weapon->isValid( ) )
 		return;
 
 	if ( !( GetAsyncKeyState( cvar::general_key_aimbot ) & 0x8000 ) )

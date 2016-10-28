@@ -202,7 +202,7 @@ void Visuals::drawPlayer( CBaseEntity* local, CBaseEntity* entity )
 			default: { strcpy( weaponName, charenc( "NONE" ) ); break; }
 			}
 
-			if ( !weapon->isKnife( ) && !weapon->isOther( ) )
+			if ( !weapon->isValid( ) )
 				sprintf_s( weaponName, sizeof( weaponName ), "%s | %i", weaponName, weapon->getClip1( ) );
 			else
 				sprintf_s( weaponName, sizeof( weaponName ), "%s", weaponName );
@@ -232,6 +232,10 @@ void Visuals::drawWorld( CBaseEntity* entity )
 		return;
 
 	std::string modelName = interfaces::modelinfo->getModelName( entity->getModel( ) );
+
+	if ( modelName.empty( ) )
+		return;
+
 	if ( modelName.find( strenc( "models/weapons/w_pist_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
 		|| modelName.find( strenc( "models/weapons/w_rif_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
 		|| modelName.find( strenc( "models/weapons/w_mach_" ) ) != std::string::npos && modelName.find( strenc( "_dropped.mdl" ) ) != std::string::npos
