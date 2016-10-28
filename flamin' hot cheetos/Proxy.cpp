@@ -2,13 +2,11 @@
 
 namespace proxy
 {
-	RecvVarProxyFn modelIndexProxy = 0;
-
 	void initialize( )
 	{
 		for ( IVClientClass* clientClass = interfaces::client->getAllClasses( ); clientClass; clientClass = clientClass->getNextClass( ) )
 		{
-			if ( !strcmp( clientClass->getName( ), charenc( "DT_BaseViewModel" ) ) )
+			if ( !strcmp( clientClass->getTable( )->m_pNetTableName, charenc( "DT_BaseViewModel" ) ) )
 			{
 				RecvTable* classTable = clientClass->getTable( );
 
@@ -19,7 +17,6 @@ namespace proxy
 					if ( !prop || strcmp( prop->m_pVarName, charenc( "m_nModelIndex" ) ) )
 						continue;
 
-					modelIndexProxy = prop->m_ProxyFn;
 					prop->m_ProxyFn = ( RecvVarProxyFn ) setModelIndex;
 
 					break;
@@ -32,40 +29,40 @@ namespace proxy
 
 	void setModelIndex( const CRecvProxyData* proxydata, void* datastruct, void* out )
 	{
-		CRecvProxyData* data = const_cast< CRecvProxyData* >( proxydata );
+		int data = *( int* ) ( ( DWORD ) proxydata + 0x8 );
 
 		if ( cvar::misc_knifechanger )
 		{
 			CBaseEntity* local = interfaces::entitylist->getClientEntity( interfaces::engine->getLocalPlayer( ) );
 			if ( local && local->getLifeState( ) == LIFE_ALIVE )
 			{
-				if ( data->m_Value.m_Int == interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_default_ct.mdl" ) ) ||
-					data->m_Value.m_Int == interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_default_t.mdl" ) ) )
+				if ( data == interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_default_ct.mdl" ) ) ||
+					data == interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_default_t.mdl" ) ) )
 				{
 					if ( cvar::misc_knifechanger_model == 0 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_bayonet.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_bayonet.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 1 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_flip.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_flip.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 2 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_gut.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_gut.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 3 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_karam.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_karam.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 4 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_m9_bay.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_m9_bay.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 5 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_tactical.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_tactical.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 6 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_falchion_advanced.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_falchion_advanced.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 7 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_butterfly.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_butterfly.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 8 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_push.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_push.mdl" ) );
 					else if ( cvar::misc_knifechanger_model == 9 )
-						data->m_Value.m_Int = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_survival_bowie.mdl" ) );
+						data = interfaces::modelinfo->getModelIndex( charenc( "models/weapons/v_knife_survival_bowie.mdl" ) );
 				}
 			}
 		}
 
-		modelIndexProxy( data, datastruct, out );
+		*( int* ) ( ( DWORD ) out ) = data;
 	}
 }

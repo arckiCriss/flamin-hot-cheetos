@@ -16,8 +16,6 @@ void Visuals::think( CBaseEntity* local )
 	if ( !cvar::esp_enabled )
 		return;
 
-	getScreenSize( );
-
 	for ( int i = 1; i <= interfaces::entitylist->getHighestEntityIndex( ); i++ )
 	{
 		if ( i == local->getIndex( ) )
@@ -38,7 +36,7 @@ void Visuals::think( CBaseEntity* local )
 			continue;
 
 		drawGlow( entity );
-		drawPlayer( local, entity );
+		// drawPlayer( local, entity );
 	}
 
 	drawScoreboard( local );
@@ -370,6 +368,7 @@ void Visuals::drawScoreboard( CBaseEntity* local )
 
 	int boardWidth = 950, boardHeight = 325;
 
+	getScreenSize( );
 	int x = width / 2 - boardWidth / 2;
 	int y = height / 2 - boardHeight / 2;
 

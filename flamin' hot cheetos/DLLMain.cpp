@@ -24,7 +24,7 @@
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine( void* lpArguments )
+void initializeRoutine( void* lpArguments )
 {
 	while ( !GetModuleHandleA( charenc( "client.dll" ) )
 		|| !GetModuleHandleA( charenc( "engine.dll" ) ) )
@@ -41,8 +41,6 @@ DWORD __stdcall initializeRoutine( void* lpArguments )
 		Sleep( 1000 );
 
 	uninitializeRoutine( lpArguments );
-
-	return 1;
 }
 
 void uninitializeRoutine( void* lpArguments )
@@ -53,7 +51,7 @@ void uninitializeRoutine( void* lpArguments )
 		FreeLibraryAndExitThread( ( HMODULE ) lpArguments, 0 );
 }
 
-DWORD __stdcall handleCore( void* lpArguments )
+void handleCore( void* lpArguments )
 {
 	while ( !shouldUnload )
 	{
@@ -76,8 +74,6 @@ DWORD __stdcall handleCore( void* lpArguments )
 
 		Sleep( 1000 );
 	}
-
-	return 1;
 }
 
 int __stdcall DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
@@ -85,8 +81,8 @@ int __stdcall DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
-		CreateThread( nullptr, 0, initializeRoutine, hInstance, 0, nullptr );
-		CreateThread( nullptr, 0, handleCore, hInstance, 0, nullptr );
+		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) initializeRoutine, hInstance, 0, nullptr );
+		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) handleCore, hInstance, 0, nullptr );
 		break;
 	case DLL_PROCESS_DETACH:
 		uninitializeRoutine( hInstance );

@@ -149,6 +149,7 @@
     <ClInclude Include="..\flamin%27 hot cheetos\cx_strenc.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Tools.h" />
+    <ClInclude Include="..\flamin%27 hot cheetos\VFTManager.h" />
     <ClInclude Include="RenderView.h" />
     <ClInclude Include="IN_KeyEvent.h" />
     <ClInclude Include="Weapons.h" />
@@ -175,7 +176,6 @@
     <ClInclude Include="Interfaces.h" />
     <ClInclude Include="PaintTraverse.h" />
     <ClInclude Include="SDK.h" />
-    <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp" />

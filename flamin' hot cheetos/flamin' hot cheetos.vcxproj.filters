@@ -70,9 +70,6 @@
     <Filter Include="Project Files\SDK\Vector">
       <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Core\VFT">
-      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\SDK\Interfaces">
       <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="Project Files\Features\Proxy">
       <UniqueIdentifier>{24d051c3-b95e-4f46-b3b2-808ad558dacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Core\VMT Manager">
+      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -175,9 +175,6 @@
     </ClInclude>
     <ClInclude Include="Hooks.h">
       <Filter>Project Files\Core\Hooks</Filter>
-    </ClInclude>
-    <ClInclude Include="VFTManager.h">
-      <Filter>Project Files\Core\VFT</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Project Files\Features\Drawing</Filter>
@@ -262,6 +259,9 @@
     </ClInclude>
     <ClInclude Include="..\flamin%27 hot cheetos\cx_strenc.h">
       <Filter>Project Files\Core\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\VFTManager.h">
+      <Filter>Project Files\Core\VMT Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
