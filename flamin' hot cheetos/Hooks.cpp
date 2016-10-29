@@ -18,8 +18,8 @@ namespace hooks
 		originalCreateMove = client->hook( 21, ( CreateMove_t ) CreateMove );
 		originalFrameStageNotify = client->hook( 36, ( FrameStageNotify_t ) FrameStageNotify );
 
-		//renderview = std::make_unique<VFTManager>( ( DWORD** ) interfaces::viewRender, true );
-		//originalRenderView = renderview->hook( 6, ( RenderView_t ) RenderView );
+		// renderview = std::make_unique<VFTManager>( ( DWORD** ) interfaces::viewRender, true );
+		// originalRenderView = renderview->hook( 6, ( RenderView_t ) RenderView );
 
 		surface = std::make_unique<VFTManager>( ( DWORD** ) interfaces::surface, true );
 		originalOnScreenSizeChanged = surface->hook( 116, ( OnScreenSizeChanged_t ) OnScreenSizeChanged );
@@ -33,7 +33,7 @@ namespace hooks
 	{
 		panel->restoreTable( );
 		client->restoreTable( );
-		renderview->restoreTable( );
+		// renderview->restoreTable( );
 		surface->restoreTable( );
 
 		Sleep( 500 );
