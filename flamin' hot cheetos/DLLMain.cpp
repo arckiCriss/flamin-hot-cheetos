@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include <future>
+
 //------------------------------------------------------------------------------------------
 // flamin' hot cheetos
 //------------------------------------------------------------------------------------------
@@ -17,9 +19,6 @@
 //------------------------------------------------------------------------------------------
 // notes:
 //  - modern c++ functions such as sleep_for and async threading (can) break injection
-//  - manual mapping crashes game
-//    - this is possible that it's just a injector specific bug
-//    - fixed when compiling using v120 toolkit?
 //------------------------------------------------------------------------------------------
 
 void uninitializeRoutine( void* lpArguments );
@@ -40,7 +39,7 @@ void initializeRoutine( void* lpArguments )
 	hooks::initialize( );
 
 	while ( !shouldUnload )
-		Sleep( 1000 );
+		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
 
 	uninitializeRoutine( lpArguments );
 }
@@ -74,7 +73,7 @@ void handleCore( void* lpArguments )
 			config.saveSkinConfig( );
 		}
 
-		Sleep( 1000 );
+		std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
 	}
 }
 

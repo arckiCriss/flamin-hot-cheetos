@@ -8,6 +8,8 @@ namespace hooks
 	std::unique_ptr<VFTManager> renderview = nullptr;
 	std::unique_ptr<VFTManager> surface = nullptr;
 
+	bool success = false;
+
 	void initialize( )
 	{
 		panel = std::make_unique<VFTManager>( ( DWORD** ) interfaces::panel, true );
@@ -27,10 +29,15 @@ namespace hooks
 		proxy::initialize( );
 
 		interfaces::engine->clientCmd_Unrestricted( charenc( "echo [successfully hooked functions]" ) );
+
+		success = true;
 	}
 
 	void restore( )
 	{
+		if ( !success )
+			return;
+
 		panel->restoreTable( );
 		client->restoreTable( );
 		// renderview->restoreTable( );
