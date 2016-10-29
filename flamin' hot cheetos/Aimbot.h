@@ -10,20 +10,22 @@ class Aimbot
 public:
 	Aimbot( );
 
-	void   think( CBaseEntity* local, CBaseCombatWeapon* weapon );
+	void   think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd );
 
 private:
-	bool   getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest );
-	int    getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest );
+	bool   getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& destination );
+	int    getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd, Vector& destination );
+
 	QAngle getRandomizedRecoil( CBaseEntity* local );
 	QAngle getRandomizedAngles( CBaseEntity* local );
 
 private:
 	int    bestTarget;
 
-	QAngle viewAngles;
-	QAngle aimAngles;
-	QAngle finalAngles;
+	QAngle viewAngle;
+	QAngle aimAngle;
+	QAngle deltaAngle;
+	QAngle finalAngle;
 
 	Vector hitboxPosition;
 };

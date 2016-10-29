@@ -10,7 +10,7 @@ namespace cvar
 	float aimbot_smoothing = 25.0f;
 	float aimbot_rcs_min = 1.8f;
 	float aimbot_rcs_max = 2.0f;
-	float aimbot_randomize_hitbox = 0.0f;
+	float aimbot_randomize_smoothing = 0.0f;
 	float aimbot_randomize_angle = 0.0f;
 
 	bool esp_enabled = true;

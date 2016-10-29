@@ -29,7 +29,7 @@ void __stdcall CreateMove( int sequence_number, float input_sample_frametime, bo
 	if ( weapon )
 	{
 		miscellaneous.doRecoilControl( local, weapon, cmd );
-		aimbot.think( local, weapon );
+		aimbot.think( local, weapon, cmd );
 		triggerbot.think( local, weapon, cmd );
 	}
 

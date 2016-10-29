@@ -6,14 +6,15 @@ Aimbot::Aimbot( )
 {
 	bestTarget = -1;
 
-	viewAngles = QAngle( 0.0f, 0.0f, 0.0f );
-	aimAngles = QAngle( 0.0f, 0.0f, 0.0f );
-	finalAngles = QAngle( 0.0f, 0.0f, 0.0f );
+	viewAngle = QAngle( 0.0f, 0.0f, 0.0f );
+	aimAngle = QAngle( 0.0f, 0.0f, 0.0f );
+	deltaAngle = QAngle( 0.0f, 0.0f, 0.0f );
+	finalAngle = QAngle( 0.0f, 0.0f, 0.0f );
 
 	hitboxPosition = Vector( 0.0f, 0.0f, 0.0f );
 }
 
-void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
+void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd )
 {
 	if ( !cvar::aimbot_enabled )
 		return;
@@ -24,10 +25,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( !( GetAsyncKeyState( cvar::general_key_aimbot ) & 0x8000 ) )
 		return;
 
-	/*if ( !( GetForegroundWindow( ) == FindWindow( charenc( "Valve001" ), 0 ) ) )
-		return;*/
-
-	bestTarget = getBestTarget( local, weapon, hitboxPosition );
+	bestTarget = getBestTarget( local, weapon, cmd, hitboxPosition );
 	if ( bestTarget == -1 )
 		return;
 
@@ -38,50 +36,34 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon )
 	if ( tools.getDistance( local->getEyePosition( ), hitboxPosition ) > 8192.0f )
 		return;
 
-	hitboxPosition.x += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
-	hitboxPosition.y += tools.random( -cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox );
+	tools.computeAngle( local->getEyePosition( ), hitboxPosition, aimAngle );
+	tools.normalizeAngles( aimAngle );
 
-	tools.computeAngle( local->getEyePosition( ), hitboxPosition, aimAngles );
-	tools.normalizeAngles( aimAngles );
+	aimAngle -= getRandomizedRecoil( local );
+	aimAngle += getRandomizedAngles( local );
 
-	aimAngles -= getRandomizedRecoil( local );
-	aimAngles += getRandomizedAngles( local );
+	deltaAngle = viewAngle - aimAngle;
+	tools.normalizeAngles( deltaAngle );
 
-	finalAngles = viewAngles - aimAngles;
-	tools.normalizeAngles( finalAngles );
+	float randomSmoothing = 1.0f;
 
-	finalAngles = viewAngles - finalAngles / cvar::aimbot_smoothing;
-	tools.normalizeAngles( finalAngles );
-	tools.clampAngles( finalAngles );
+	if ( cvar::aimbot_randomize_smoothing >= 1.0f )
+		randomSmoothing = tools.random( cvar::aimbot_randomize_smoothing / 10.0f, 1.0f );
 
-	interfaces::engine->setViewAngles( finalAngles );
+	finalAngle = viewAngle - deltaAngle / cvar::aimbot_smoothing * randomSmoothing;
+	tools.normalizeAngles( finalAngle );
+	tools.clampAngles( finalAngle );
 
-	/*if ( finalAngles.x > cvar::aimbot_smoothing )
-		finalAngles.x = cvar::aimbot_smoothing;
-	else if ( finalAngles.x < -cvar::aimbot_smoothing )
-		finalAngles.x = -cvar::aimbot_smoothing;
-
-	if ( finalAngles.y > cvar::aimbot_smoothing )
-		finalAngles.y = cvar::aimbot_smoothing;
-	else if ( finalAngles.y < -cvar::aimbot_smoothing )
-		finalAngles.y = -cvar::aimbot_smoothing;
-
-	static float gameSensitivity = interfaces::convar->findVar( charenc( "sensitivity" ) )->getFloat( );
-
-	float pixels = 0.022f * gameSensitivity * systemSensitivity;
-
-	finalAngles.x /= pixels * -1.0f;
-	finalAngles.y /= pixels;
-
-	tools.moveMouse( finalAngles.y, finalAngles.x );*/
+	interfaces::engine->setViewAngles( finalAngle );
 }
 
 QAngle Aimbot::getRandomizedRecoil( CBaseEntity* local )
 {
-	QAngle punchAngles = local->getPunchAngles( ) * tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max );
-	tools.normalizeAngles( punchAngles );
+	QAngle punchAngles = local->getPunchAngles( );
+	QAngle compensatedAngles = punchAngles * 2.0f * ( tools.random( cvar::aimbot_rcs_min, cvar::aimbot_rcs_max ) / 100.0f );
+	tools.normalizeAngles( compensatedAngles );
 
-	return ( local->getShotsFired( ) > 1 ? punchAngles : QAngle( 0.0f, 0.0f, 0.0f ) );
+	return ( local->getShotsFired( ) > 1 ? compensatedAngles : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
 QAngle Aimbot::getRandomizedAngles( CBaseEntity* local )
@@ -110,7 +92,7 @@ QAngle Aimbot::getRandomizedAngles( CBaseEntity* local )
 	return ( local->getShotsFired( ) > 1 ? randomizedValue : QAngle( 0.0f, 0.0f, 0.0f ) );
 }
 
-bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& dest )
+bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& destination )
 {
 	int bestHitbox = -1;
 	float bestFov = cvar::aimbot_fov;
@@ -130,7 +112,7 @@ bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& 
 		if ( !tools.getHitboxPosition( hitbox, temp, entity ) )
 			continue;
 
-		float fov = tools.getFov( viewAngles, tools.computeAngle( local->getEyePosition( ), temp ) );
+		float fov = tools.getFov( viewAngle, tools.computeAngle( local->getEyePosition( ), temp ) );
 		if ( fov < bestFov )
 		{
 			bestFov = fov;
@@ -140,19 +122,19 @@ bool Aimbot::getClosestHitbox( CBaseEntity* local, CBaseEntity* entity, Vector& 
 
 	if ( bestHitbox != -1 )
 	{
-		if ( !tools.getHitboxPosition( bestHitbox, dest, entity ) )
+		if ( !tools.getHitboxPosition( bestHitbox, destination, entity ) )
 			return true;
 	}
 
 	return false;
 }
 
-int Aimbot::getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest )
+int Aimbot::getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd, Vector& destination )
 {
 	int bestTarget = -1;
 	float bestFov = cvar::aimbot_fov;
 
-	interfaces::engine->getViewAngles( viewAngles );
+	viewAngle = cmd->viewangles;
 
 	for ( int i = 1; i <= interfaces::globalvars->maxclients; i++ )
 	{
@@ -175,13 +157,13 @@ int Aimbot::getBestTarget( CBaseEntity* local, CBaseCombatWeapon* weapon, Vector
 
 		hitbox = tools.getPredictedPosition( hitbox, entity->getVelocity( ) );
 
-		float fov = tools.getFov( viewAngles + local->getPunchAngles( ) * 2.0f, tools.computeAngle( local->getEyePosition( ), hitbox ) );
+		float fov = tools.getFov( viewAngle + local->getPunchAngles( ) * 2.0f, tools.computeAngle( local->getEyePosition( ), hitbox ) );
 		if ( fov < bestFov && fov < cvar::aimbot_fov )
 		{
 			if ( tools.isVisible( local->getEyePosition( ), hitbox, entity ) )
 			{
 				bestFov = fov;
-				dest = hitbox;
+				destination = hitbox;
 				bestTarget = i;
 			}
 		}

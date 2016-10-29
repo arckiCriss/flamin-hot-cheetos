@@ -21,7 +21,7 @@ void Config::loadConfig( )
 		configManager.getFloat( charenc( "Aimbot" ), charenc( "Smoothing" ), cvar::aimbot_smoothing );
 		configManager.getFloat( charenc( "Aimbot" ), charenc( "Recoil Control Min" ), cvar::aimbot_rcs_min );
 		configManager.getFloat( charenc( "Aimbot" ), charenc( "Recoil Control Max" ), cvar::aimbot_rcs_max );
-		configManager.getFloat( charenc( "Aimbot" ), charenc( "Randomize Hitbox" ), cvar::aimbot_randomize_hitbox );
+		configManager.getFloat( charenc( "Aimbot" ), charenc( "Randomize Smoothing" ), cvar::aimbot_randomize_smoothing );
 		configManager.getFloat( charenc( "Aimbot" ), charenc( "Randomize Angles" ), cvar::aimbot_randomize_angle );
 
 		configManager.getBoolean( charenc( "ESP" ), charenc( "Enabled" ), cvar::esp_enabled );
@@ -64,7 +64,7 @@ void Config::saveConfig( )
 	configManager.setFloat( charenc( "Aimbot" ), charenc( "Smoothing" ), cvar::aimbot_smoothing );
 	configManager.setFloat( charenc( "Aimbot" ), charenc( "Recoil Control Min" ), cvar::aimbot_rcs_min );
 	configManager.setFloat( charenc( "Aimbot" ), charenc( "Recoil Control Max" ), cvar::aimbot_rcs_max );
-	configManager.setFloat( charenc( "Aimbot" ), charenc( "Randomize Hitbox" ), cvar::aimbot_randomize_hitbox );
+	configManager.setFloat( charenc( "Aimbot" ), charenc( "Randomize Smoothing" ), cvar::aimbot_randomize_smoothing );
 	configManager.setFloat( charenc( "Aimbot" ), charenc( "Randomize Angles" ), cvar::aimbot_randomize_angle );
 
 	configManager.setBoolean( charenc( "ESP" ), charenc( "Enabled" ), cvar::esp_enabled );

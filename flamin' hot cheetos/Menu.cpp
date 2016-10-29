@@ -152,9 +152,9 @@ void Menu::drawMenu( )
 		getKeyPressed( x + 30, y + 80, 50, 15, 430, cvar::general_key_aimbot, charenc( "Aimbot Key" ) );
 		drawSlider( x + 30, y + 105, 200, 6, 237, 0.0f, 180.0f, cvar::aimbot_fov, charenc( "Field of View" ) );
 		drawSlider( x + 30, y + 130, 200, 6, 237, 1.0f, 100.0f, cvar::aimbot_smoothing, charenc( "Smoothing" ) );
-		drawSlider( x + 30, y + 155, 200, 6, 237, 0.0f, 2.0f, cvar::aimbot_rcs_min, charenc( "Randomize Recoil Control Min" ) );
-		drawSlider( x + 30, y + 180, 200, 6, 237, cvar::aimbot_rcs_min, 2.0f, cvar::aimbot_rcs_max, charenc( "Randomize Recoil Control Max" ) );
-		drawSlider( x + 30, y + 205, 200, 6, 237, 0.0f, 20.0f, cvar::aimbot_randomize_hitbox, charenc( "Randomize Hitbox" ) );
+		drawSlider( x + 30, y + 155, 200, 6, 237, 1.0f, 100.0f, cvar::aimbot_rcs_min, charenc( "Randomize Recoil Control Min" ) );
+		drawSlider( x + 30, y + 180, 200, 6, 237, 1.0f, 100.0f, cvar::aimbot_rcs_max, charenc( "Randomize Recoil Control Max" ) );
+		drawSlider( x + 30, y + 205, 200, 6, 237, 0.0f, 10.0f, cvar::aimbot_randomize_smoothing, charenc( "Randomize Smoothing" ) );
 		drawSlider( x + 30, y + 230, 200, 6, 237, 0.0f, 20.0f, cvar::aimbot_randomize_angle, charenc( "Randomize Angle" ) );
 	}
 	else if ( activeTab == 2 )
@@ -187,8 +187,8 @@ void Menu::drawMenu( )
 		drawSlider( x + 30, y + 180, 200, 6, 237, 0, 9, cvar::misc_knifechanger_model, charenc( "Knife Model" ) );
 		drawSlider( x + 30, y + 205, 200, 6, 237, 0, 60, cvar::misc_overridefov, charenc( "Viewmodel Field of View" ) );
 		drawCheckbox( x + 30, y + 230, 450, cvar::misc_rcs, charenc( "Standalone Recoil Control" ) );
-		drawSlider( x + 30, y + 255, 200, 6, 237, 0.0f, 2.0f, cvar::misc_rcs_min, charenc( "Randomize Recoil Control Min" ) );
-		drawSlider( x + 30, y + 280, 200, 6, 237, 0.0f, 2.0f, cvar::misc_rcs_max, charenc( "Randomize Recoil Control Max" ) );
+		drawSlider( x + 30, y + 255, 200, 6, 237, 0.0f, 100.0f, cvar::misc_rcs_min, charenc( "Randomize Recoil Control Min" ) );
+		drawSlider( x + 30, y + 280, 200, 6, 237, 0.0f, 100.0f, cvar::misc_rcs_max, charenc( "Randomize Recoil Control Max" ) );
 		drawCheckbox( x + 30, y + 305, 450, cvar::misc_scoreboard, charenc( "Matchmaking Scoreboard" ) );
 	}
 
@@ -265,25 +265,19 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, float min, floa
 {
 	drawing.drawString( drawing.menuFont, false, x, y + 1.5f, Color( 150, 150, 150 ), text );
 
-	float sliderPosition = 0.0f, barPosition = 0.0f;
-
-	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) && isLeftClick )
+	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) )
 	{
-		sliderPosition = ( cursorPosition [ 0 ] - ( x + distance ) );
-		float range = ( max - min ) * ( sliderPosition / w );
-		value = clamp( min + range, min, max );
-	}
-	else
-	{
-		sliderPosition = ( ( value * 100 ) * 2 ) / max;
+		if ( isLeftClick )
+		{
+			float difference = ( cursorPosition [ 0 ] - ( x + distance ) );
+			float percentage = ( difference / w );
+			float range = ( max - min ) * percentage;
+			value = clamp( roundf( min + range ), min, max );
+		}
 	}
 
-	if ( sliderPosition <= 1 )
-		sliderPosition = 0;
-
-	barPosition = ( sliderPosition / w * 100 ) * 2;
-	if ( barPosition > w )
-		barPosition = w;
+	int paint = ( value * w ) / max;
+	int barPosition = paint - 2;
 
 	drawing.drawFilledRect( x + distance, y + 4.5f, barPosition, h, Color( 255, 165, 0 ) );
 	drawing.drawOutlinedRect( x + distance, y + 4.5f, w + 1, h, Color( 0, 0, 0 ) );
@@ -298,25 +292,20 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int ma
 {
 	drawing.drawString( drawing.menuFont, false, x, y + 1.5f, Color( 150, 150, 150 ), text );
 
-	float sliderPosition = 0.0f, barPosition = 0.0f;
-
-	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) && isLeftClick )
+	if ( isHovered( x + distance - 2, y - 2, w + 4, h + 4 ) )
 	{
-		sliderPosition = ( cursorPosition [ 0 ] - ( x + distance ) );
-		float range = ( max - min ) * ( sliderPosition / w );
-		value = clamp( roundf( min + range ), min, max );
-	}
-	else
-	{
-		sliderPosition = ( ( value * 100 ) * 2 ) / max;
+		if ( isLeftClick )
+		{
+			float difference = ( cursorPosition [ 0 ] - ( x + distance ) );
+			float percentage = ( difference / w );
+			float range = ( max - min ) * percentage;
+
+			value = clamp( roundf( min + range ), min, max );
+		}
 	}
 
-	if ( sliderPosition <= 1 )
-		sliderPosition = 0;
-
-	barPosition = ( sliderPosition / w * 100 ) * 2;
-	if ( barPosition > w )
-		barPosition = w;
+	int paint = ( value * w ) / max;
+	int barPosition = paint - 2;
 
 	drawing.drawFilledRect( x + distance, y + 4.5f, barPosition, h, Color( 255, 165, 0 ) );
 	drawing.drawOutlinedRect( x + distance, y + 4.5f, w + 1, h, Color( 0, 0, 0 ) );
@@ -329,7 +318,7 @@ void Menu::drawSlider( int x, int y, int w, int h, int distance, int min, int ma
 
 void Menu::getKeyPressed( int x, int y, int w, int h, int distance, int& value, const char* text )
 {
-	drawing.drawString( drawing.menuFont, false, x, y + ( float )1.5, Color( 150, 150, 150 ), text );
+	drawing.drawString( drawing.menuFont, false, x, y + 1.5f, Color( 150, 150, 150 ), text );
 
 	drawing.drawOutlinedRect( x + distance, y, w, h, Color( 150, 150, 150 ) );
 
@@ -357,45 +346,45 @@ void Menu::getKeyPressed( int x, int y, int w, int h, int distance, int& value, 
 
 bool Menu::dragMenu( int& x, int& y, int w, int h, int index )
 {
-	static bool isActive [ 8 ] [ 2 ];
-	static int newCursorPosition [ 2 ];
+	static bool active [ 8 ] [ 2 ];
+	static int newPosition [ 2 ];
 
 	for ( int i = 0; i < 8; i++ )
 	{
-		if ( isActive [ i ] [ 0 ] && i != 0 )
+		if ( active [ i ] [ 0 ] && i != 0 )
 			return false;
 	}
 
 	if ( isLeftClick )
 	{
-		if ( cursorPosition [ 0 ] > x && cursorPosition [ 0 ] < x + w && cursorPosition [ 1 ] > ( y - 20 - 3 ) && cursorPosition [ 1 ] < ( y - 20 - 3 ) + h || isActive [ index ] [ 0 ] )
+		if ( cursorPosition [ 0 ] > x && cursorPosition [ 0 ] < x + w && cursorPosition [ 1 ] > ( y - 20 - 3 ) && cursorPosition [ 1 ] < ( y - 20 - 3 ) + h || active [ index ] [ 0 ] )
 		{
-			isActive [ index ] [ 0 ] = true;
+			active [ index ] [ 0 ] = true;
 
-			if ( !isActive [ index ] [ 1 ] )
+			if ( !active [ index ] [ 1 ] )
 			{
-				newCursorPosition [ 0 ] = cursorPosition [ 0 ] - x;
-				newCursorPosition [ 1 ] = cursorPosition [ 1 ] - y;
-				isActive [ index ] [ 1 ] = true;
+				newPosition [ 0 ] = cursorPosition [ 0 ] - x;
+				newPosition [ 1 ] = cursorPosition [ 1 ] - y;
+				active [ index ] [ 1 ] = true;
 			}
 		}
 		else
 		{
-			isActive [ index ] [ 0 ] = false;
-			isActive [ index ] [ 1 ] = false;
+			active [ index ] [ 0 ] = false;
+			active [ index ] [ 1 ] = false;
 		}
 	}
 
-	if ( !isLeftClick && isActive [ 0 ] [ 0 ] )
+	if ( !isLeftClick && active [ 0 ] [ 0 ] )
 	{
-		isActive [ index ] [ 0 ] = false;
-		isActive [ index ] [ 1 ] = false;
+		active [ index ] [ 0 ] = false;
+		active [ index ] [ 1 ] = false;
 	}
 
-	if ( isActive [ index ] [ 0 ] )
+	if ( active [ index ] [ 0 ] )
 	{
-		x = cursorPosition [ 0 ] - newCursorPosition [ 0 ];
-		y = cursorPosition [ 1 ] - newCursorPosition [ 1 ];
+		x = cursorPosition [ 0 ] - newPosition [ 0 ];
+		y = cursorPosition [ 1 ] - newPosition [ 1 ];
 	}
 
 	return true;

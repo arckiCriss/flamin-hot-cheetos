@@ -13,7 +13,7 @@ namespace cvar
 	extern float aimbot_smoothing;
 	extern float aimbot_rcs_min;
 	extern float aimbot_rcs_max;
-	extern float aimbot_randomize_hitbox;
+	extern float aimbot_randomize_smoothing;
 	extern float aimbot_randomize_angle;
 
 	extern bool esp_enabled;

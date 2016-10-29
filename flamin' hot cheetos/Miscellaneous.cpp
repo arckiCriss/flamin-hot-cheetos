@@ -36,7 +36,7 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 	if ( cmd->buttons & IN_ATTACK && shotsFired > 1 && shotsFired > oldShotsFired )
 	{
 		QAngle compensatedAngles = punchAngles - oldPunchAngles;
-		compensatedAngles *= tools.random( cvar::misc_rcs_min, cvar::misc_rcs_max );
+		compensatedAngles *= 2.0f * ( tools.random( cvar::misc_rcs_min, cvar::misc_rcs_max ) / 100.0f );
 		tools.normalizeAngles( compensatedAngles );
 
 		QAngle viewAngles = cmd->viewangles;
@@ -47,15 +47,6 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 		tools.clampAngles( finalAngles );
 
 		interfaces::engine->setViewAngles( finalAngles );
-
-		/*static float gameSensitivity = interfaces::convar->findVar( charenc( "sensitivity" ) )->getFloat( );
-
-		float pixels = 0.022f * gameSensitivity * systemSensitivity;
-
-		finalAngles.x /= pixels * -1.0f;
-		finalAngles.y /= pixels;
-
-		tools.moveMouse( finalAngles.y, finalAngles.x );*/
 
 		oldShotsFired = shotsFired;
 	}
