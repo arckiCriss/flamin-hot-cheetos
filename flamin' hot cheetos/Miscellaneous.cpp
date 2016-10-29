@@ -25,7 +25,7 @@ void Misc::doRecoilControl( CBaseEntity* local, CBaseCombatWeapon* weapon, CUser
 	if ( punchAngles.x == 0.0f || punchAngles.y == 0.0f )
 		return;
 
-	if ( punchAngles.Length2D( ) < 0.0f || punchAngles.Length2D( ) > 6.0f )
+	if ( punchAngles.Length2D( ) < 0.0f || punchAngles.Length2D( ) > 7.0f )
 	{
 		oldPunchAngles.Zero( );
 		return;
