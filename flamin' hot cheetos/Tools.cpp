@@ -257,7 +257,12 @@ float Tools::random( float min, float max )
 	if ( min == max )
 		return max;
 
-	return min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
+	float value = min + static_cast< float >( rand( ) ) / ( static_cast< float >( RAND_MAX / ( max - min ) ) );
+
+	if ( value >= min && value <= max )
+		return value;
+
+	return max;
 }
 
 void Tools::moveMouse( float x, float y )
