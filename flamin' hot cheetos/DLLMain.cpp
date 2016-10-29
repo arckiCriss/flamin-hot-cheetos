@@ -82,6 +82,7 @@ int __stdcall DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
+		srand( GetTickCount( ) );
 		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) initializeRoutine, hInstance, 0, nullptr );
 		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) handleCore, hInstance, 0, nullptr );
 		break;
