@@ -18,8 +18,7 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 	if ( !( GetAsyncKeyState( cvar::general_key_triggerbot ) & 0x8000 ) )
 		return;
 
-	interfaces::engine->getViewAngles( viewAngles );
-	viewAngles += local->getPunchAngles( ) * 2.0f;
+	viewAngles = cmd->viewangles + local->getPunchAngles( ) * 2.0f;
 
 	Vector traceStart, traceEnd;
 	tools.angleVectors( viewAngles, traceEnd );
