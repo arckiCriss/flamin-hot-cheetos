@@ -22,7 +22,7 @@ void Aimbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd
 	if ( !weapon->isValid( ) )
 		return;
 
-	if ( !( GetAsyncKeyState( cvar::general_key_aimbot ) & 0x8000 ) )
+	if ( !isPressed [ cvar::general_key_aimbot ] )
 		return;
 
 	bestTarget = getBestTarget( local, weapon, cmd, hitboxPosition );

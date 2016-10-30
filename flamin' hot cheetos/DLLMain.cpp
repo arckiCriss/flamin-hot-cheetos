@@ -11,14 +11,12 @@
 //  - make this project a little prettier
 //    - huge project clean-up should be done
 //    - working on converting from hungarian to http://geosoft.no/development/cppstyle.html
-//  - implement proper aimbot smoothing (for mouse simulation)
 //  - improve header inclusion
-//  - keyboard hook for keystate management
 //------------------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------------------
 // notes:
-//  - modern c++ functions such as sleep_for and async threading (can) break injection
+//  - modern c++ functions such as async threading (can) break injection
 //------------------------------------------------------------------------------------------
 
 void uninitializeRoutine( void* lpArguments );
@@ -82,6 +80,9 @@ int __stdcall DllMain( HMODULE hInstance, DWORD dwReason, LPVOID lpReserved )
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
+		while ( !( windowHandle = FindWindowA( charenc( "Valve001" ), NULL ) ) )
+			Sleep( 100 );
+
 		srand( GetTickCount( ) );
 		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) initializeRoutine, hInstance, 0, nullptr );
 		CreateThread( nullptr, 0, ( LPTHREAD_START_ROUTINE ) handleCore, hInstance, 0, nullptr );

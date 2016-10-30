@@ -94,6 +94,9 @@
     <Filter Include="Project Files\Features\Proxy">
       <UniqueIdentifier>{24d051c3-b95e-4f46-b3b2-808ad558dacb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Core\Keyboard">
+      <UniqueIdentifier>{c08020e0-4cbb-4967-b5b0-35b7a74c7996}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLMain.cpp">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp">
       <Filter>Project Files\Features\Proxy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\flamin%27 hot cheetos\WndProc.cpp">
+      <Filter>Project Files\Core\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="..\flamin%27 hot cheetos\VFTManager.h">
       <Filter>Project Files\Core\VMT Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\flamin%27 hot cheetos\WndProc.h">
+      <Filter>Project Files\Core\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

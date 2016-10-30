@@ -150,6 +150,7 @@
     <ClInclude Include="..\flamin%27 hot cheetos\Proxy.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\Tools.h" />
     <ClInclude Include="..\flamin%27 hot cheetos\VFTManager.h" />
+    <ClInclude Include="..\flamin%27 hot cheetos\WndProc.h" />
     <ClInclude Include="RenderView.h" />
     <ClInclude Include="IN_KeyEvent.h" />
     <ClInclude Include="Weapons.h" />
@@ -179,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\flamin%27 hot cheetos\Proxy.cpp" />
+    <ClCompile Include="..\flamin%27 hot cheetos\WndProc.cpp" />
     <ClCompile Include="RenderView.cpp" />
     <ClCompile Include="IN_KeyEvent.cpp" />
     <ClCompile Include="Weapons.cpp" />

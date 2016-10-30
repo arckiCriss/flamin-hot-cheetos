@@ -12,6 +12,9 @@ namespace hooks
 
 	void initialize( )
 	{
+		if ( windowHandle )
+			originalWindowProc = ( WNDPROC ) SetWindowLongPtr( windowHandle, GWLP_WNDPROC, ( LONG_PTR ) WndProc );
+
 		panel = std::make_unique<VFTManager>( ( DWORD** ) interfaces::panel, true );
 		originalPaintTraverse = panel->hook( 41, ( PaintTraverse_t ) PaintTraverse );
 
@@ -37,6 +40,9 @@ namespace hooks
 	{
 		if ( !success )
 			return;
+
+		if ( originalWindowProc )
+			SetWindowLongPtr( windowHandle, GWLP_WNDPROC, ( LONG_PTR ) originalWindowProc );
 
 		panel->restoreTable( );
 		client->restoreTable( );

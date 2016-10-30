@@ -15,7 +15,7 @@ void Triggerbot::think( CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd*
 	if ( !weapon->isValid( ) )
 		return;
 
-	if ( !( GetAsyncKeyState( cvar::general_key_triggerbot ) & 0x8000 ) )
+	if ( !isPressed [ cvar::general_key_triggerbot ] )
 		return;
 
 	viewAngles = cmd->viewangles + local->getPunchAngles( ) * 2.0f;

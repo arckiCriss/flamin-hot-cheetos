@@ -18,7 +18,7 @@ Menu::Menu( )
 void Menu::think( )
 {
 	setMouse( );
-	getMouse( );
+	getInput( );
 
 	drawMenu( );
 	drawMouse( );
@@ -39,12 +39,12 @@ void Menu::setMouse( )
 	}
 }
 
-void Menu::getMouse( )
+void Menu::getInput( )
 {
 	if ( !isCursorActive )
 		return;
 
-	if ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 )
+	if ( isPressed [ VK_LBUTTON ] )
 	{
 		isLeftClick = true;
 	}
@@ -58,7 +58,7 @@ void Menu::getMouse( )
 		isLeftClick = false;
 	}
 
-	if ( GetAsyncKeyState( VK_RBUTTON ) & 0x8000 )
+	if ( isPressed [ VK_RBUTTON ] )
 	{
 		isRightClick = true;
 	}
@@ -82,7 +82,7 @@ bool Menu::isMenuKey( int key )
 {
 	static bool isKeyPressed [ 256 ];
 
-	if ( GetAsyncKeyState( key ) & 1 )
+	if ( isPressed [ key ] )
 	{
 		if ( !isKeyPressed [ key ] )
 		{

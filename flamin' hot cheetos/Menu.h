@@ -32,7 +32,7 @@ public:
 
 private:
 	void setMouse( );
-	void getMouse( );
+	void getInput( );
 
 	bool isMenuKey( int key );
 	bool isHovered( int x, int y, int w, int h );

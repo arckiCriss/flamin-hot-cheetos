@@ -20,6 +20,8 @@
 
 #include "cx_strenc.h"
 
+#include "WndProc.h"
+
 #include "SDK.h"
 #include "Interfaces.h"
 #include "Tools.h"
